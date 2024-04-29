@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -58,33 +59,33 @@ public final class MecanumDrive {
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
         // drive model parameters
-        public double inPerTick = 1;
-        public double lateralInPerTick = inPerTick;
-        public double trackWidthTicks = 0;
+        public double inPerTick = 0.0029429942048504;
+        public double lateralInPerTick = 0.0020761647945254525;
+        public double trackWidthTicks = 5062.018141335633;
 
         // feedforward parameters (in tick units)
-        public double kS = 0;
-        public double kV = 0;
-        public double kA = 0;
+        public double kS = 1.429100101533241;
+        public double kV = 0.00027511092382887324;
+        public double kA = 0.000125;
 
         // path profile parameters (in inches)
-        public double maxWheelVel = 50;
+        public double maxWheelVel = 60;
         public double minProfileAccel = -30;
-        public double maxProfileAccel = 50;
+        public double maxProfileAccel = 60;
 
         // turn profile parameters (in radians)
         public double maxAngVel = Math.PI; // shared with path
         public double maxAngAccel = Math.PI;
 
         // path controller gains
-        public double axialGain = 0.0;
-        public double lateralGain = 0.0;
-        public double headingGain = 0.0; // shared with turn
+        public double axialGain = 3.7;
+        public double lateralGain = 1.5;
+        public double headingGain = 2.47; // shared with turn
 
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
@@ -106,7 +107,9 @@ public final class MecanumDrive {
     public final AccelConstraint defaultAccelConstraint =
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
-    public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
+    public final DcMotorEx leftFront, leftBack, rightBack, rightFront, lift, gear;
+
+    public final Servo clawL, clawR, pivot, droneServo;
 
     public final VoltageSensor voltageSensor;
 
@@ -139,7 +142,7 @@ public final class MecanumDrive {
             imu = lazyImu.get();
 
             // TODO: reverse encoders if needed
-            //   leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
         @Override
@@ -217,10 +220,28 @@ public final class MecanumDrive {
 
         // TODO: make sure your config has motors with these names (or change them)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, "lF");
+        leftBack = hardwareMap.get(DcMotorEx.class, "lB");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rB");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rF");
+        lift = hardwareMap.get(DcMotorEx.class, "lift");
+        gear = hardwareMap.get(DcMotorEx.class, "gear");
+        pivot = hardwareMap.get(Servo.class, "pivot");
+        //claw = hardwareMap.get(Servo.class, "claw");
+        droneServo = hardwareMap.get(Servo.class, "droneServo");
+        clawL = hardwareMap.get(Servo.class, "clawL");
+        clawR = hardwareMap.get(Servo.class, "clawR");
+
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        leftBack.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        rightBack.setDirection(DcMotor.Direction.FORWARD);
+        gear.setDirection(DcMotor.Direction.REVERSE);
+        gear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -237,7 +258,7 @@ public final class MecanumDrive {
 
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        localizer = new DriveLocalizer();
+        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
@@ -485,5 +506,226 @@ public final class MecanumDrive {
                 defaultTurnConstraints,
                 defaultVelConstraint, defaultAccelConstraint
         );
+    }
+    public Action closeL(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawL.setPosition(0.33); return false;
+            }
+        };
+    }
+    public Action closeR(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawR.setPosition(0.37); return false;
+            }
+        };
+    }
+
+
+    public Action openL(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawL.setPosition(0.42); return false;
+            }
+        };
+    }
+    public Action openR(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawR.setPosition(0.28); return false;
+            }
+        };
+    }
+    public Action gearupABit() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(121);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearUpABitLilForTwo(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(100);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearUpABitLilForTwoTruss(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(80);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearUpABitLilForTwoLow(){ //was 80 changed it so hopefully it won't drop any pixels
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(143);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearUpABitLilForTwoBLUECLOSE(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(100);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearUpABitLilRED(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(127);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action drivePos(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(120);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                pivot.setPosition(0.1);
+                return false;
+            }
+        };
+    }
+    public Action gearupABitLil(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(125);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearupABitLill(){ //blue 2+3 zone 2 initial white grab
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(123);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action up(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.815); return false;
+            }
+        };
+    }
+
+    public Action pivotPickUp(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.87); return false;
+            }
+        };
+    }
+    public Action liftToScore(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(-700);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(-0.7);
+                return false;
+            }
+        };
+    }
+    public Action gearupABitLilB3(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(120);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearupforB1(){ //was 80 changed it so hopefully it won't drop any pixels
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(140);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearupABitLilred(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(128);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
+    }
+    public Action gearupABitLil2(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(133);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.333);
+                return false;
+            }
+        };
     }
 }
