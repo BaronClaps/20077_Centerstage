@@ -182,17 +182,36 @@ public class BlueCloseTwoZero extends LinearOpMode{
                 if (blocks[i].x < 100 && blocks[i].id ==2 && blocks[i].y <200) {
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
-                                    .waitSeconds(1.5)
-                                    .splineTo(new Vector2d(-26, 34),-(Math.PI/2))
-                                    .waitSeconds(.1)
-                                    //.turn(-1*Math.PI/2)
-                                    .strafeTo(new Vector2d(-45, 48))
-                                    .waitSeconds(.25) //test this value
-                                    .lineToY(57)
+                                    .stopAndAdd(drive.closeR())
+                                    .stopAndAdd(drive.closeL())
+                                    .stopAndAdd(drive.up())
                                     .waitSeconds(.5)
+                                    .stopAndAdd(geardown())//arm down
+                                    .waitSeconds(.1)
+                                    .lineToX(-55)
+                                    .waitSeconds(.1)
+                                    .splineTo(new Vector2d(-37, 29),-(Math.PI/2))
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(drive.openL())//score purple
+                                    .stopAndAdd(drive.closeR())
+                                    //.turn(-1*Math.PI/2)
+                                    .waitSeconds(.25)
+                                    .stopAndAdd(flipToScoreBARON())
+                                    .stopAndAdd(liftInHereBARON())
+                                    .waitSeconds(.25)
+                                    .strafeTo(new Vector2d(-36, 57))
+                                    .waitSeconds(1.5) //test this value
+                                    .stopAndAdd(drive.openR())//score yellow
+                                    .waitSeconds(.25)
                                     .lineToY(43)
                                     .strafeTo((new Vector2d(-67.5, 50)))
                                     .waitSeconds(.1)
+                                    .stopAndAdd(drive.up())
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(gearend())
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(liftInBARON())
+                                    .waitSeconds(.25)
                                     .lineToY(63)
                                     .build());
                     sleep(400000);
@@ -442,6 +461,30 @@ public class BlueCloseTwoZero extends LinearOpMode{
             }
         };
     }
+    public Action liftInHereBARON(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(-650);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.7);
+                return false;
+            }
+        };
+    }
+    public Action liftInBARON(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(650);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.7);
+                return false;
+            }
+        };
+    }
 
 
 
@@ -493,6 +536,19 @@ public class BlueCloseTwoZero extends LinearOpMode{
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 pivot.setPosition(0.28);
                 gear.setTargetPosition(795);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.22);
+
+                return false;
+            }
+        };
+    }
+    public Action flipToScoreBARON(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.28);
+                gear.setTargetPosition(700);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.22);
 
