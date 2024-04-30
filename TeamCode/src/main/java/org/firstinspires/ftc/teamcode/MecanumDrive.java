@@ -225,8 +225,8 @@ public final class MecanumDrive {
         leftBack = hardwareMap.get(DcMotorEx.class, "lB");
         rightBack = hardwareMap.get(DcMotorEx.class, "rB");
         rightFront = hardwareMap.get(DcMotorEx.class, "rF");
-        lift = hardwareMap.get(DcMotorEx.class, "lift");
-        gear = hardwareMap.get(DcMotorEx.class, "gear");
+        lift = hardwareMap.get(DcMotorEx.class, "lift");//0
+        gear = hardwareMap.get(DcMotorEx.class, "gear");//1
         pivot = hardwareMap.get(Servo.class, "pivot");
         //claw = hardwareMap.get(Servo.class, "claw");
         droneServo = hardwareMap.get(Servo.class, "droneServo");
