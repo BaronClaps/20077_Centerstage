@@ -410,6 +410,8 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
+                                        .turn(-Math.PI/2)
+                                        .waitSeconds(.1)
                                         .stopAndAdd(flipToScore_1stCycle())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
                                         .strafeTo(new Vector2d(-36, 45))
