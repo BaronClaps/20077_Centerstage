@@ -100,7 +100,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
      final double SPEED_GAIN  =  -0.02 ;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
     final double STRAFE_GAIN =  -0.01 ;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
-    final double TURN_GAIN   =  -0.015;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+     double TURN_GAIN   =  0.01;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
 
     double MAX_AUTO_SPEED = 0.75;   //  Clip the approach speed to this max value (adjust for your robot)
     double MAX_AUTO_STRAFE= 0.75;   //  Clip the approach speed to this max value (adjust for your robot)
@@ -137,7 +137,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
         if (USE_WEBCAM)
-            setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
+            setManualExposure(2, 250);  // Use low exposure time to reduce motion blur
 
         Pose2d beginPose = new Pose2d(-60, 12, 0); //Pose2d beginPose = new Pose2d(60, -30, Math.toRadians(180)); for red
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
@@ -224,6 +224,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------1----------------------------\\
                     if (blocks[i].x < 100 && blocks[i].id == 2 && blocks[i].y < 200) {
                         DESIRED_TAG_ID = 1;
+                        double TURN_GAIN   =  0.01;
                         Actions.runBlocking(
                                 drive.actionBuilder(beginPose)
                                         /* Start Position */
@@ -245,7 +246,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
                                         .turnTo((-Math.PI)/2)
-                                        .stopAndAdd(flipToScore_1stCycle())
+                                        .stopAndAdd(flipToScore_1stCycle_Outside())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
                                         .strafeTo(new Vector2d(-36, 45))
                                         .waitSeconds(.1)
@@ -322,6 +323,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------2----------------------------\\
                     if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 2 && blocks[i].y < 200)
                     {
+                        double TURN_GAIN   =  0.01;
                         DESIRED_TAG_ID = 2;
                         Actions.runBlocking(
                                 drive.actionBuilder(beginPose)
@@ -341,8 +343,8 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
-                                        .strafeTo(new Vector2d(-31.5,45))
-                                        .stopAndAdd(flipToScore_1stCycle())
+                                        .strafeTo(new Vector2d(-31.5,46))
+                                        .stopAndAdd(flipToScore_1stCycle_Outside())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
                                         .turnTo(Math.toRadians(270))
                                         .build());
@@ -420,6 +422,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                     if (blocks[i].x > 210 && blocks[i].id == 2 && blocks[i].y < 200)
                     {
                         DESIRED_TAG_ID = 3;
+                        double TURN_GAIN   =  -0.001;
                         Actions.runBlocking(
                                 drive.actionBuilder(beginPose)
                                         /* Start Position */
@@ -441,9 +444,9 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
-                                        .stopAndAdd(flipToScore_1stCycle())
+                                        .stopAndAdd(flipToScore_1stCycle_Inside())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                        .strafeTo(new Vector2d(-21, 45))
+                                        .strafeTo(new Vector2d(-19.5, 44))
                                         .build());
 
                         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -488,7 +491,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                         aprilTagTime.reset();
 
-                        while (aprilTagTime.seconds() <= 1)
+                        while (aprilTagTime.seconds() <= 1.5)
                         {
                             moveRobot(forward,strafe,turn);
                         }
@@ -684,7 +687,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
 
 
-    public Action flipToScore_1stCycle()
+    public Action flipToScore_1stCycle_Outside()
     {
         return new Action() {
             @Override
@@ -698,6 +701,21 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             }
         };
     }
+    public Action flipToScore_1stCycle_Inside()
+    {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.28);
+                gear.setTargetPosition(725);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.4);
+
+                return false;
+            }
+        };
+    }
+
 
 
     public Action flipToScore_2ndCycle(){

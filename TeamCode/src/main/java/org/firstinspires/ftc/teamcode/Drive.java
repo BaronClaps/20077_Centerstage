@@ -120,7 +120,7 @@ public class Drive extends LinearOpMode {
 
             //----------------------------pivot----------------------------\\
 
-            if (gamepad2.dpad_right) {pivot.setPosition(0.14); }
+            if (gamepad2.dpad_right){ pivot.setPosition(0.14); }
 
             /*boolean armButton = gamepad2.a;
             if (armButton != oldArmButton) {
