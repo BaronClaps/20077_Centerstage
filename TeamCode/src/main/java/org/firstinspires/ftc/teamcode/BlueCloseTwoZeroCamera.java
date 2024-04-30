@@ -127,14 +127,14 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
     private Servo wheelServo = null;
     private HuskyLens huskyLens;
      //----------------April Tag Detection Values--------------//
-    double DESIRED_DISTANCE = 8.0; //  this is how close the camera should get to the target (inches)
+    double DESIRED_DISTANCE = 2.0; //  this is how close the camera should get to the target (inches)
 
     //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
     //  applied to the drive motors to correct the error.
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
-     final double SPEED_GAIN  =  -0.015 ;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
+     final double SPEED_GAIN  =  -0.02 ;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
     final double STRAFE_GAIN =  -0.01 ;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
-    final double TURN_GAIN   =  0.0175  ;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+    final double TURN_GAIN   =  -0.015;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
 
     double MAX_AUTO_SPEED = 0.75;   //  Clip the approach speed to this max value (adjust for your robot)
     double MAX_AUTO_STRAFE= 0.75;   //  Clip the approach speed to this max value (adjust for your robot)
@@ -175,9 +175,9 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
         Pose2d beginPose = new Pose2d(-60, 12, 0); //Pose2d beginPose = new Pose2d(60, -30, Math.toRadians(180)); for red
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        Pose2d scoringPose1 = new Pose2d(-42, 55, -Math.PI / 2);
-        Pose2d scoringPose2 = new Pose2d(-36, 55, -Math.PI / 2);
-        Pose2d scoringPose3 = new Pose2d(-30, 55, -Math.PI / 2);
+        Pose2d scoringPose1 = new Pose2d(-44, 55, -Math.PI / 2);
+        Pose2d scoringPose2 = new Pose2d(-38, 55, -Math.PI / 2);
+        Pose2d scoringPose3 = new Pose2d(-32, 55, -Math.PI / 2);
 
 
         // Initialize the hardware variables. Note that the strings used here as parameters
@@ -202,6 +202,10 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
         gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        targetFound = false;
+        desiredTag = null;
+
 
         Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.SECONDS); //from huskylens example
         rateLimit.expire();
@@ -243,7 +247,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                 {
                     continue;
                 }
-
+                aprilTagTime.reset();
                 rateLimit.reset();
                 HuskyLens.Block[] blocks = huskyLens.blocks();
                 telemetry.addData("Block count", blocks.length);
@@ -267,16 +271,18 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         /* Score Purple */
                                         .lineToX(-55)
                                         .waitSeconds(.1)
-                                        .splineTo(new Vector2d(-37, 29), -(Math.PI / 2))
+                                        .splineTo(new Vector2d(-38, 29), Math.toRadians(269.99))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.openL())
                                         .stopAndAdd(drive.closeR())
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
+                                        .turnTo((-Math.PI)/2)
                                         .stopAndAdd(flipToScore_1stCycle())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
                                         .strafeTo(new Vector2d(-36, 45))
+                                        .waitSeconds(.1)
                                         .build());
 
                         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -320,9 +326,11 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                         aprilTagTime.reset();
 
-                        while (aprilTagTime.seconds() <= 1) {
-                        moveRobot(forward,strafe,turn);
+                        while (aprilTagTime.seconds() <= 2.0) {
+                            moveRobot(forward,strafe,turn);
                         }
+
+                        telemetry.addData("time",aprilTagTime);
 
                         Actions.runBlocking(
                                 drive.actionBuilder(scoringPose1)
@@ -332,7 +340,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Park and Reset for Teleop */
                                         .lineToY(43)
-                                        .strafeTo((new Vector2d(-67.5, 50)))
+                                        .strafeTo((new Vector2d(-67, 50)))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.up())
                                         .waitSeconds(.1)
@@ -340,7 +348,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         .waitSeconds(.1)
                                         .stopAndAdd(liftRetract_Cycle1_Yellow())
                                         .waitSeconds(.25)
-                                        .lineToY(63)
+                                       // .lineToY(63)
                                         .build());
                         sleep(400000);
 
@@ -360,26 +368,28 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         .waitSeconds(.1)
 
                                         /* Score Purple */
-                                        .lineToX(-33)
+                                        .splineTo(new Vector2d(-28.5,24), Math.toRadians(279.99))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.openL())
                                         .stopAndAdd(drive.closeR())
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
-                                        .turn(-Math.PI/2)
-                                        .waitSeconds(.1)
+                                        .strafeTo(new Vector2d(-31.5,45))
                                         .stopAndAdd(flipToScore_1stCycle())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                        .strafeTo(new Vector2d(-36, 45))
+                                        .turnTo(Math.toRadians(270))
                                         .build());
 
                         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-                        for (AprilTagDetection detection : currentDetections) {
+                        for (AprilTagDetection detection : currentDetections)
+                        {
                             // Look to see if we have size info on this tag.
-                            if (detection.metadata != null) {
+                            if (detection.metadata != null)
+                            {
                                 //  Check to see if we want to track towards this tag.
-                                if ((DESIRED_TAG_ID < 0) || (detection.id == DESIRED_TAG_ID)) {
+                                if ((DESIRED_TAG_ID < 0) || (detection.id == DESIRED_TAG_ID))
+                                {
                                     // Yes, we want to use this tag.
                                     targetFound = true;
                                     desiredTag = detection;
@@ -394,7 +404,8 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                             }
                         }
 
-                        if (targetFound) {
+                        if (targetFound)
+                        {
 
                             // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
                             double rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
@@ -409,13 +420,14 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
                         }
 
-
                         aprilTagTime.reset();
+                        telemetry.addData("time",aprilTagTime);
 
-                        while (aprilTagTime.seconds() <= 1)
-                        {
+                        while (aprilTagTime.seconds() <= 2.0) {
                             moveRobot(forward,strafe,turn);
                         }
+
+                        telemetry.addData("time",aprilTagTime);
 
                         Actions.runBlocking(
                                 drive.actionBuilder(scoringPose2)
@@ -425,7 +437,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Park and Reset for Teleop */
                                         .lineToY(43)
-                                        .strafeTo((new Vector2d(-67.5, 50)))
+                                        .strafeTo((new Vector2d(-67, 50)))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.up())
                                         .waitSeconds(.1)
@@ -433,7 +445,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         .waitSeconds(.1)
                                         .stopAndAdd(liftRetract_Cycle1_Yellow())
                                         .waitSeconds(.25)
-                                        .lineToY(63)
+                                      //  .lineToY(63)
                                         .build());
                         sleep(400000);
                     }
@@ -455,16 +467,17 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         /* Score Purple */
                                         .lineToX(-55)
                                         .waitSeconds(.1)
-                                        .splineTo(new Vector2d(-36, 6.5), -(2 * Math.PI) / (3))
+                                        .splineTo(new Vector2d(-33, 10.25), Math.toRadians(270))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.openL())
-                                        .stopAndAdd(drive.closeR())
+                                        .lineToY(15)
+                                        .stopAndAdd(drive.closeL())
 
                                         /* Drive to Camera Location */
                                         .waitSeconds(.25)
                                         .stopAndAdd(flipToScore_1stCycle())
                                         .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                        .strafeTo(new Vector2d(-36, 45))
+                                        .strafeTo(new Vector2d(-21, 45))
                                         .build());
 
                         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -522,7 +535,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
                                         /* Park and Reset for Teleop */
                                         .lineToY(43)
-                                        .strafeTo((new Vector2d(-67.5, 50)))
+                                        .strafeTo((new Vector2d(-67, 50)))
                                         .waitSeconds(.1)
                                         .stopAndAdd(drive.up())
                                         .waitSeconds(.1)
@@ -530,7 +543,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                         .waitSeconds(.1)
                                         .stopAndAdd(liftRetract_Cycle1_Yellow())
                                         .waitSeconds(.25)
-                                        .lineToY(63)
+                                      //  .lineToY(63)
                                         .build());
                         sleep(400000);
                     }
@@ -602,11 +615,8 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             }
         }
 
-        public Action moveRobot(double x, double y, double yaw)
+        public void moveRobot(double x, double y, double yaw)
         {
-            return new Action() {
-                @Override
-                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                     double leftFrontPower    =  x -y -yaw;
                     double rightFrontPower   =  x +y +yaw;
                     double leftBackPower     =  x +y -yaw;
@@ -629,10 +639,9 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                     rightFrontDrive.setPower(rightFrontPower);
                     leftBackDrive.setPower(leftBackPower);
                     rightBackDrive.setPower(rightBackPower);
-                    return false;
                 }
-            };
-        }
+
+
 
 
     public Action gearStartPos()
@@ -683,7 +692,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-650);
+                lift.setTargetPosition(-600);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(0.7);
                 return false;
@@ -696,7 +705,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(650);
+                lift.setTargetPosition(600);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(0.7);
                 return false;
@@ -715,9 +724,9 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 pivot.setPosition(0.28);
-                gear.setTargetPosition(700);
+                gear.setTargetPosition(750);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                gear.setPower(0.22);
+                gear.setPower(0.4);
 
                 return false;
             }
