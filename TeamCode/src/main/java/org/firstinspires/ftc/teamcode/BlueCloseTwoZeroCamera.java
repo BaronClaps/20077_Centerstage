@@ -107,7 +107,7 @@ import java.util.List;
  *
  */
 
-@Autonomous(name="RedCloseTwoZero")
+@Autonomous(name="BlueCloseTwoZeroCamera")
 
 public class BlueCloseTwoZeroCamera extends LinearOpMode{
 
@@ -147,39 +147,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
-    public static class CameraStreamProcessor implements VisionProcessor, CameraStreamSource
-    {
-        private final AtomicReference<Bitmap> lastFrame = new AtomicReference<>(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
 
-        @Override
-        public void init(int width, int height, CameraCalibration calibration)
-        {
-            lastFrame.set(Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565));
-        }
-
-        @Override
-        public Object processFrame(Mat frame, long captureTimeNanos)
-        {
-            Bitmap b = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.RGB_565);
-            Utils.matToBitmap(frame, b);
-            lastFrame.set(b);
-            return null;
-        }
-
-        @Override
-        public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight,
-                                float scaleBmpPxToCanvasPx, float scaleCanvasDensity,
-                                Object userContext)
-        {
-            // do nothing
-        }
-
-        @Override
-        public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation)
-        {
-            continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
-        }
-    }
 
 
 
@@ -193,10 +161,10 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
         // Initialize the Apriltag Detection process
         initAprilTag();
 
-        leftFrontDrive = hardwareMap.get(DcMotor.class, "lf");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "rf");
-        leftBackDrive = hardwareMap.get(DcMotor.class, "lb");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "rb");
+        leftFrontDrive = hardwareMap.get(DcMotor.class, "lF");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "rF");
+        leftBackDrive = hardwareMap.get(DcMotor.class, "lB");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "rB");
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -212,16 +180,6 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
         Pose2d scoringPose3 = new Pose2d(-30, 55, -Math.PI / 2);
 
 
-        final CameraStreamProcessor processor = new CameraStreamProcessor();
-
-        new VisionPortal.Builder()
-                .addProcessor(processor)
-                .setCamera(BuiltinCameraDirection.BACK)
-                .build();
-
-        FtcDashboard.getInstance().startCameraStream(processor, 10);
-
-
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must match the names assigned during the robot configuration.
         // step (using the FTC Robot Controller app on the phone).
@@ -230,7 +188,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
         pivot = hardwareMap.get(Servo.class, "pivot");
         clawL = hardwareMap.get(Servo.class, "clawL");
         clawR = hardwareMap.get(Servo.class, "clawR");
-        wheelServo = hardwareMap.get(Servo.class, "wheelServo");
+        wheelServo = hardwareMap.get(Servo.class, "WheelServo");
         huskyLens = hardwareMap.get(HuskyLens.class, "huskyLens");
 
         clawL.setPosition(.33);
@@ -360,7 +318,6 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
                         }
 
-                        telemetry.update();
                         aprilTagTime.reset();
 
                         while (aprilTagTime.seconds() <= 1) {
@@ -452,7 +409,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
                         }
 
-                        telemetry.update();
+
                         aprilTagTime.reset();
 
                         while (aprilTagTime.seconds() <= 1)
@@ -549,7 +506,7 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
                         }
 
-                        telemetry.update();
+
                         aprilTagTime.reset();
 
                         while (aprilTagTime.seconds() <= 1)
