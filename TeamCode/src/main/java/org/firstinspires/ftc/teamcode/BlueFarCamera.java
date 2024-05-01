@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -48,21 +47,9 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDir
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
-import java.util.concurrent.atomic.AtomicReference;
-import org.firstinspires.ftc.robotcore.external.function.Consumer;
-import org.firstinspires.ftc.robotcore.external.function.Continuation;
-
-import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
-import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
-
-import org.firstinspires.ftc.vision.*;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.opencv.android.Utils;
-import org.opencv.core.Mat;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -73,9 +60,9 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainCon
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
 
-@Autonomous(name="BlueCloseCamera")
+@Autonomous(name="BlueFarCamera")
 
-public class BlueCloseTwoZeroCamera extends LinearOpMode{
+public class BlueFarCamera extends LinearOpMode{
 
     /* Hardware Names */
     private final int READ_PERIOD = 1;
@@ -112,8 +99,9 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
     @Override public void runOpMode() {
 
         /* Initialize RoadRunner */
-        Pose2d beginPose = new Pose2d(-60, 12, 0);
+        Pose2d beginPose = new Pose2d(-60, -12, 0);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        Pose2d stackPose = new Pose2d(-37,-58.5, Math.toRadians(270));
         Pose2d scoringPose1 = new Pose2d(-44, 55, Math.toRadians(270));
         Pose2d scoringPose2 = new Pose2d(-38, 55, Math.toRadians(270));
         Pose2d scoringPose3 = new Pose2d(-32, 55, Math.toRadians(270));
@@ -210,19 +198,46 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(-55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-38, 29), Math.toRadians(269.99))
+                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(225))
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(liftExtend_Cycle1_Purple1())
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(liftRetract_Cycle1_Purple1())
                                     .stopAndAdd(drive.closeR())
+                                    .stopAndAdd(drive.closeL())
+                                    .waitSeconds(.1)
 
-                                    /* Drive to Camera Location */
+                                    /* Drive to Camera Location for Stack */
                                     .waitSeconds(.25)
                                     .turnTo((Math.toRadians(270)))
-                                    .stopAndAdd(flipToScore_1stCycle_Outside())
-                                    .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-36, 45))
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(wheelServo_Up_TopGrab())
+                                    .stopAndAdd(drive.pivotPickUp())
+                                    .strafeTo(new Vector2d(-36, -50))
                                     .waitSeconds(.1)
                                     .build());
+
+                                    /* April tag Detection */
+
+                                    /* Drive to Board & Align for Yellow*/
+                    Actions.runBlocking(
+                        drive.actionBuilder(stackPose)
+                                .stopAndAdd(drive.closeL())
+                                .stopAndAdd(drive.closeR())
+                                .waitSeconds(.25)
+                                .lineToY(-56)
+                                .waitSeconds(.1)
+                                .strafeToConstantHeading(new Vector2d(-60,-36))
+                                .waitSeconds(.1)
+                                .lineToY(36)
+                                .waitSeconds(.1)
+                                .turnTo((Math.toRadians(270)))
+                                .stopAndAdd(flipToScore_1stCycle_Outside())
+                                .stopAndAdd(liftExtend_Cycle1_Yellow())
+                                .strafeTo(new Vector2d(-36, 45))
+                                .waitSeconds(.1));
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -626,6 +641,32 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
         };
     }
 
+    public Action liftExtend_Cycle1_Purple1() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(-50);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.7);
+                return false;
+            }
+        };
+    }
+
+    public Action liftRetract_Cycle1_Purple1() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(50);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.7);
+                return false;
+            }
+        };
+    }
+
     public Action flipToScore_1stCycle_Outside() {
         return new Action() {
             @Override
@@ -725,6 +766,16 @@ public class BlueCloseTwoZeroCamera extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 wheelServo.setPosition(0.621); //bigger # = lower | ~ 0.03 per pixel
+                return false;
+            }
+        };
+    }
+
+    public Action wheelServo_Up_TopGrab() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                wheelServo.setPosition(0.575); //bigger # = lower
                 return false;
             }
         };

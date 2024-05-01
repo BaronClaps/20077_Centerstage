@@ -41,6 +41,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -84,6 +85,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
  *
  */
 
+@Disabled
 @Autonomous(name="Z_BlueFar")
 
 public class BlueFar extends LinearOpMode{

@@ -39,6 +39,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -81,6 +82,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 
+@Disabled
 @Autonomous(name="Z_BlueFarTWOTHREE")
 
 public class BlueFarTWOTHREE extends LinearOpMode{
@@ -775,3 +777,4 @@ public class BlueFarTWOTHREE extends LinearOpMode{
 
 
 }
+

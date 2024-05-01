@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.archived;
 
 import androidx.annotation.NonNull;
 
@@ -39,11 +39,13 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 import java.util.concurrent.TimeUnit;
 
@@ -80,6 +82,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 
+@Disabled
 @Autonomous(name="BlueCloseTwoZeroNoCamera")
 
 public class BlueCloseTwoZero extends LinearOpMode{
