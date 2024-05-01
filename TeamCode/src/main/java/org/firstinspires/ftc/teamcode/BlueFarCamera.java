@@ -362,7 +362,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     .strafeTo(new Vector2d(-36, 45))
                                     .build());
 
-                    //----------------------------------- April Tag Alignment ----------------------------------\\
+                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
@@ -467,7 +467,7 @@ public class BlueFarCamera extends LinearOpMode{
                     Actions.runBlocking(
                             drive.actionBuilder(stackPose)
 
-                                    /* Drive to Board & Align for Yellow*/
+                                    /* Drive to Board & Align for Yellow */
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.closeR())
                                     .waitSeconds(.25)
@@ -483,7 +483,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     .strafeTo(new Vector2d(-36, 45))
                                     .build());
 
-                    //----------------------------------- April Tag Alignment ----------------------------------\\
+                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
