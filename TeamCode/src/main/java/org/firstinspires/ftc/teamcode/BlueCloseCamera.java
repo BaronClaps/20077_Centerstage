@@ -389,12 +389,12 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
                                     .lineToY(15)
-                                    .stopAndAdd(drive.closeL())
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.25)
                                     .stopAndAdd(flipToScore_1stCycle_Inside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
+                                    .stopAndAdd(drive.closeL())
                                     .strafeTo(new Vector2d(-19.5, 44))
                                     .build());
 

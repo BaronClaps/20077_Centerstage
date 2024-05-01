@@ -222,7 +222,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     /* April tag Detection */
 
                                     /* Drive to Board & Align for Yellow*/
-                    Actions.runBlocking(
+                   /* Actions.runBlocking(
                         drive.actionBuilder(stackPose)
                                 .stopAndAdd(drive.closeL())
                                 .stopAndAdd(drive.closeR())
@@ -236,9 +236,8 @@ public class BlueFarCamera extends LinearOpMode{
                                 .turnTo((Math.toRadians(270)))
                                 .stopAndAdd(flipToScore_1stCycle_Outside())
                                 .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                .strafeTo(new Vector2d(-36, 45))
-                                .waitSeconds(.1));
-
+                                .strafeTo(new Vector2d(-36, 45)));
+*/
                     //----------------------------------- April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
