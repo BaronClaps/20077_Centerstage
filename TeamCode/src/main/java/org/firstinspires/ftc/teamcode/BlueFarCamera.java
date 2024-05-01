@@ -198,7 +198,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(-55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(225))
+                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(235))
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftExtend_Cycle1_Purple1())
                                     .waitSeconds(.1)
