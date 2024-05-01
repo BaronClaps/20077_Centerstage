@@ -198,6 +198,7 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
+
                                     /* Start Position */
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
@@ -265,8 +266,9 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Resume Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(scoringPose1)
+
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())//score yellow
+                                    .stopAndAdd(drive.openR())
                                     .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
@@ -293,6 +295,7 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
+
                                     /* Start Position */
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
@@ -356,8 +359,9 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Resume Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(scoringPose2)
+
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())//score yellow
+                                    .stopAndAdd(drive.openR())
                                     .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
@@ -383,6 +387,7 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
+
                                     /* Start Position */
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
@@ -448,8 +453,9 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
                     //----------------------------------- Resume Roadrunner ----------------------------------\\
                     Actions.runBlocking(
                             drive.actionBuilder(scoringPose3)
+
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())//score yellow
+                                    .stopAndAdd(drive.openR())
                                     .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
@@ -471,7 +477,6 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
 
     /*------------------------------------------------------------ April Tag Functions ------------------------------------------------------------*/
     public void initAprilTag() {
-        // Create the AprilTag processor by using a builder.
         aprilTag = new AprilTagProcessor.Builder().build();
 
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
@@ -497,10 +502,7 @@ public class RedCloseTwoZeroCamera extends LinearOpMode{
         }
     }
 
-    public void setManualExposure(int exposureMS, int gain)
-    {
-        // Wait for the camera to be open, then use the controls
-
+    public void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
             return;
         }
