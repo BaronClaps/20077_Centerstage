@@ -80,7 +80,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 
-@Autonomous(name="BlueCloseTwoZero")
+@Autonomous(name="BlueCloseTwoZeroNoCamera")
 
 public class BlueCloseTwoZero extends LinearOpMode{
 

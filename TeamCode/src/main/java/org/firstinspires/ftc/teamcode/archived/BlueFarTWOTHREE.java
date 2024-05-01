@@ -81,7 +81,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 
-@Autonomous(name="BlueFarTWOTHREE")
+@Autonomous(name="Z_BlueFarTWOTHREE")
 
 public class BlueFarTWOTHREE extends LinearOpMode{
 

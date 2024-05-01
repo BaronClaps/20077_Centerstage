@@ -81,7 +81,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 
-@Autonomous(name="BlueCloseTWO_TWO_TRUSS")
+@Autonomous(name="Z_BlueCloseTWO_TWO_TRUSS")
 
 public class BlueCloseTWO_TWO_TRUSS extends LinearOpMode{
 

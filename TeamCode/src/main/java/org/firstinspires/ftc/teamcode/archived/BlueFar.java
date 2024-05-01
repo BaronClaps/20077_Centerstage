@@ -84,7 +84,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
  *
  */
 
-@Autonomous(name="BlueFar")
+@Autonomous(name="Z_BlueFar")
 
 public class BlueFar extends LinearOpMode{
 
