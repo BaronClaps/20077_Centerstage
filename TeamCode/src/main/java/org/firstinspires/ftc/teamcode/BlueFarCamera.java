@@ -206,7 +206,6 @@ public class BlueFarCamera extends LinearOpMode{
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Purple1())
                                     .stopAndAdd(drive.closeR())
-                                    .stopAndAdd(drive.closeL())
                                     .waitSeconds(.1)
 
                                     /* Drive to Camera Location for Stack */
@@ -217,28 +216,32 @@ public class BlueFarCamera extends LinearOpMode{
                                     .stopAndAdd(drive.pivotPickUp())
                                     .strafeTo(new Vector2d(-36, -50))
                                     .waitSeconds(.1)
+                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
                                     .build());
 
-                                    /* April tag Detection */
+                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
+
+                    //----------------------------------- Navigate to Board ----------------------------------\\
+                    Actions.runBlocking(
+                            drive.actionBuilder(stackPose)
 
                                     /* Drive to Board & Align for Yellow*/
-                   /* Actions.runBlocking(
-                        drive.actionBuilder(stackPose)
-                                .stopAndAdd(drive.closeL())
-                                .stopAndAdd(drive.closeR())
-                                .waitSeconds(.25)
-                                .lineToY(-56)
-                                .waitSeconds(.1)
-                                .strafeToConstantHeading(new Vector2d(-60,-36))
-                                .waitSeconds(.1)
-                                .lineToY(36)
-                                .waitSeconds(.1)
-                                .turnTo((Math.toRadians(270)))
-                                .stopAndAdd(flipToScore_1stCycle_Outside())
-                                .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                .strafeTo(new Vector2d(-36, 45)));
-*/
-                    //----------------------------------- April Tag Alignment ----------------------------------\\
+                                    .stopAndAdd(drive.closeL())
+                                    .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.25)
+                                    .lineToY(-56)
+                                    .waitSeconds(.1)
+                                    .strafeToConstantHeading(new Vector2d(-60,-36))
+                                    .waitSeconds(.1)
+                                    .lineToY(36)
+                                    .waitSeconds(.1)
+                                    .turnTo((Math.toRadians(270)))
+                                    .stopAndAdd(flipToScore_1stCycle_Outside())
+                                    .stopAndAdd(liftExtend_Cycle1_Yellow())
+                                    .strafeTo(new Vector2d(-36, 45))
+                                    .build());
+
+                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
@@ -318,17 +321,45 @@ public class BlueFarCamera extends LinearOpMode{
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .splineTo(new Vector2d(-28.5,24), Math.toRadians(279.99))
+                                    .lineToX(-35)
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
+                                    .waitSeconds(.1)
+                                    .lineToX(-37)
                                     .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.1)
 
-                                    /* Drive to Camera Location */
+                                    /* Drive to Camera Location for Stack */
                                     .waitSeconds(.25)
-                                    .strafeTo(new Vector2d(-31.5,46))
+                                    .turnTo((Math.toRadians(270)))
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(wheelServo_Up_TopGrab())
+                                    .stopAndAdd(drive.pivotPickUp())
+                                    .strafeTo(new Vector2d(-36, -50))
+                                    .waitSeconds(.1)
+                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
+                                    .build());
+
+                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
+
+                    //----------------------------------- Navigate to Board ----------------------------------\\
+                    Actions.runBlocking(
+                            drive.actionBuilder(stackPose)
+
+                                    /* Drive to Board & Align for Yellow*/
+                                    .stopAndAdd(drive.closeL())
+                                    .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.25)
+                                    .lineToY(-56)
+                                    .waitSeconds(.1)
+                                    .strafeToConstantHeading(new Vector2d(-60,-36))
+                                    .waitSeconds(.1)
+                                    .lineToY(36)
+                                    .waitSeconds(.1)
+                                    .turnTo((Math.toRadians(270)))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .turnTo(Math.toRadians(270))
+                                    .strafeTo(new Vector2d(-36, 45))
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -412,17 +443,44 @@ public class BlueFarCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(-55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-33, 10.25), Math.toRadians(270))
+                                    .splineTo(new Vector2d(-35, -48), Math.toRadians(0))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .lineToY(15)
-                                    .stopAndAdd(drive.closeL())
-
-                                    /* Drive to Camera Location */
                                     .waitSeconds(.25)
-                                    .stopAndAdd(flipToScore_1stCycle_Inside())
+                                    .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.1)
+
+                                    /* Drive to Camera Location for Stack */
+                                    .waitSeconds(.25)
+                                    .turnTo((Math.toRadians(270)))
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(wheelServo_Up_TopGrab())
+                                    .stopAndAdd(drive.pivotPickUp())
+                                    .strafeTo(new Vector2d(-36, -50))
+                                    .waitSeconds(.1)
+                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
+                                    .build());
+
+                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
+
+                    //----------------------------------- Navigate to Board ----------------------------------\\
+                    Actions.runBlocking(
+                            drive.actionBuilder(stackPose)
+
+                                    /* Drive to Board & Align for Yellow*/
+                                    .stopAndAdd(drive.closeL())
+                                    .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.25)
+                                    .lineToY(-56)
+                                    .waitSeconds(.1)
+                                    .strafeToConstantHeading(new Vector2d(-60,-36))
+                                    .waitSeconds(.1)
+                                    .lineToY(36)
+                                    .waitSeconds(.1)
+                                    .turnTo((Math.toRadians(270)))
+                                    .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-19.5, 44))
+                                    .strafeTo(new Vector2d(-36, 45))
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\

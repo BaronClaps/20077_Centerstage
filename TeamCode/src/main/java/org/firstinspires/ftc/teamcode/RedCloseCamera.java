@@ -101,9 +101,9 @@ public class RedCloseCamera extends LinearOpMode{
         /* Initialize RoadRunner */
         Pose2d beginPose = new Pose2d(60, 12, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        Pose2d scoringPose1 = new Pose2d(44, 55, Math.toRadians(90));
-        Pose2d scoringPose2 = new Pose2d(38, 55, Math.toRadians(90));
-        Pose2d scoringPose3 = new Pose2d(32, 55, Math.toRadians(90));
+        Pose2d scoringPose1 = new Pose2d(44, 55, Math.toRadians(270));
+        Pose2d scoringPose2 = new Pose2d(38, 55, Math.toRadians(270));
+        Pose2d scoringPose3 = new Pose2d(32, 55, Math.toRadians(270));
 
         /* Initialize the hardware variables */
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -197,7 +197,7 @@ public class RedCloseCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(33, 10.25), Math.toRadians(89.99))
+                                    .splineTo(new Vector2d(33, 10.25), Math.toRadians(269.99))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
                                     .lineToY(15)
@@ -209,7 +209,7 @@ public class RedCloseCamera extends LinearOpMode{
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
                                     .strafeTo(new Vector2d(19.5, 44))
                                     .waitSeconds(.1)
-                                    .turnTo(Math.toRadians(90))
+                                    .turnTo(Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .build());
 
