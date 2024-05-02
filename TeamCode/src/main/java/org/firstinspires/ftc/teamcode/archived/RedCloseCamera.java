@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.archived;
 
 import androidx.annotation.NonNull;
 
@@ -39,6 +39,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -48,6 +49,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -59,10 +61,10 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
+@Disabled
+@Autonomous(name="RedCloseCamera")
 
-@Autonomous(name="BlueCloseCamera")
-
-public class BlueCloseCamera extends LinearOpMode{
+public class RedCloseCamera extends LinearOpMode{
 
     /* Hardware Names */
     private final int READ_PERIOD = 1;
@@ -99,11 +101,11 @@ public class BlueCloseCamera extends LinearOpMode{
     @Override public void runOpMode() {
 
         /* Initialize RoadRunner */
-        Pose2d beginPose = new Pose2d(-60, 12, 0);
+        Pose2d beginPose = new Pose2d(60, 12, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        Pose2d scoringPose1 = new Pose2d(-44, 55, Math.toRadians(270));
-        Pose2d scoringPose2 = new Pose2d(-38, 55, Math.toRadians(270));
-        Pose2d scoringPose3 = new Pose2d(-32, 55, Math.toRadians(270));
+        Pose2d scoringPose1 = new Pose2d(44, 55, Math.toRadians(270));
+        Pose2d scoringPose2 = new Pose2d(38, 55, Math.toRadians(270));
+        Pose2d scoringPose3 = new Pose2d(32, 55, Math.toRadians(270));
 
         /* Initialize the hardware variables */
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -177,9 +179,9 @@ public class BlueCloseCamera extends LinearOpMode{
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("location?", blocks[i].x);
                 //-----------------------------------------------------------1-----------------------------------------------------------\\
-                if (blocks[i].x < 100 && blocks[i].id == 2 && blocks[i].y < 200) {
+                if (blocks[i].x < 100 && blocks[i].id == 1 && blocks[i].y < 200) {
 
-                    DESIRED_TAG_ID = 1;
+                    DESIRED_TAG_ID = 4;
                     double TURN_GAIN =  0.01;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
@@ -190,24 +192,26 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .lineToX(-55)
+                                    .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-38, 29), Math.toRadians(269.99))
+                                    .splineTo(new Vector2d(33, 10.25), Math.toRadians(269.99))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .stopAndAdd(drive.closeR())
+                                    .lineToY(15)
+                                    .stopAndAdd(drive.closeL())
 
                                     /* Drive to Camera Location */
-                                    .waitSeconds(.25)
-                                    .turnTo((Math.toRadians(270)))
-                                    .stopAndAdd(flipToScore_1stCycle_Outside())
+                                    .waitSeconds(.1)
+                                    .stopAndAdd(flipToScore_1stCycle_Inside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-36, 45))
+                                    .strafeTo(new Vector2d(19.5, 44))
+                                    .waitSeconds(.1)
+                                    .turnTo(Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .build());
 
@@ -254,29 +258,28 @@ public class BlueCloseCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    // .lineToY(63)
+                                    .waitSeconds(.1)
                                     .build());
                     sleep(400000);
 
                 }
 
                 //-----------------------------------------------------------2-----------------------------------------------------------\\
-                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 2 && blocks[i].y < 200)
+                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 1 && blocks[i].y < 200)
                 {
-                    double TURN_GAIN   =  0.01;
-                    DESIRED_TAG_ID = 2;
+                    double TURN_GAIN =  0.01;
+                    DESIRED_TAG_ID = 5;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
@@ -286,22 +289,23 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .splineTo(new Vector2d(-28.5,24), Math.toRadians(279.99))
+                                    .splineTo(new Vector2d(28.5,24), Math.toRadians(90))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
                                     .stopAndAdd(drive.closeR())
 
                                     /* Drive to Camera Location */
-                                    .waitSeconds(.25)
-                                    .strafeTo(new Vector2d(-31.5,46))
+                                    .waitSeconds(.1)
+                                    .strafeTo(new Vector2d(31.5,46))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .turnTo(Math.toRadians(270))
+                                    .turnTo(Math.toRadians(90))
+                                    .waitSeconds(.1)
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -347,27 +351,26 @@ public class BlueCloseCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    //  .lineToY(63)
+                                    .waitSeconds(.1)
                                     .build());
                     sleep(400000);
                 }
 
                 //-----------------------------------------------------------3-----------------------------------------------------------\\
-                if (blocks[i].x > 210 && blocks[i].id == 2 && blocks[i].y < 200)
+                if (blocks[i].x > 210 && blocks[i].id == 1 && blocks[i].y < 200)
                 {
-                    DESIRED_TAG_ID = 3;
+                    DESIRED_TAG_ID = 6;
                     double TURN_GAIN   =  -0.001;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
@@ -378,24 +381,25 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .lineToX(-55)
+                                    .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-33, 10.25), Math.toRadians(270))
+                                    .splineTo(new Vector2d(38, 29), Math.toRadians(90))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .lineToY(15)
+                                    .stopAndAdd(drive.closeR())
 
                                     /* Drive to Camera Location */
-                                    .waitSeconds(.25)
-                                    .stopAndAdd(flipToScore_1stCycle_Inside())
+                                    .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .stopAndAdd(drive.closeL())
-                                    .strafeTo(new Vector2d(-19.5, 44))
+                                    .strafeTo(new Vector2d(36, 45))
+                                    .waitSeconds(.1)
+                                    .turnTo(Math.toRadians(90))
+                                    .waitSeconds(.1)
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -441,19 +445,17 @@ public class BlueCloseCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    //  .lineToY(63)
                                     .build());
                     sleep(400000);
                 }
@@ -464,7 +466,6 @@ public class BlueCloseCamera extends LinearOpMode{
 
     /*------------------------------------------------------------ April Tag Functions ------------------------------------------------------------*/
     public void initAprilTag() {
-        // Create the AprilTag processor by using a builder.
         aprilTag = new AprilTagProcessor.Builder().build();
 
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
@@ -489,6 +490,7 @@ public class BlueCloseCamera extends LinearOpMode{
                     .build();
         }
     }
+
     public void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
             return;
