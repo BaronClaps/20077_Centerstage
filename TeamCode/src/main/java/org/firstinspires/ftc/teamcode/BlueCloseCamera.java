@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.archived;
+package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
@@ -61,8 +61,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-@Disabled
-@Autonomous(name="BlueCloseCamera")
+@Autonomous(name="OldBlueCloseCamera")
 
 public class BlueCloseCamera extends LinearOpMode{
 
@@ -101,7 +100,7 @@ public class BlueCloseCamera extends LinearOpMode{
     @Override public void runOpMode() {
 
         /* Initialize RoadRunner */
-        Pose2d beginPose = new Pose2d(-60, 12, 0);
+        Pose2d beginPose = new Pose2d(-62, 12, 0);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
         Pose2d scoringPose1 = new Pose2d(-44, 55, Math.toRadians(270));
         Pose2d scoringPose2 = new Pose2d(-38, 55, Math.toRadians(270));
@@ -192,13 +191,11 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
                                     .stopAndAdd(gearStartPos())
-                                    .waitSeconds(.1)
+
 
                                     /* Score Purple */
                                     .lineToX(-55)
-                                    .waitSeconds(.1)
                                     .splineTo(new Vector2d(-38, 29), Math.toRadians(269.99))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())

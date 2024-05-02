@@ -57,7 +57,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name="BlueFarCamera")
+@Autonomous(name="BlueFarCameraNewCoords")
 
 public class BlueFarCameraNewCoords extends LinearOpMode{
 

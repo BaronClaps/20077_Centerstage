@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.archived;
 
 import androidx.annotation.NonNull;
 
@@ -39,6 +39,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -48,6 +49,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -59,8 +61,8 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-
-@Autonomous(name="BlueFarCamera")
+@Disabled
+@Autonomous(name="OldBlueFarCamera")
 
 public class BlueFarCamera extends LinearOpMode{
 
@@ -198,7 +200,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(-55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(235))
+                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(225))
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftExtend_Cycle1_Purple1())
                                     .waitSeconds(.1)
@@ -208,7 +210,7 @@ public class BlueFarCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .waitSeconds(.1)
 
-                                    /* Drive to Camera Location for Stack */
+                                    /* Drive to Camera Location for Stack
                                     .waitSeconds(.25)
                                     .turnTo((Math.toRadians(270)))
                                     .waitSeconds(.1)
@@ -225,7 +227,7 @@ public class BlueFarCamera extends LinearOpMode{
                     Actions.runBlocking(
                             drive.actionBuilder(stackPose)
 
-                                    /* Drive to Board & Align for Yellow*/
+                                    /* Drive to Board & Align for Yellow
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.closeR())
                                     .waitSeconds(.25)
