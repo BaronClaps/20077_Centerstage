@@ -61,9 +61,9 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-@Autonomous(name="OldBlueCloseCamera")
+@Autonomous(name="OldBlueCloseCameraTWO_TWOTest")
 
-public class BlueCloseCamera extends LinearOpMode{
+public class BlueCloseCameraTWO_TWOTest extends LinearOpMode{
 
     /* Hardware Names */
     private final int READ_PERIOD = 1;
@@ -285,6 +285,7 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
+                                    .waitSeconds(.5)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
@@ -296,7 +297,7 @@ public class BlueCloseCamera extends LinearOpMode{
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.25)
-                                    .strafeTo(new Vector2d(-33,45))
+                                    .strafeTo(new Vector2d(-31.5,45))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
                                     .turnTo(Math.toRadians(270))
@@ -376,22 +377,24 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
                                     .lineToX(-55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-33.5, 10.5), Math.toRadians(270))
+                                    .splineTo(new Vector2d(-33, 10.25), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
                                     .lineToY(15)
 
                                     /* Drive to Camera Location */
+                                    .waitSeconds(.15)
                                     .stopAndAdd(flipToScore_1stCycle_Inside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
                                     .stopAndAdd(drive.closeL())
-                                    .strafeTo(new Vector2d(-22, 45))
+                                    .strafeTo(new Vector2d(-20, 45))
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -425,7 +428,7 @@ public class BlueCloseCamera extends LinearOpMode{
 
                     aprilTagTime.reset();
 
-                    while (aprilTagTime.seconds() <= 1.5) {
+                    while (aprilTagTime.seconds() <= .8) {
                         moveRobot(forward,strafe,turn);
                     }
 
@@ -437,18 +440,31 @@ public class BlueCloseCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.125)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .turnTo(Math.toRadians(270))
+                                    .strafeTo((new Vector2d(-65.25, 20)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
-                                    .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.05)
+                                    .lineToY(-50)
+                                    //.strafeTo((new Vector2d(-65.5, -50)))
+                                    //.strafeTo((new Vector2d(-64, -53)))
+                                    .stopAndAdd(wheelServo_Up_Z1())
+                                    .splineTo(new Vector2d(-47, -58), Math.toRadians(307)) //310 --> 307
+                                    .waitSeconds(.2)
+                                    .stopAndAdd(liftExtend_White())
+                                    .waitSeconds(.5)
+                                    .stopAndAdd(drive.closeR())
+                                    .waitSeconds(.4)
+                                    .stopAndAdd(liftRetract_White())
+                                    .waitSeconds(.4)
+                                    .strafeTo((new Vector2d(-50, -50)))
+                                    .strafeToLinearHeading((new Vector2d(-65.7, -50)),Math.toRadians(255))
                                     //  .lineToY(63)
                                     .build());
                     sleep(400000);
@@ -595,7 +611,18 @@ public class BlueCloseCamera extends LinearOpMode{
             }
         };
     }
-
+    public Action liftExtend_White() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(-375); //425 --> 375
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.5);
+                return false;
+            }
+        };
+    }
     public Action liftRetract_Cycle1_Yellow() {
         return new Action() {
             @Override
@@ -608,7 +635,18 @@ public class BlueCloseCamera extends LinearOpMode{
             }
         };
     }
-
+    public Action liftRetract_White() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(375); //425 --> 375
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(0.6);
+                return false;
+            }
+        };
+    }
     public Action flipToScore_1stCycle_Outside() {
         return new Action() {
             @Override

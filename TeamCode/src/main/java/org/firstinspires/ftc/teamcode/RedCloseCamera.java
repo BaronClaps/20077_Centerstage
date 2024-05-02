@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.archived;
+package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
@@ -61,10 +61,9 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-@Disabled
-@Autonomous(name="OldBlueFarCamera")
+@Autonomous(name="OldRedCloseCamera")
 
-public class BlueFarCamera extends LinearOpMode{
+public class RedCloseCamera extends LinearOpMode{
 
     /* Hardware Names */
     private final int READ_PERIOD = 1;
@@ -101,12 +100,11 @@ public class BlueFarCamera extends LinearOpMode{
     @Override public void runOpMode() {
 
         /* Initialize RoadRunner */
-        Pose2d beginPose = new Pose2d(-60, -12, 0);
+        Pose2d beginPose = new Pose2d(60, 12, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        Pose2d stackPose = new Pose2d(-37,-58.5, Math.toRadians(270));
-        Pose2d scoringPose1 = new Pose2d(-44, 55, Math.toRadians(270));
-        Pose2d scoringPose2 = new Pose2d(-38, 55, Math.toRadians(270));
-        Pose2d scoringPose3 = new Pose2d(-32, 55, Math.toRadians(270));
+        Pose2d scoringPose1 = new Pose2d(44, 55, Math.toRadians(270));
+        Pose2d scoringPose2 = new Pose2d(38, 55, Math.toRadians(270));
+        Pose2d scoringPose3 = new Pose2d(32, 55, Math.toRadians(270));
 
         /* Initialize the hardware variables */
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -180,10 +178,10 @@ public class BlueFarCamera extends LinearOpMode{
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("location?", blocks[i].x);
                 //-----------------------------------------------------------1-----------------------------------------------------------\\
-                if (blocks[i].x < 100 && blocks[i].id == 2 && blocks[i].y < 200) {
+                if (blocks[i].x < 100 && blocks[i].id == 1 && blocks[i].y < 200) {
 
-                    DESIRED_TAG_ID = 1;
-                    double TURN_GAIN =  0.01;
+                    DESIRED_TAG_ID = 4;
+                    double TURN_GAIN =  0;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
@@ -193,57 +191,30 @@ public class BlueFarCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .lineToX(-55)
+                                    .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-37, -32), Math.toRadians(225))
-                                    .waitSeconds(.1)
-                                    .stopAndAdd(liftExtend_Cycle1_Purple1())
+                                    .splineTo(new Vector2d(31.5, 11.5), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .waitSeconds(.1)
-                                    .stopAndAdd(liftRetract_Cycle1_Purple1())
-                                    .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.1)
-
-                                    /* Drive to Camera Location for Stack
-                                    .waitSeconds(.25)
-                                    .turnTo((Math.toRadians(270)))
-                                    .waitSeconds(.1)
-                                    .stopAndAdd(wheelServo_Up_TopGrab())
-                                    .stopAndAdd(drive.pivotPickUp())
-                                    .strafeTo(new Vector2d(-36, -50))
-                                    .waitSeconds(.1)
-                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
-                                    .build());
-
-                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
-
-                    //----------------------------------- Navigate to Board ----------------------------------\\
-                    Actions.runBlocking(
-                            drive.actionBuilder(stackPose)
-
-                                    /* Drive to Board & Align for Yellow
+                                    .lineToY(15)
                                     .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.25)
-                                    .lineToY(-56)
+
+                                    /* Drive to Camera Location */
                                     .waitSeconds(.1)
-                                    .strafeToConstantHeading(new Vector2d(-60,-36))
-                                    .waitSeconds(.1)
-                                    .lineToY(36)
-                                    .waitSeconds(.1)
-                                    .turnTo((Math.toRadians(270)))
-                                    .stopAndAdd(flipToScore_1stCycle_Outside())
+                                    .stopAndAdd(flipToScore_1stCycle_Inside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-36, 45))
+                                    .strafeTo(new Vector2d(23, 45))
+                                    .waitSeconds(.1)
+                                    .turnTo(Math.toRadians(270))
+                                    .waitSeconds(.1)
                                     .build());
 
-                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
+                    //----------------------------------- April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
@@ -286,29 +257,28 @@ public class BlueFarCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    // .lineToY(63)
+                                    .waitSeconds(.1)
                                     .build());
                     sleep(400000);
 
                 }
 
                 //-----------------------------------------------------------2-----------------------------------------------------------\\
-                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 2 && blocks[i].y < 200)
+                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 1 && blocks[i].y < 200)
                 {
-                    double TURN_GAIN   =  0.01;
-                    DESIRED_TAG_ID = 2;
+                    double TURN_GAIN =  0;
+                    DESIRED_TAG_ID = 5;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
@@ -318,53 +288,26 @@ public class BlueFarCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .lineToX(-35)
+                                    .splineTo(new Vector2d(28.5,24), Math.toRadians(90))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .waitSeconds(.1)
-                                    .lineToX(-37)
                                     .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.1)
 
-                                    /* Drive to Camera Location for Stack */
-                                    .waitSeconds(.25)
-                                    .turnTo((Math.toRadians(270)))
+                                    /* Drive to Camera Location */
                                     .waitSeconds(.1)
-                                    .stopAndAdd(wheelServo_Up_TopGrab())
-                                    .stopAndAdd(drive.pivotPickUp())
-                                    .strafeTo(new Vector2d(-36, -50))
-                                    .waitSeconds(.1)
-                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
-                                    .build());
-
-                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
-
-                    //----------------------------------- Navigate to Board ----------------------------------\\
-                    Actions.runBlocking(
-                            drive.actionBuilder(stackPose)
-
-                                    /* Drive to Board & Align for Yellow*/
-                                    .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.25)
-                                    .lineToY(-56)
-                                    .waitSeconds(.1)
-                                    .strafeToConstantHeading(new Vector2d(-60,-36))
-                                    .waitSeconds(.1)
-                                    .lineToY(36)
-                                    .waitSeconds(.1)
-                                    .turnTo((Math.toRadians(270)))
+                                    .strafeTo(new Vector2d(31.5,45))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-36, 45))
+                                    .turnTo(Math.toRadians(90))
+                                    .waitSeconds(.1)
                                     .build());
 
-                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
+                    //----------------------------------- April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
@@ -407,28 +350,27 @@ public class BlueFarCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    //  .lineToY(63)
+                                    .waitSeconds(.1)
                                     .build());
                     sleep(400000);
                 }
 
                 //-----------------------------------------------------------3-----------------------------------------------------------\\
-                if (blocks[i].x > 210 && blocks[i].id == 2 && blocks[i].y < 200)
+                if (blocks[i].x > 210 && blocks[i].id == 1 && blocks[i].y < 200)
                 {
-                    DESIRED_TAG_ID = 3;
-                    double TURN_GAIN   =  -0.001;
+                    DESIRED_TAG_ID = 6;
+                    double TURN_GAIN   =  0;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
                     Actions.runBlocking(
@@ -438,54 +380,28 @@ public class BlueFarCamera extends LinearOpMode{
                                     .stopAndAdd(drive.closeR())
                                     .stopAndAdd(drive.closeL())
                                     .stopAndAdd(drive.up())
-                                    .waitSeconds(.5)
+                                    .waitSeconds(.1)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .lineToX(-55)
+                                    .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(-35, -48), Math.toRadians(0))
+                                    .splineTo(new Vector2d(38, 29), Math.toRadians(90))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.openL())
-                                    .waitSeconds(.25)
                                     .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.1)
 
-                                    /* Drive to Camera Location for Stack */
-                                    .waitSeconds(.25)
-                                    .turnTo((Math.toRadians(270)))
-                                    .waitSeconds(.1)
-                                    .stopAndAdd(wheelServo_Up_TopGrab())
-                                    .stopAndAdd(drive.pivotPickUp())
-                                    .strafeTo(new Vector2d(-36, -50))
-                                    .waitSeconds(.1)
-                                    .strafeTo(new Vector2d(-37,-58.5)) //TODO REMOVE AFTER CAMERA STUFF IS ADDED
-                                    .build());
-
-                    //----------------------------------- Stack April Tag Alignment ----------------------------------\\
-
-                    //----------------------------------- Navigate to Board ----------------------------------\\
-                    Actions.runBlocking(
-                            drive.actionBuilder(stackPose)
-
-                                    /* Drive to Board & Align for Yellow */
-                                    .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.closeR())
-                                    .waitSeconds(.25)
-                                    .lineToY(-56)
-                                    .waitSeconds(.1)
-                                    .strafeToConstantHeading(new Vector2d(-60,-36))
-                                    .waitSeconds(.1)
-                                    .lineToY(36)
-                                    .waitSeconds(.1)
-                                    .turnTo((Math.toRadians(270)))
+                                    /* Drive to Camera Location */
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(-36, 45))
+                                    .strafeTo(new Vector2d(36, 45))
+                                    .waitSeconds(.1)
+                                    .turnTo(Math.toRadians(90))
+                                    .waitSeconds(.1)
                                     .build());
 
-                    //----------------------------------- Scoring April Tag Alignment ----------------------------------\\
+                    //----------------------------------- April Tag Alignment ----------------------------------\\
                     List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
                     for (AprilTagDetection detection : currentDetections) {
@@ -528,19 +444,17 @@ public class BlueFarCamera extends LinearOpMode{
 
                                     /* Score Yellow */
                                     .stopAndAdd(drive.openR())
-                                    .waitSeconds(.25)
+                                    .waitSeconds(.1)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
-                                    .strafeTo((new Vector2d(-67, 50)))
+                                    .strafeTo((new Vector2d(67, 50)))
                                     .waitSeconds(.1)
                                     .stopAndAdd(drive.up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
                                     .stopAndAdd(liftRetract_Cycle1_Yellow())
-                                    .waitSeconds(.25)
-                                    //  .lineToY(63)
                                     .build());
                     sleep(400000);
                 }
@@ -551,7 +465,6 @@ public class BlueFarCamera extends LinearOpMode{
 
     /*------------------------------------------------------------ April Tag Functions ------------------------------------------------------------*/
     public void initAprilTag() {
-        // Create the AprilTag processor by using a builder.
         aprilTag = new AprilTagProcessor.Builder().build();
 
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
@@ -576,6 +489,7 @@ public class BlueFarCamera extends LinearOpMode{
                     .build();
         }
     }
+
     public void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
             return;
@@ -700,37 +614,11 @@ public class BlueFarCamera extends LinearOpMode{
         };
     }
 
-    public Action liftExtend_Cycle1_Purple1() {
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-50);
-                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.7);
-                return false;
-            }
-        };
-    }
-
-    public Action liftRetract_Cycle1_Purple1() {
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(50);
-                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.7);
-                return false;
-            }
-        };
-    }
-
     public Action flipToScore_1stCycle_Outside() {
         return new Action() {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                pivot.setPosition(0.28);
+                pivot.setPosition(0.23);
                 gear.setTargetPosition(750);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.4);
@@ -743,7 +631,7 @@ public class BlueFarCamera extends LinearOpMode{
         return new Action() {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                pivot.setPosition(0.28);
+                pivot.setPosition(0.23);
                 gear.setTargetPosition(725);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.4);
@@ -825,16 +713,6 @@ public class BlueFarCamera extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 wheelServo.setPosition(0.621); //bigger # = lower | ~ 0.03 per pixel
-                return false;
-            }
-        };
-    }
-
-    public Action wheelServo_Up_TopGrab() {
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                wheelServo.setPosition(0.575); //bigger # = lower
                 return false;
             }
         };
