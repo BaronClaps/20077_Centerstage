@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.opmode.archived.Drawing;
+import org.firstinspires.ftc.teamcode.opmode.archived.ancient.Drawing;
 import org.firstinspires.ftc.teamcode.config.roadrunner.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.config.roadrunner.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.config.roadrunner.messages.MecanumLocalizerInputsMessage;
@@ -508,58 +508,7 @@ public final class MecanumDrive {
                 defaultVelConstraint, defaultAccelConstraint
         );
     }
-    public Action closeL(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                clawL.setPosition(0.33); return false;
-            }
-        };
-    }
-    public Action closeR(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                clawR.setPosition(0.37); return false;
-            }
-        };
-    }
 
-
-    public Action openL(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                clawL.setPosition(0.42); return false;
-            }
-        };
-    }
-    public Action openR(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                clawR.setPosition(0.28); return false;
-            }
-        };
-    }
-
-    public Action up(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                pivot.setPosition(0.815); return false;
-            }
-        };
-    }
-
-    public Action pivotPickUp(){
-        return new Action() {
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                pivot.setPosition(0.87); return false;
-            }
-        };
-    }
 
 
 }

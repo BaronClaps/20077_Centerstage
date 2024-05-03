@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.opmode.auto;
+package org.firstinspires.ftc.teamcode.opmode.archived.recent;
 
 import androidx.annotation.NonNull;
 
@@ -185,9 +185,9 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(beginPose)
 
                                     /* Start Position */
-                                    .stopAndAdd(drive.closeR())
-                                    .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(closeR())
+                                    .stopAndAdd(closeL())
+                                    .stopAndAdd(up())
                                     .stopAndAdd(gearStartPos())
 
 
@@ -195,8 +195,8 @@ public class BlueFarCamera extends LinearOpMode{
                                     .lineToX(-55)
                                     .splineTo(new Vector2d(-38, 29), Math.toRadians(269.99))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.openL())
-                                    .stopAndAdd(drive.closeR())
+                                    .stopAndAdd(openL())
+                                    .stopAndAdd(closeR())
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.25)
@@ -249,14 +249,14 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(scoringPose1)
 
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())
+                                    .stopAndAdd(openR())
                                     .waitSeconds(.25)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
                                     .strafeTo((new Vector2d(-67, 50)))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
@@ -279,9 +279,9 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(beginPose)
 
                                     /* Start Position */
-                                    .stopAndAdd(drive.closeR())
-                                    .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(closeR())
+                                    .stopAndAdd(closeL())
+                                    .stopAndAdd(up())
                                     .waitSeconds(.5)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
@@ -289,8 +289,8 @@ public class BlueFarCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .splineTo(new Vector2d(-28.5,24), Math.toRadians(279.99))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.openL())
-                                    .stopAndAdd(drive.closeR())
+                                    .stopAndAdd(openL())
+                                    .stopAndAdd(closeR())
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.25)
@@ -342,14 +342,14 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(scoringPose2)
 
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())
+                                    .stopAndAdd(openR())
                                     .waitSeconds(.25)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
                                     .strafeTo((new Vector2d(-67, 50)))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
@@ -371,9 +371,9 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(beginPose)
 
                                     /* Start Position */
-                                    .stopAndAdd(drive.closeR())
-                                    .stopAndAdd(drive.closeL())
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(closeR())
+                                    .stopAndAdd(closeL())
+                                    .stopAndAdd(up())
                                     .waitSeconds(.5)
                                     .stopAndAdd(gearStartPos())
                                     .waitSeconds(.1)
@@ -383,14 +383,14 @@ public class BlueFarCamera extends LinearOpMode{
                                     .waitSeconds(.1)
                                     .splineTo(new Vector2d(-33, 10.25), Math.toRadians(270))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.openL())
+                                    .stopAndAdd(openL())
                                     .lineToY(15)
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.25)
                                     .stopAndAdd(flipToScore_1stCycle_Inside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .stopAndAdd(drive.closeL())
+                                    .stopAndAdd(closeL())
                                     .strafeTo(new Vector2d(-20, 45))
                                     .build());
 
@@ -436,14 +436,14 @@ public class BlueFarCamera extends LinearOpMode{
                             drive.actionBuilder(scoringPose3)
 
                                     /* Score Yellow */
-                                    .stopAndAdd(drive.openR())
+                                    .stopAndAdd(openR())
                                     .waitSeconds(.25)
 
                                     /* Park and Reset for Teleop */
                                     .lineToY(43)
                                     .strafeTo((new Vector2d(-67, 50)))
                                     .waitSeconds(.1)
-                                    .stopAndAdd(drive.up())
+                                    .stopAndAdd(up())
                                     .waitSeconds(.1)
                                     .stopAndAdd(gearEndPos())
                                     .waitSeconds(.1)
@@ -712,5 +712,56 @@ public class BlueFarCamera extends LinearOpMode{
             }
         };
     }
+    public Action closeL(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawL.setPosition(0.33); return false;
+            }
+        };
+    }
+    public Action closeR(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawR.setPosition(0.37); return false;
+            }
+        };
+    }
 
+
+    public Action openL(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawL.setPosition(0.42); return false;
+            }
+        };
+    }
+    public Action openR(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                clawR.setPosition(0.28); return false;
+            }
+        };
+    }
+
+    public Action up(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.815); return false;
+            }
+        };
+    }
+
+    public Action pivotPickUp(){
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                pivot.setPosition(0.87); return false;
+            }
+        };
+    }
 }

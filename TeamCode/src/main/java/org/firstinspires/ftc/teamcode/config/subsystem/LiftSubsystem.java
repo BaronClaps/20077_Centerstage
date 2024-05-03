@@ -33,6 +33,19 @@ public class LiftSubsystem {
             };
         }
 
+        public Action liftExtend_Stack() {
+            return new Action() {
+                @Override
+                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                    lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    lift.setTargetPosition(-375); //425 --> 375
+                    lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    lift.setPower(0.5);
+                    return false;
+                }
+            };
+        }
+
         //------------------------------ Lift Retract ------------------------------//
         public Action liftRetract_Scoring() {
             return new Action() {
@@ -47,7 +60,20 @@ public class LiftSubsystem {
             };
         }
 
-        //------------------------------ Wait for Gear -------------------------------//
+        public Action liftRetract_Stack() {
+            return new Action() {
+                @Override
+                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                    lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    lift.setTargetPosition(375); //425 --> 375
+                    lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    lift.setPower(0.6);
+                    return false;
+                }
+            };
+        }
+
+        //------------------------------ Wait for Lift -------------------------------//
         public Action waitForLift() {
             return new Action() {
                 @Override
@@ -57,14 +83,24 @@ public class LiftSubsystem {
             };
         }
 
-        //------------------------------ Stop Gear -------------------------------//
-        public Action stopGear() {
+        //------------------------------ Stop Lift -------------------------------//
+        public Action stopLift() {
+            return new Action() {
+
+                @Override
+                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                    lift.setPower(0);
+                    return false;
+                }
+            };
+        }
+
+        public Action resetLift() {
             return new Action() {
 
                 @Override
                 public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    lift.setPower(0);
                     return false;
                 }
             };
