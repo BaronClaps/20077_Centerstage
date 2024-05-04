@@ -49,6 +49,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
 
 import org.firstinspires.ftc.teamcode.config.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.config.subsystem.DriveTrajectoriesSubsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -104,6 +105,7 @@ public class BlueCloseCamera extends LinearOpMode{
         Pose2d scoringPose1 = new Pose2d(-42, 55, Math.toRadians(270));
         Pose2d scoringPose2 = new Pose2d(-36, 55, Math.toRadians(270));
         Pose2d scoringPose3 = new Pose2d(-30, 55, Math.toRadians(270));
+
 
         /* Initialize the hardware variables */
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -191,6 +193,7 @@ public class BlueCloseCamera extends LinearOpMode{
                                     .stopAndAdd(closeL())
                                     .stopAndAdd(up())
                                     .stopAndAdd(gearStartPos())
+
 
 
                                     /* Score Purple */
@@ -368,6 +371,7 @@ public class BlueCloseCamera extends LinearOpMode{
                     TURN_GAIN   =  0;
 
                     //----------------------------------- Start Roadrunner ----------------------------------\\
+
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
 

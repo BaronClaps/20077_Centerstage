@@ -1,27 +1,25 @@
 package org.firstinspires.ftc.teamcode.config.subsystem;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-import androidx.annotation.NonNull;
-import com.acmerobotics.roadrunner.Action;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.vision.VisionPortal;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 public class CameraSubsystem {
 
-    public static class Camera {
+    public class Camera {
 
         /* Motor Intialization */
         private DcMotor leftFrontDrive = null;
@@ -90,7 +88,7 @@ public class CameraSubsystem {
         }
 
 
-        void alignToTag(int DESIRED_TAG_ID) {
+        public void alignToTag(int DESIRED_TAG_ID) {
             List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
             for (AprilTagDetection detection : currentDetections) {
@@ -130,6 +128,32 @@ public class CameraSubsystem {
 
         }
 
+        public void initAprilTag() {
+                // Create the AprilTag processor by using a builder.
+                aprilTag = new AprilTagProcessor.Builder().build();
+
+                // Adjust Image Decimation to trade-off detection-range for detection-rate.
+                // eg: Some typical detection data using a Logitech C920 WebCam
+                // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
+                // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
+                // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
+                // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
+                // Note: Decimation can be changed on-the-fly to adapt during a match.
+                aprilTag.setDecimation(aprilTagDecimation);
+
+                // Create the vision portal by using a builder.
+                if (USE_WEBCAM) {
+                    visionPortal = new VisionPortal.Builder()
+                            .setCamera(hardwareMap.get(WebcamName.class, "webcam1"))
+                            .addProcessor(aprilTag)
+                            .build();
+                } else {
+                    visionPortal = new VisionPortal.Builder()
+                            .setCamera(BuiltinCameraDirection.BACK)
+                            .addProcessor(aprilTag)
+                            .build();
+                }
+            }
 
     }
 }
