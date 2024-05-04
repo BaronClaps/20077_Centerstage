@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -15,11 +17,12 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class CameraSubsystem {
 
-    public class Camera {
+    public static class Camera {
 
         /* Motor Intialization */
         private DcMotor leftFrontDrive = null;
@@ -63,10 +66,10 @@ public class CameraSubsystem {
 
 
         public void moveRobot(double x, double y, double yaw) {
-            double leftFrontPower    =  x -y -yaw;
-            double rightFrontPower   =  x +y +yaw;
-            double leftBackPower     =  x +y -yaw;
-            double rightBackPower    =  x -y +yaw;
+            double leftFrontPower = x - y - yaw;
+            double rightFrontPower = x + y + yaw;
+            double leftBackPower = x + y - yaw;
+            double rightBackPower = x - y + yaw;
 
             // Normalize wheel powers to be less than 1.0
             double max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
@@ -120,35 +123,60 @@ public class CameraSubsystem {
             aprilTagTime.reset();
 
             while (aprilTagTime.seconds() <= 1) {
-                moveRobot(forward,strafe,turn);
+                moveRobot(forward, strafe, turn);
             }
 
-            telemetry.addData("time",aprilTagTime);
+            telemetry.addData("time", aprilTagTime);
 
 
         }
 
         public void initAprilTag() {
-                // Create the AprilTag processor by using a builder.
-                aprilTag = new AprilTagProcessor.Builder().build();
+            // Create the AprilTag processor by using a builder.
+            aprilTag = new AprilTagProcessor.Builder().build();
 
-                // Adjust Image Decimation to trade-off detection-range for detection-rate.
-                // eg: Some typical detection data using a Logitech C920 WebCam
-                // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
-                // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
-                // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
-                // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
-                // Note: Decimation can be changed on-the-fly to adapt during a match.
-                aprilTag.setDecimation(3);
+            // Adjust Image Decimation to trade-off detection-range for detection-rate.
+            // eg: Some typical detection data using a Logitech C920 WebCam
+            // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
+            // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
+            // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
+            // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
+            // Note: Decimation can be changed on-the-fly to adapt during a match.
+            aprilTag.setDecimation(3);
 
-                // Create the vision portal by using a builder.
+            // Create the vision portal by using a builder.
 
-                visionPortal = new VisionPortal.Builder()
-                        .setCamera(hardwareMap.get(WebcamName.class, "webcam1"))
-                        .addProcessor(aprilTag)
-                        .build();
+            visionPortal = new VisionPortal.Builder()
+                    .setCamera(hardwareMap.get(WebcamName.class, "webcam1"))
+                    .addProcessor(aprilTag)
+                    .build();
 
+        }
+
+        public void setManualExposure(int exposureMS, int gain) {
+            if (visionPortal == null) {
+                return;
+            }
+
+            // Make sure camera is streaming before we try to set the exposure controls
+            if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+                telemetry.addData("Camera", "Waiting");
+                telemetry.update();
+                while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING){
                 }
+                telemetry.addData("Camera", "Ready");
+                telemetry.update();
+            }
+
+                ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
+                if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
+                    exposureControl.setMode(ExposureControl.Mode.Manual);
+                }
+                exposureControl.setExposure((long) exposureMS, TimeUnit.MILLISECONDS);
+                GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
+                gainControl.setGain(gain);
+
+        }
 
 
     }

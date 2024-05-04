@@ -6,13 +6,24 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class PresetSubsystem {
-    public static class gear {
+    public static class presets {
         ClawSubsystem.claw claw = new ClawSubsystem.claw(hardwareMap);
         LiftSubsystem.lift lift = new LiftSubsystem.lift(hardwareMap);
         GearRotationSubsystem.gear gear = new GearRotationSubsystem.gear(hardwareMap);
 
+        public presets(HardwareMap hardwareMap){
+        }
+
+        public Action InitPos() {
+            return new ParallelAction(
+                    claw.closeClaws(),
+                    gear.wheelServo_Deactivated()
+            );
+        }
 
         //------------------------------ Start Sequence ------------------------------//
         public Action StartPos() {
@@ -103,7 +114,8 @@ public class PresetSubsystem {
 
         public Action ClawGroundPos() {
             return new SequentialAction(
-                    claw.groundClaw()
+                    claw.groundClaw(),
+                    claw.openClaws()
             );
         }
 

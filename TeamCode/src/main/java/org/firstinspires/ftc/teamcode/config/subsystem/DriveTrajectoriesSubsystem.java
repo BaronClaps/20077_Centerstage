@@ -24,15 +24,79 @@ public class DriveTrajectoriesSubsystem {
         public driveTrajectories(HardwareMap hardwareMap) {
         }
 
-        Action purpleAction1;
-        Action purpleAction2;
-        Action purpleAction3;
-        Action yellowAction1;
-        Action yellowAction2;
-        Action yellowAction3;
-        Action parkingAction1;
-        Action parkingAction2;
-        Action parkingAction3;
+        //This action drives to the first tape line
+        TrajectoryActionBuilder purpleTAction1 = drive.actionBuilder(beginPose)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-40, 29), Math.toRadians(270));
+
+        public Action purpleAction1 = purpleTAction1.build();
+
+        //This action drives to the second tape line
+        TrajectoryActionBuilder purpleTAction2 = drive.actionBuilder(beginPose)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-28.5,24), Math.toRadians(270));
+
+        public Action purpleAction2 = purpleTAction2.build();
+
+        //This action drives to the third tape line
+        TrajectoryActionBuilder purpleTAction3 = drive.actionBuilder(beginPose)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-33.5, 10.5), Math.toRadians(270));
+
+        public Action purpleAction3 = purpleTAction3.build();
+
+        //This action drives to the first backdrop section
+
+
+        TrajectoryActionBuilder yellowTAction1 = purpleTAction1.fresh()
+                .turnTo((Math.toRadians(270)))
+                .strafeTo(new Vector2d(-38, 45))
+                .turnTo((Math.toRadians(270)));
+
+        public Action yellowAction1 = yellowTAction1.build();
+
+
+        //This action drives to the second backdrop section
+        TrajectoryActionBuilder yellowTAction2 = purpleTAction2.fresh()
+                .turnTo(Math.toRadians(270))
+                .strafeTo(new Vector2d(-33,45))
+                .turnTo(Math.toRadians(270));
+
+        public Action yellowAction2 = yellowTAction2.build();
+
+        //This action drives to the third backdrop section
+        TrajectoryActionBuilder yellowTAction3 = purpleTAction3.fresh()
+                .lineToY(15)
+                .turnTo((Math.toRadians(270)))
+                .strafeTo(new Vector2d(-22, 45))
+                .turnTo((Math.toRadians(270)));
+
+        public Action yellowAction3 = yellowTAction3.build();
+
+
+        //dfgjkhjkdfghjkhjkdfgdfghjkh fdhklfghjkl need diff poses if camera
+        //This action drives to robot to the first parking zone
+        TrajectoryActionBuilder parkingTAction1 = yellowTAction1.fresh()
+                .lineToY(43)
+                .strafeTo((new Vector2d(-67, 50)));
+
+        public Action parkingAction1 = parkingTAction1.build();
+
+        //This action drives to robot to the second parking zone
+        TrajectoryActionBuilder parkingTAction2 = yellowTAction2.fresh()
+                .lineToY(43)
+                .strafeTo((new Vector2d(-67, 50)));
+
+        public Action parkingAction2 = parkingTAction2.build();
+
+        //This action drives to robot to the third parking zone
+        TrajectoryActionBuilder parkingTAction3 = yellowTAction3.fresh()
+                .lineToY(43)
+                .strafeTo((new Vector2d(-67, 50)));
+
+        public Action parkingAction3 = parkingTAction3.build();
+
+        /*
 
 
         public void AutoSelection(String Color, String Side, int WhitePixels) {
@@ -179,6 +243,8 @@ public class DriveTrajectoriesSubsystem {
             }
 
         }
+        */
+
 
     }
 }
