@@ -139,21 +139,17 @@ public class CameraSubsystem {
                 // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
                 // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
                 // Note: Decimation can be changed on-the-fly to adapt during a match.
-                aprilTag.setDecimation(aprilTagDecimation);
+                aprilTag.setDecimation(3);
 
                 // Create the vision portal by using a builder.
-                if (USE_WEBCAM) {
-                    visionPortal = new VisionPortal.Builder()
-                            .setCamera(hardwareMap.get(WebcamName.class, "webcam1"))
-                            .addProcessor(aprilTag)
-                            .build();
-                } else {
-                    visionPortal = new VisionPortal.Builder()
-                            .setCamera(BuiltinCameraDirection.BACK)
-                            .addProcessor(aprilTag)
-                            .build();
+
+                visionPortal = new VisionPortal.Builder()
+                        .setCamera(hardwareMap.get(WebcamName.class, "webcam1"))
+                        .addProcessor(aprilTag)
+                        .build();
+
                 }
-            }
+
 
     }
 }

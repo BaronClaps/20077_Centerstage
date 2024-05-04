@@ -72,13 +72,15 @@ public class DriveTrajectoriesSubsystem {
 
                                     TrajectoryActionBuilder yellowTAction1 = purpleTAction1.fresh()
                                             .turnTo((Math.toRadians(270)))
-                                            .strafeTo(new Vector2d(-38, 45));
+                                            .strafeTo(new Vector2d(-38, 45))
+                                            .turnTo((Math.toRadians(270)));
 
                                     yellowAction1 = yellowTAction1.build();
 
 
                                     //This action drives to the second backdrop section
                                     TrajectoryActionBuilder yellowTAction2 = purpleTAction2.fresh()
+                                            .turnTo(Math.toRadians(270))
                                             .strafeTo(new Vector2d(-33,45))
                                             .turnTo(Math.toRadians(270));
 
@@ -87,10 +89,14 @@ public class DriveTrajectoriesSubsystem {
                                     //This action drives to the third backdrop section
                                     TrajectoryActionBuilder yellowTAction3 = purpleTAction3.fresh()
                                             .lineToY(15)
-                                            .strafeTo(new Vector2d(-22, 45));
+                                            .turnTo((Math.toRadians(270)))
+                                            .strafeTo(new Vector2d(-22, 45))
+                                            .turnTo((Math.toRadians(270)));
 
                                     yellowAction3 = yellowTAction3.build();
 
+
+                                    //dfgjkhjkdfghjkhjkdfgdfghjkh fdhklfghjkl need diff poses if camera
                                     //This action drives to robot to the first parking zone
                                     TrajectoryActionBuilder parkingTAction1 = yellowTAction1.fresh()
                                             .lineToY(43)
