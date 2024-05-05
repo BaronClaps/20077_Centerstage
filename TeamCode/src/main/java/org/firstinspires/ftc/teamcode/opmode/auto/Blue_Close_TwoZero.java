@@ -19,10 +19,10 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        ClawSubsystem.claw claw = new ClawSubsystem.claw(hardwareMap);
-        PresetSubsystem.presets presets = new PresetSubsystem.presets(hardwareMap);
+        ClawSubsystem claw = new ClawSubsystem(hardwareMap);
+        PresetSubsystem presets = new PresetSubsystem(hardwareMap);
         Blue_Close_TwoZero_Trajectories.driveTraj driveTrajectories = new Blue_Close_TwoZero_Trajectories.driveTraj(hardwareMap);
-        CameraSubsystem.Camera camera = new CameraSubsystem.Camera(hardwareMap);
+        CameraSubsystem camera = new CameraSubsystem(hardwareMap);
         huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
 
         // Actions that run when Init
