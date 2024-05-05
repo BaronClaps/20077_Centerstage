@@ -50,7 +50,6 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
 
 import org.firstinspires.ftc.teamcode.config.roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.config.subsystem.DriveTrajectoriesSubsystem;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 

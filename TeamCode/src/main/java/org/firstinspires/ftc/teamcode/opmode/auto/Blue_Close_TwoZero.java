@@ -1,24 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
-import static java.lang.Math.PI;
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
-import org.firstinspires.ftc.teamcode.config.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.config.roadrunner.driveTrajectories.Blue_Close_TwoZero_Trajectories;
 import org.firstinspires.ftc.teamcode.config.subsystem.*;
-import org.firstinspires.ftc.vision.VisionPortal;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +21,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
     public void runOpMode() {
         ClawSubsystem.claw claw = new ClawSubsystem.claw(hardwareMap);
         PresetSubsystem.presets presets = new PresetSubsystem.presets(hardwareMap);
-        DriveTrajectoriesSubsystem.driveTrajectories driveTrajectories = new DriveTrajectoriesSubsystem.driveTrajectories(hardwareMap);
+        Blue_Close_TwoZero_Trajectories.driveTraj driveTrajectories = new Blue_Close_TwoZero_Trajectories.driveTraj(hardwareMap);
         CameraSubsystem.Camera camera = new CameraSubsystem.Camera(hardwareMap);
         huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
 
