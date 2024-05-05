@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.config.roadrunner.driveTrajectories.Blue_Close_TwoZero_Trajectories;
@@ -19,8 +20,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        ClawSubsystem claw = new ClawSubsystem(hardwareMap);
-        PresetSubsystem presets = new PresetSubsystem(hardwareMap);
+        PresetSubsystem presets = new PresetSubsystem();
+
         Blue_Close_TwoZero_Trajectories.driveTraj driveTrajectories = new Blue_Close_TwoZero_Trajectories.driveTraj(hardwareMap);
         CameraSubsystem camera = new CameraSubsystem(hardwareMap);
         huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");

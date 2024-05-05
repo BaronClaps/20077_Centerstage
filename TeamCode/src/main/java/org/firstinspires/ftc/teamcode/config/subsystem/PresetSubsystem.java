@@ -8,11 +8,14 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class PresetSubsystem {
-    ClawSubsystem claw;
-    LiftSubsystem lift;
-    GearRotationSubsystem gear;
+    private ClawSubsystem claw;
+    private LiftSubsystem lift;
+    private GearRotationSubsystem gear;
 
-    public PresetSubsystem(HardwareMap hardwareMap) {
+    public PresetSubsystem(ClawSubsystem clawSubsystem, LiftSubsystem liftSubsystem, GearRotationSubsystem gearRotationSubsystem) {
+        this.claw = clawSubsystem;
+        this.lift = liftSubsystem;
+        this.gear = gearRotationSubsystem;
     }
 
     public Action InitPos() {
