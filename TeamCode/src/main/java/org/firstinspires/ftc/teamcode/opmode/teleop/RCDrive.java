@@ -13,7 +13,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.config.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.config.subsystem.CameraSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystem.DriveTrajectoriesSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystem.GearRotationSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystem.PresetSubsystem;
