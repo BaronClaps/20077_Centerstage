@@ -16,11 +16,16 @@ import java.util.concurrent.TimeUnit;
 
 @Autonomous(name="Blue Close 2+0", group = "Blue")
 public class Blue_Close_TwoZero extends LinearOpMode {
+
     private HuskyLens huskyLens;
 
     @Override
     public void runOpMode() {
-        PresetSubsystem presets = new PresetSubsystem();
+        ClawSubsystem claw = new ClawSubsystem(hardwareMap);
+        LiftSubsystem lift = new LiftSubsystem(hardwareMap);
+        GearRotationSubsystem gear = new GearRotationSubsystem(hardwareMap);
+
+        PresetSubsystem presets = new PresetSubsystem(claw, lift, gear);
 
         Blue_Close_TwoZero_Trajectories.driveTraj driveTrajectories = new Blue_Close_TwoZero_Trajectories.driveTraj(hardwareMap);
         CameraSubsystem camera = new CameraSubsystem(hardwareMap);
