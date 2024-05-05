@@ -61,7 +61,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-@Disabled
+
 @Autonomous(name="OldRedCloseCamera")
 
 public class RedCloseCamera extends LinearOpMode{
@@ -85,7 +85,7 @@ public class RedCloseCamera extends LinearOpMode{
     double DESIRED_DISTANCE = 2.0; // In Inches
     final double SPEED_GAIN  = -0.02;   // Drive = Error * Gain
     final double STRAFE_GAIN = -0.01;
-    double TURN_GAIN = 0.01;
+    double TURN_GAIN = 0;
     double MAX_AUTO_SPEED = 0.75;
     double MAX_AUTO_STRAFE= 0.75;
     double MAX_AUTO_TURN  = 0.45;
@@ -294,17 +294,17 @@ public class RedCloseCamera extends LinearOpMode{
                                     .waitSeconds(.1)
 
                                     /* Score Purple */
-                                    .splineTo(new Vector2d(28.5,24), Math.toRadians(90))
+                                    .splineTo(new Vector2d(22,24), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(openL())
                                     .stopAndAdd(closeR())
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.1)
-                                    .strafeTo(new Vector2d(31.5,45))
+                                    .strafeTo(new Vector2d(36,45))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .turnTo(Math.toRadians(90))
+                                    .turnTo(Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .build());
 
@@ -388,7 +388,7 @@ public class RedCloseCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(38, 29), Math.toRadians(90))
+                                    .splineTo(new Vector2d(38, 29), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(openL())
                                     .stopAndAdd(closeR())
@@ -398,7 +398,7 @@ public class RedCloseCamera extends LinearOpMode{
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
                                     .strafeTo(new Vector2d(36, 45))
                                     .waitSeconds(.1)
-                                    .turnTo(Math.toRadians(90))
+                                    .turnTo(Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .build());
 

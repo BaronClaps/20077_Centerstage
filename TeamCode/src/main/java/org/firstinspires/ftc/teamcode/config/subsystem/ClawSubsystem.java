@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 public class ClawSubsystem {
 
 
@@ -14,6 +15,7 @@ public class ClawSubsystem {
         private Servo pivot = null;
         private Servo clawL = null;
         private Servo clawR = null;
+
         double closedL = 0.33;
         double closedR = 0.37;
         double openL = 0.42;
@@ -26,6 +28,10 @@ public class ClawSubsystem {
             clawL = hardwareMap.get(Servo.class, "clawL");
             clawR = hardwareMap.get(Servo.class, "clawR");
         }
+
+
+
+
 
         //------------------------------Close Claws------------------------------//
         public class closeLClaw implements Action {

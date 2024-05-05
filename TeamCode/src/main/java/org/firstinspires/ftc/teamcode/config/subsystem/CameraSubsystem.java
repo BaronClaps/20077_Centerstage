@@ -27,14 +27,14 @@ public class CameraSubsystem {
         /* Motor Intialization */
         private DcMotor leftFrontDrive = null;
         private DcMotor leftBackDrive = null;
-        private DcMotor rightFrontDrive = null;
-        private DcMotor rightBackDrive = null;
+        private DcMotor rightFrontDrive;
+        private DcMotor rightBackDrive;
 
         /* April Tag Movement Values */
         double DESIRED_DISTANCE = 1.5; // In Inches
         final double SPEED_GAIN = -0.02;   // Drive = Error * Gain
         final double STRAFE_GAIN = -0.01;
-        double TURN_GAIN = 0.01;
+        double TURN_GAIN = 0;
         double MAX_AUTO_SPEED = 0.9;
         double MAX_AUTO_STRAFE = 0.9;
         double MAX_AUTO_TURN = 0.65;

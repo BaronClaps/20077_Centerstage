@@ -7,7 +7,9 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class PresetSubsystem {
     public static class presets {
@@ -16,6 +18,9 @@ public class PresetSubsystem {
         GearRotationSubsystem.gear gear = new GearRotationSubsystem.gear(hardwareMap);
 
         public presets(HardwareMap hardwareMap){
+            claw = new ClawSubsystem.claw(hardwareMap);
+            lift = new LiftSubsystem.lift(hardwareMap);
+            gear = new GearRotationSubsystem.gear(hardwareMap);
         }
 
         public Action InitPos() {

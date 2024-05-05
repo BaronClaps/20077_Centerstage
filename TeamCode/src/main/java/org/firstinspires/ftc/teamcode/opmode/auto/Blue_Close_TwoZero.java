@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.config.subsystem.*;
 
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name="Blue_Close_2+0", group = "Blue")
+@Autonomous(name="Blue Close 2+0", group = "Blue")
 public class Blue_Close_TwoZero extends LinearOpMode {
     private HuskyLens huskyLens;
 
@@ -32,8 +32,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
 
         //Huskylens Setup
-        Deadline rateLimit = new Deadline(1, TimeUnit.SECONDS);
-        rateLimit.expire();
+       Deadline rateLimit = new Deadline(1, TimeUnit.SECONDS);
+       rateLimit.expire();
 
         if (!huskyLens.knock()) {
             telemetry.addData(">>", "Problem communicating with " + huskyLens.getDeviceName());
@@ -44,18 +44,18 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
 
         // Wait for driver to press start
-        telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
-        telemetry.addData(">", "Touch Play to start OpMode");
-        telemetry.update();
+       telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
+       telemetry.addData(">", "Touch Play to start OpMode");
+       telemetry.update();
         waitForStart();
 
 
         while (opModeIsActive()) {
 
-            if (!rateLimit.hasExpired()) {
+           if (!rateLimit.hasExpired()) {
                 continue;
             }
-            rateLimit.reset();
+           rateLimit.reset();
             HuskyLens.Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             for (int i = 0; i < blocks.length; i++) {
@@ -83,7 +83,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             )
                     );
 
-                    camera.alignToTag(1);
+                    //camera.alignToTag(1);
 
                     Actions.runBlocking(
                             new SequentialAction(
