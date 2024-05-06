@@ -19,7 +19,7 @@ public class Blue_Close_TwoZero_Trajectories {
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
         public driveTraj(HardwareMap hardwareMap) {
-            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+            this.hardwareMap = hardwareMap;
         }
 
         //This action drives to the first tape line
