@@ -12,15 +12,17 @@ import org.firstinspires.ftc.teamcode.config.roadrunner.MecanumDrive;
 
 public class Blue_Close_TwoZero_Trajectories {
     public static class driveTraj {
+        private final HardwareMap hardwareMap;
+         public driveTraj(HardwareMap hardwareMap) {
+            this.hardwareMap = hardwareMap;
+        }
         Pose2d beginPose = new Pose2d(-62, 12, 0);
         Pose2d scoringPose1 = new Pose2d(-42, 55, Math.toRadians(270));
         Pose2d scoringPose2 = new Pose2d(-36, 55, Math.toRadians(270));
         Pose2d scoringPose3 = new Pose2d(-30, 55, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
-        public driveTraj(HardwareMap hardwareMap) {
-            this.hardwareMap = hardwareMap;
-        }
+       x
 
         //This action drives to the first tape line
         TrajectoryActionBuilder purpleTAction1 = drive.actionBuilder(beginPose)
