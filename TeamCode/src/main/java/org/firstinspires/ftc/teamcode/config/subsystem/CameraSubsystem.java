@@ -47,6 +47,7 @@ public class CameraSubsystem {
     private AprilTagProcessor aprilTag;
     private AprilTagDetection desiredTag = null;
     private int aprilTagDecimation = 3;
+    private final HardwareMap hardwareMap;
 
 
     public CameraSubsystem(HardwareMap hardwareMap) {
@@ -58,6 +59,7 @@ public class CameraSubsystem {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        this.hardwareMap = hardwareMap;
     }
 
 
