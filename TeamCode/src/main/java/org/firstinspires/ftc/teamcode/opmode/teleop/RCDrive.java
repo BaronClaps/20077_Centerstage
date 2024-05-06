@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop;
+/*package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -19,10 +19,10 @@ import org.firstinspires.ftc.teamcode.config.subsystem.PresetSubsystem;
 @Disabled
 @TeleOp
 public class RCDrive extends OpMode {
-    ClawSubsystem.claw claw = new ClawSubsystem.claw(hardwareMap);
-    LiftSubsystem.lift lift = new LiftSubsystem.lift(hardwareMap);
-    GearRotationSubsystem.gear gear = new GearRotationSubsystem.gear(hardwareMap);
-    PresetSubsystem.presets presets = new PresetSubsystem.presets(hardwareMap);
+    ClawSubsystem claw = new ClawSubsystem.claw(hardwareMap);
+    LiftSubsystem lift = new LiftSubsystem.lift(hardwareMap);
+    GearRotationSubsystem gear = new GearRotationSubsystem.gear(hardwareMap);
+    PresetSubsystem presets = new PresetSubsystem.presets(claw, lift, gear);
 
     @Override
     public void init() {
@@ -36,4 +36,4 @@ public class RCDrive extends OpMode {
 
     }
 
-}
+}*/

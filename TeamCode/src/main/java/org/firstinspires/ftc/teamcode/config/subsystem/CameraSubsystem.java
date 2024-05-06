@@ -1,23 +1,21 @@
 package org.firstinspires.ftc.teamcode.config.subsystem;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.vision.VisionPortal;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+
+
 
 
 public class CameraSubsystem {
@@ -99,10 +97,9 @@ public class CameraSubsystem {
                     desiredTag = detection;
                     break;
                 } else {
-                    telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
                 }
             } else {
-                telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+
             }
         }
 
@@ -123,8 +120,6 @@ public class CameraSubsystem {
         while (aprilTagTime.seconds() <= 1) {
             moveRobot(forward, strafe, turn);
         }
-
-        telemetry.addData("time", aprilTagTime);
 
 
     }
@@ -158,12 +153,9 @@ public class CameraSubsystem {
 
         // Make sure camera is streaming before we try to set the exposure controls
         if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
-            telemetry.addData("Camera", "Waiting");
-            telemetry.update();
+
             while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
             }
-            telemetry.addData("Camera", "Ready");
-            telemetry.update();
         }
 
         ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
