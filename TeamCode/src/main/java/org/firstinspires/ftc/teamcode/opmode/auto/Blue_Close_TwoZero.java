@@ -76,7 +76,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.purpleAction1
+                                            MecanumDrive.BlueCloseTwoZero.purpleAction1
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -84,7 +84,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.yellowAction1),
+                                                    MecanumDrive.BlueCloseTwoZero.yellowAction1),
                                             claw.closeLClaw()
                                     )
                             )
@@ -98,7 +98,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.parkingAction1
+                                            MecanumDrive.BlueCloseTwoZero.parkingAction1
                                     )
                             )
                     );
@@ -112,7 +112,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.purpleAction2
+                                            MecanumDrive.BlueCloseTwoZero.purpleAction2
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -120,7 +120,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.yellowAction2),
+                                                    MecanumDrive.BlueCloseTwoZero.yellowAction2),
                                             claw.closeLClaw()
                                     )
                             )
@@ -134,7 +134,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.parkingAction2
+                                            MecanumDrive.BlueCloseTwoZero.parkingAction2
                                     )
                             )
                     );
@@ -147,7 +147,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.purpleAction3
+                                            MecanumDrive.BlueCloseTwoZero.purpleAction3
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -155,7 +155,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.yellowAction3),
+                                                    MecanumDrive.BlueCloseTwoZero.yellowAction3),
                                             claw.closeLClaw()
                                     )
                             )
@@ -169,7 +169,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.parkingAction3
+                                            MecanumDrive.BlueCloseTwoZero.parkingAction3
                                     )
                             )
                     );

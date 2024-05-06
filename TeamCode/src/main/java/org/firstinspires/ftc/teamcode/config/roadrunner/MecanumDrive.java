@@ -545,7 +545,7 @@ public final class MecanumDrive {
 
     TrajectoryActionBuilder yellowTAction1 = purpleTAction1.fresh()
              
-            .strafeTo(new Vector2d(-38, 45))
+            .strafeTo(new Vector2d(-38, 45));
 
     public Action yellowAction1 = yellowTAction1.build();
 
@@ -553,7 +553,7 @@ public final class MecanumDrive {
     //This action drives to the second backdrop section
     TrajectoryActionBuilder yellowTAction2 = purpleTAction2.fresh()
             .turnTo(Math.toRadians(270))
-            .strafeTo(new Vector2d(-33, 45))
+            .strafeTo(new Vector2d(-33, 45));
           
 
     public Action yellowAction2 = yellowTAction2.build();
@@ -561,7 +561,7 @@ public final class MecanumDrive {
     //This action drives to the third backdrop section
     TrajectoryActionBuilder yellowTAction3 = purpleTAction3.fresh()
             .strafeTo(new Vector2d(-33.5,15))
-            .strafeTo(new Vector2d(-22, 45))
+            .strafeTo(new Vector2d(-22, 45));
        
 
     public Action yellowAction3 = yellowTAction3.build();
