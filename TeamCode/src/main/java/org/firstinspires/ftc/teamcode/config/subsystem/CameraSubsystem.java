@@ -28,7 +28,7 @@ public class CameraSubsystem {
 
     /* April Tag Movement Values */
     double DESIRED_DISTANCE = 1.5; // In Inches
-    final double SPEED_GAIN = -0.02;   // Drive = Error * Gain
+    final double SPEED_GAIN = -0.025;   // Drive = Error * Gain
     final double STRAFE_GAIN = -0.01;
     double TURN_GAIN = 0;
     double MAX_AUTO_SPEED = 0.9;
