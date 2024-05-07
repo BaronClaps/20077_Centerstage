@@ -603,21 +603,21 @@ public final class MecanumDrive {
     //This action drives to the first tape line
     TrajectoryActionBuilder RedCloseTwoZero_purpleTAction3 = actionBuilder(RedCloseTwoZero_startPose)
             .lineToX(55)
-            .splineTo(new Vector2d(32, 31), Math.toRadians(270));
+            .splineTo(new Vector2d(34, 31), Math.toRadians(270));
 
     public Action RedCloseTwoZero_purpleAction3 = RedCloseTwoZero_purpleTAction3.build();
 
     //This action drives to the second tape line
     TrajectoryActionBuilder RedCloseTwoZero_purpleTAction2 = actionBuilder(RedCloseTwoZero_startPose)
             .lineToX(55)
-            .splineTo(new Vector2d(22, 24), Math.toRadians(270));
+            .splineTo(new Vector2d(26, 24), Math.toRadians(270));
 
     public Action RedCloseTwoZero_purpleAction2 = RedCloseTwoZero_purpleTAction2.build();
 
     //This action drives to the third tape line
     TrajectoryActionBuilder RedCloseTwoZero_purpleTAction1 = actionBuilder(RedCloseTwoZero_startPose)
             .lineToX(55)
-            .splineTo(new Vector2d(35, 11.5), Math.toRadians(270));
+            .splineTo(new Vector2d(33.5, 11.5), Math.toRadians(270));
 
     public Action RedCloseTwoZero_purpleAction1 = RedCloseTwoZero_purpleTAction1.build();
 
@@ -625,21 +625,23 @@ public final class MecanumDrive {
 
 
     TrajectoryActionBuilder RedCloseTwoZero_yellowTAction1 = actionBuilder(RedCloseTwoZero_yellowPose1)
-            .strafeTo(new Vector2d(23, 45));
+            .strafeTo(new Vector2d(25, 46));
 
     public Action RedCloseTwoZero_yellowAction1 = RedCloseTwoZero_yellowTAction1.build();
 
 
     //This action drives to the second backdrop section
     TrajectoryActionBuilder RedCloseTwoZero_yellowTAction2 = actionBuilder(RedCloseTwoZero_yellowPose2)
-            .strafeTo(new Vector2d(38, 45));
+            .lineToY(30)
+            .strafeTo(new Vector2d(40, 45));
 
 
     public Action RedCloseTwoZero_yellowAction2 = RedCloseTwoZero_yellowTAction2.build();
 
     //This action drives to the third backdrop section
     TrajectoryActionBuilder RedCloseTwoZero_yellowTAction3 = actionBuilder(RedCloseTwoZero_yellowPose3)
-            .strafeTo(new Vector2d(41.5, 45));
+            .lineToY(38)
+            .strafeTo(new Vector2d(43.5, 45));
 
 
     public Action RedCloseTwoZero_yellowAction3 = RedCloseTwoZero_yellowTAction3.build();
@@ -647,22 +649,22 @@ public final class MecanumDrive {
 
     //This action drives to robot to the first parking zone
     TrajectoryActionBuilder RedCloseTwoZero_parkingTAction1 = actionBuilder(RedCloseTwoZero_parkingPose1)
-            .strafeTo(new Vector2d(36,43))
-            .strafeTo((new Vector2d(67, 50)));
+            .strafeTo(new Vector2d(38,43))
+            .strafeTo((new Vector2d(69, 50)));
 
     public Action RedCloseTwoZero_parkingAction1 = RedCloseTwoZero_parkingTAction1.build();
 
     //This action drives to robot to the second parking zone
     TrajectoryActionBuilder RedCloseTwoZero_parkingTAction2 = actionBuilder(RedCloseTwoZero_parkingPose2)
-            .strafeTo(new Vector2d(36,43))
-            .strafeTo((new Vector2d(67, 50)));
+            .strafeTo(new Vector2d(38,43))
+            .strafeTo((new Vector2d(69, 50)));
 
     public Action RedCloseTwoZero_parkingAction2 = RedCloseTwoZero_parkingTAction2.build();
 
     //This action drives to robot to the third parking zone
     TrajectoryActionBuilder RedCloseTwoZero_parkingTAction3 = actionBuilder(RedCloseTwoZero_parkingPose3)
-            .strafeTo(new Vector2d(36,43))
-            .strafeTo((new Vector2d(67, 50)));
+            .strafeTo(new Vector2d(38,43))
+            .strafeTo((new Vector2d(69, 50)));
 
     public Action RedCloseTwoZero_parkingAction3 = RedCloseTwoZero_parkingTAction3.build();
 

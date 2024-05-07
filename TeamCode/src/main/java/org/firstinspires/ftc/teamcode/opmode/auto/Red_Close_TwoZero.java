@@ -69,7 +69,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                 telemetry.addData("location?", blocks[i].x);// this gives you just x
 
                 //----------------------------1----------------------------\\
-                if (blocks[i].x < 100 && blocks[i].id == 2 && blocks[i].y < 200) {
+                if (blocks[i].x < 100 && blocks[i].id == 1 && blocks[i].y < 200) {
 
                     Actions.runBlocking(
                             new SequentialAction(
@@ -107,7 +107,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
 
                 //----------------------------2----------------------------\\
-                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 2 && blocks[i].y < 200) {
+                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 1 && blocks[i].y < 200) {
                     Actions.runBlocking(
                             new SequentialAction(
                                     new ParallelAction(
@@ -144,7 +144,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
 
                 //----------------------------3---------------------------\\
-                if (blocks[i].x > 210 && blocks[i].id == 2 && blocks[i].y < 200) {
+                if (blocks[i].x > 210 && blocks[i].id == 1 && blocks[i].y < 200) {
                     Actions.runBlocking(
                             new SequentialAction(
                                     new ParallelAction(
