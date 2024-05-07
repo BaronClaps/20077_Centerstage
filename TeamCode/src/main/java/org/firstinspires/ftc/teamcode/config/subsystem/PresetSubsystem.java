@@ -20,7 +20,7 @@ public class PresetSubsystem {
     }
 
     public Action InitPos() {
-        return new ParallelAction(
+        return new SequentialAction(
                 claw.closeClaws(),
                 gear.wheelServo_Deactivated()
         );
@@ -28,7 +28,7 @@ public class PresetSubsystem {
 
     //------------------------------ Start Sequence ------------------------------//
     public Action StartPos() {
-        return new ParallelAction(
+        return new SequentialAction(
                 ClawStartPos(),
                 LiftStartPos(),
                 GearStartPos()
@@ -61,7 +61,7 @@ public class PresetSubsystem {
     //------------------------------ Scoring Sequence ------------------------------//
 
     public Action ScoringPos() {
-        return new ParallelAction(
+        return new SequentialAction(
                 ClawScoringPos(),
                 LiftScoringPos(),
                 GearScoringPos()
@@ -93,7 +93,7 @@ public class PresetSubsystem {
     //------------------------------ Ground after Scoring Sequence ------------------------------//
 
     public Action GroundPos() {
-        return new ParallelAction(
+        return new SequentialAction(
                 GearGroundPos(),
                 LiftGroundPos(),
                 ClawGroundPos()
