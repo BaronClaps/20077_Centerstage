@@ -212,7 +212,7 @@ public class RedCloseCamera extends LinearOpMode{
                                     .strafeTo(new Vector2d(23, 45))
                                     .waitSeconds(.1)
                                     .turnTo(Math.toRadians(270))
-                                    .waitSeconds(.1)
+                                    .waitSeconds(.5)
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -297,15 +297,16 @@ public class RedCloseCamera extends LinearOpMode{
                                     .splineTo(new Vector2d(22,24), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(openL())
+                                    .lineToY(30)
                                     .stopAndAdd(closeR())
 
                                     /* Drive to Camera Location */
                                     .waitSeconds(.1)
-                                    .strafeTo(new Vector2d(36,45))
+                                    .strafeTo(new Vector2d(38,45))
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
                                     .turnTo(Math.toRadians(270))
-                                    .waitSeconds(.1)
+                                    .waitSeconds(.5)
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\
@@ -388,18 +389,19 @@ public class RedCloseCamera extends LinearOpMode{
                                     /* Score Purple */
                                     .lineToX(55)
                                     .waitSeconds(.1)
-                                    .splineTo(new Vector2d(38, 29), Math.toRadians(270))
+                                    .splineTo(new Vector2d(32, 31), Math.toRadians(270))
                                     .waitSeconds(.1)
                                     .stopAndAdd(openL())
+                                    .lineToY(38)
                                     .stopAndAdd(closeR())
 
                                     /* Drive to Camera Location */
                                     .stopAndAdd(flipToScore_1stCycle_Outside())
                                     .stopAndAdd(liftExtend_Cycle1_Yellow())
-                                    .strafeTo(new Vector2d(36, 45))
+                                    .strafeTo(new Vector2d(41.5, 45))
                                     .waitSeconds(.1)
                                     .turnTo(Math.toRadians(270))
-                                    .waitSeconds(.1)
+                                    .waitSeconds(.5)
                                     .build());
 
                     //----------------------------------- April Tag Alignment ----------------------------------\\

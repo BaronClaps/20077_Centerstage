@@ -531,7 +531,7 @@ public final class MecanumDrive {
     TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction2 = actionBuilder(BlueCloseTwoZero_startPose)
             .setTangent(0)
             .lineToX(-55)
-            .splineTo(new Vector2d(-28.5, 24), Math.toRadians(270));
+            .splineTo(new Vector2d(-31, 24), Math.toRadians(270));
 
     public Action BlueCloseTwoZero_purpleAction2 = BlueCloseTwoZero_purpleTAction2.build();
 
@@ -554,7 +554,7 @@ public final class MecanumDrive {
 
     //This action drives to the second backdrop section
     TrajectoryActionBuilder BlueCloseTwoZero_yellowTAction2 = actionBuilder(BlueCloseTwoZero_yellowPose2)
-            .strafeTo(new Vector2d(-33, 45));
+            .strafeTo(new Vector2d(-32, 45));
           
 
     public Action BlueCloseTwoZero_yellowAction2 = BlueCloseTwoZero_yellowTAction2.build();

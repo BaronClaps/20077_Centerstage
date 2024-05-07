@@ -13,7 +13,7 @@ public class LiftSubsystem {
     private DcMotorEx lift;
 
     public LiftSubsystem(HardwareMap hardwareMap) {
-        lift = hardwareMap.get(DcMotorEx.class, "gear");
+        lift = hardwareMap.get(DcMotorEx.class, "lift");
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
     }

@@ -31,7 +31,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         huskyLens = hardwareMap.get(HuskyLens.class, "huskyLens");
 
         // Actions that run when Init
-        presets.InitPos();
+        claw.closeClaws();
+        gear.wheelServo_Deactivated();
         camera.initAprilTag();
         camera.setManualExposure(2, 250);
 
@@ -92,6 +93,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
                     Actions.runBlocking(
                             new SequentialAction(
+                                    new SleepAction(.1),
                                     claw.openRClaw(),
                                     new SleepAction(.25),
                                     new ParallelAction(
@@ -128,6 +130,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
                     Actions.runBlocking(
                             new SequentialAction(
+                                    new SleepAction(.1),
                                     claw.openRClaw(),
                                     new SleepAction(.25),
                                     new ParallelAction(
@@ -136,6 +139,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     )
                             )
                     );
+                    sleep(400000);
                 }
 
 
@@ -163,6 +167,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
                     Actions.runBlocking(
                             new SequentialAction(
+                                    new SleepAction(.1),
                                     claw.openRClaw(),
                                     new SleepAction(.25),
                                     new ParallelAction(
@@ -171,6 +176,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     )
                             )
                     );
+                    sleep(400000);
                 }
             }
         }

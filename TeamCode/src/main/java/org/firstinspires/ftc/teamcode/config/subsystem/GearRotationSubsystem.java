@@ -28,7 +28,8 @@ public class GearRotationSubsystem {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                gear.setTargetPosition(0);
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(-735);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.5);
                 return false;
@@ -42,6 +43,7 @@ public class GearRotationSubsystem {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 gear.setTargetPosition(735);
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.5);

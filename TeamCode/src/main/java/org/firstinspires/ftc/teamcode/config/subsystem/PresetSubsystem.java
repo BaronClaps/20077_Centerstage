@@ -19,12 +19,6 @@ public class PresetSubsystem {
         this.gear = gearRotationSubsystem;
     }
 
-    public Action InitPos() {
-        return new SequentialAction(
-                claw.closeClaws(),
-                gear.wheelServo_Deactivated()
-        );
-    }
 
     //------------------------------ Start Sequence ------------------------------//
     public Action StartPos() {
@@ -61,26 +55,26 @@ public class PresetSubsystem {
     //------------------------------ Scoring Sequence ------------------------------//
 
     public Action ScoringPos() {
-        return new SequentialAction(
+        return new ParallelAction(
                 ClawScoringPos(),
-                LiftScoringPos(),
-                GearScoringPos()
+                GearScoringPos(),
+                LiftScoringPos()
         );
     }
 
     public Action GearScoringPos() {
-        return new SequentialAction(
-                gear.scoringGear(),
-                gear.waitForGear(),
-                gear.stopGear()
+        return new ParallelAction(
+                gear.scoringGear()
+                //gear.waitForGear(),
+                //gear.stopGear()
         );
     }
 
     public Action LiftScoringPos() {
-        return new SequentialAction(
-                lift.liftExtend_Scoring(),
-                lift.waitForLift(),
-                lift.stopLift()
+        return new ParallelAction(
+                lift.liftExtend_Scoring()
+                //lift.waitForLift(),
+                //lift.stopLift()
         );
     }
 
@@ -93,26 +87,22 @@ public class PresetSubsystem {
     //------------------------------ Ground after Scoring Sequence ------------------------------//
 
     public Action GroundPos() {
-        return new SequentialAction(
-                GearGroundPos(),
+        return new ParallelAction(
                 LiftGroundPos(),
+                GearGroundPos(),
                 ClawGroundPos()
         );
     }
 
     public Action GearGroundPos() {
         return new SequentialAction(
-                gear.groundGear(),
-                gear.waitForGear(),
-                gear.stopGear()
+                gear.groundGear()
         );
     }
 
     public Action LiftGroundPos() {
         return new SequentialAction(
-                lift.liftRetract_Scoring(),
-                lift.waitForLift(),
-                lift.stopLift()
+                lift.liftRetract_Scoring()
         );
     }
 
