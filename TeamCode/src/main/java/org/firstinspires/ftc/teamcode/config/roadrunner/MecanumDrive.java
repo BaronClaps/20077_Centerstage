@@ -509,7 +509,7 @@ public final class MecanumDrive {
         );
     }
 
-
+    //---------------------------------------- Blue Close ----------------------------------------------\\
     Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);
     Pose2d BlueCloseTwoZero_yellowPose1 = new Pose2d(-40, 29, Math.toRadians(270));
     Pose2d BlueCloseTwoZero_yellowPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
@@ -590,7 +590,7 @@ public final class MecanumDrive {
     public Action BlueCloseTwoZero_parkingAction3 = BlueCloseTwoZero_parkingTAction3.build();
 
 
-    //---------------------------------------------- RED CLOSE----------------------------------------------------------------------\\
+    //------------------------------------------- Red Close -------------------------------------------------\\
     Pose2d RedCloseTwoZero_startPose = new Pose2d(62, 12, Math.toRadians(180));
     Pose2d RedCloseTwoZero_yellowPose1 = new Pose2d(40, 29, Math.toRadians(270));
     Pose2d RedCloseTwoZero_yellowPose2 = new Pose2d(28.5, 24, Math.toRadians(270));
@@ -666,6 +666,110 @@ public final class MecanumDrive {
             .strafeTo((new Vector2d(69, 50)));
 
     public Action RedCloseTwoZero_parkingAction3 = RedCloseTwoZero_parkingTAction3.build();
+
+    //---------------------------------------- Blue Close ----------------------------------------------\\
+    Pose2d BlueFarTwoOne_startPose = new Pose2d(-62, -36, 0);
+    Pose2d BlueFarTwoOne_whitePose1 = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_whitePose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_whitePose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
+
+
+    //This action drives to the first tape line
+    TrajectoryActionBuilder BlueFarTwoOne_purpleTAction1 = actionBuilder(BlueFarTwoOne_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-27, -36), Math.toRadians(90));
+
+    public Action BlueFarTwoOne_purpleAction1 = BlueFarTwoOne_purpleTAction1.build();
+
+    //This action drives to the second tape line
+    TrajectoryActionBuilder BlueFarTwoOne_purpleTAction2 = actionBuilder(BlueFarTwoOne_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-36, 36), Math.toRadians(0));
+
+    public Action BlueFarTwoOne_purpleAction2 = BlueFarTwoOne_purpleTAction2.build();
+
+    //This action drives to the third tape line
+    TrajectoryActionBuilder BlueFarTwoOne_purpleTAction3 = actionBuilder(BlueFarTwoOne_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-27, -36), Math.toRadians(270));
+
+    public Action BlueFarTwoOne_purpleAction3 = BlueFarTwoOne_purpleTAction3.build();
+
+    //This action drives to the first tape line
+    TrajectoryActionBuilder BlueFarTwoOne_WhiteTAction1 = actionBuilder(BlueFarTwoOne_whitePose1)
+            .lineToX(-42)
+            .splineTo(new Vector2d(-36, -48), Math.toRadians(270));
+
+    public Action BlueFarTwoOne_WhiteAction1 = BlueFarTwoOne_WhiteTAction1.build();
+
+    //This action drives to the second tape line
+    TrajectoryActionBuilder BlueFarTwoOne_WhiteTAction2 = actionBuilder(BlueFarTwoOne_whitePose2)
+            .lineToX(-42)
+            .splineTo(new Vector2d(-36, -48), Math.toRadians(270));
+
+    public Action BlueFarTwoOne_WhiteAction2 = BlueFarTwoOne_WhiteTAction2.build();
+
+    //This action drives to the third tape line
+    TrajectoryActionBuilder BlueFarTwoOne_WhiteTAction3 = actionBuilder(BlueFarTwoOne_whitePose3)
+            .lineToY(-44)
+            .strafeTo(new Vector2d(-36, -48));
+
+    public Action BlueFarTwoOne_WhiteAction3 = BlueFarTwoOne_WhiteTAction3.build();
+
+    //This action drives to the first backdrop section
+
+
+    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction1 = actionBuilder(BlueFarTwoOne_yellowPose1)
+            .strafeTo(new Vector2d(-38, 45));
+
+    public Action BlueFarTwoOne_yellowAction1 = BlueFarTwoOne_yellowTAction1.build();
+
+
+    //This action drives to the second backdrop section
+    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction2 = actionBuilder(BlueFarTwoOne_yellowPose2)
+            .strafeTo(new Vector2d(-32, 45));
+
+
+    public Action BlueFarTwoOne_yellowAction2 = BlueFarTwoOne_yellowTAction2.build();
+
+    //This action drives to the third backdrop section
+    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction3 = actionBuilder(BlueFarTwoOne_yellowPose3)
+            .strafeTo(new Vector2d(-33.5,15))
+            .strafeTo(new Vector2d(-22, 45));
+
+
+    public Action BlueFarTwoOne_yellowAction3 = BlueFarTwoOne_yellowTAction3.build();
+
+
+    //This action drives to robot to the first parking zone
+    TrajectoryActionBuilder BlueFarTwoOne_parkingTAction1 = actionBuilder(BlueFarTwoOne_parkingPose1)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueFarTwoOne_parkingAction1 = BlueFarTwoOne_parkingTAction1.build();
+
+    //This action drives to robot to the second parking zone
+    TrajectoryActionBuilder BlueFarTwoOne_parkingTAction2 = actionBuilder(BlueFarTwoOne_parkingPose2)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueFarTwoOne_parkingAction2 = BlueFarTwoOne_parkingTAction2.build();
+
+    //This action drives to robot to the third parking zone
+    TrajectoryActionBuilder BlueFarTwoOne_parkingTAction3 = actionBuilder(BlueFarTwoOne_parkingPose3)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueFarTwoOne_parkingAction3 = BlueFarTwoOne_parkingTAction3.build();
 
 }
 
