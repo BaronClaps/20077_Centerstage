@@ -508,7 +508,7 @@ public final class MecanumDrive {
                 defaultVelConstraint, defaultAccelConstraint
         );
     }
-
+    /*
     //---------------------------------------- Blue Close 2+0 ----------------------------------------------\\
     Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);
     Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
@@ -666,12 +666,12 @@ public final class MecanumDrive {
             .strafeTo((new Vector2d(-67, 50)));
 
     public Action BlueCloseTwoTwo_driveToWhiteAction3 = BlueCloseTwoTwo_driveToWhiteTAction3.build();
-    
+
     //This action drives to robot to the parking zone
     TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction1 = actionBuilder(BlueCloseTwoTwo_parkingPose1)
             .strafeTo(new Vector2d(-36,43))
             .strafeTo((new Vector2d(-67, 50)));
-            
+
     public Action BlueCloseTwoTwo_parkingAction1 = BlueCloseTwoTwo_parkingTAction1.build();
 
     //This action drives to robot to the parking zone
@@ -869,5 +869,5 @@ public final class MecanumDrive {
             .strafeTo((new Vector2d(-67, 50)));
 
     public Action BlueFarTwoOne_parkingAction3 = BlueFarTwoOne_parkingTAction3.build();
-
+    */
 }
