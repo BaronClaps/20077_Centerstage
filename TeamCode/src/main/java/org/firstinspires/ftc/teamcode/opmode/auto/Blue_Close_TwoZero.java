@@ -44,9 +44,12 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
         Pose2d BlueCloseTwoZero_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
         Pose2d BlueCloseTwoZero_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringOverridePose1 = new Pose2d(-38, 45, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringOverridePose2 = new Pose2d(-31, 45, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringOverridePose3 = new Pose2d(-22, 45, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose1 = new Pose2d(-38, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose2 = new Pose2d(-31, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose3 = new Pose2d(-22, 55, Math.toRadians(270));
 
 
         //This action drives to the first tape line
@@ -72,19 +75,37 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
         //This action drives to the first backdrop section
         TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction1 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose1)
-                .strafeTo(new Vector2d(-38, 45));
+                .strafeTo(new Vector2d(-38, 45))
+                .turnTo(Math.toRadians(270));
         Action BlueCloseTwoZero_yellowScoringAction1 = BlueCloseTwoZero_yellowScoringTAction1.build();
 
         //This action drives to the second backdrop section
         TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction2 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose2)
-                .strafeTo(new Vector2d(-31, 45));
+                .strafeTo(new Vector2d(-31, 45))
+                .turnTo(Math.toRadians(270));
         Action BlueCloseTwoZero_yellowScoringAction2 = BlueCloseTwoZero_yellowScoringTAction2.build();
 
         //This action drives to the third backdrop section
         TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction3 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose3)
                 .strafeTo(new Vector2d(-33.5,15))
-                .strafeTo(new Vector2d(-22, 45));
+                .strafeTo(new Vector2d(-22, 45))
+                .turnTo(Math.toRadians(270));
         Action BlueCloseTwoZero_yellowScoringAction3 = BlueCloseTwoZero_yellowScoringTAction3.build();
+
+        //This action OVERRIDES camera and drives to the first backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction1 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose1)
+                .strafeTo(new Vector2d(-38, 55));
+        Action BlueCloseTwoZero_yellowScoringOverrideAction1 = BlueCloseTwoZero_yellowScoringOverrideTAction1.build();
+
+        //This action OVERRIDES camera and drives to the second backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction2 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose2)
+                .strafeTo(new Vector2d(-31, 55));
+        Action BlueCloseTwoZero_yellowScoringOverrideAction2 = BlueCloseTwoZero_yellowScoringOverrideTAction2.build();
+
+        //This action OVERRIDES camera and drives to the third backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction3 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose3)
+                .strafeTo(new Vector2d(-22, 55));
+        Action BlueCloseTwoZero_yellowScoringOverrideAction3 = BlueCloseTwoZero_yellowScoringOverrideTAction3.build();
 
         //This action drives to robot to the first parking zone
         TrajectoryActionBuilder BlueCloseTwoZero_parkingTAction1 = drive.actionBuilder(BlueCloseTwoZero_parkingPose1)
@@ -161,6 +182,12 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
                     camera.alignToTag(1);
 
+                    if(!camera.targetFound){
+                        Actions.runBlocking(
+                                BlueCloseTwoZero_yellowScoringOverrideAction1
+                        );
+                    }
+
                     Actions.runBlocking(
                             new SequentialAction(
                                     new SleepAction(.1),
@@ -199,6 +226,12 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
                     camera.alignToTag(2);
 
+                    if(!camera.targetFound){
+                        Actions.runBlocking(
+                                BlueCloseTwoZero_yellowScoringOverrideAction2
+                        );
+                    }
+
                     Actions.runBlocking(
                             new SequentialAction(
                                     new SleepAction(.1),
@@ -236,6 +269,12 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                     );
 
                     camera.alignToTag(3);
+
+                    if(!camera.targetFound){
+                        Actions.runBlocking(
+                                BlueCloseTwoZero_yellowScoringOverrideAction3
+                        );
+                    }
 
                     Actions.runBlocking(
                             new SequentialAction(

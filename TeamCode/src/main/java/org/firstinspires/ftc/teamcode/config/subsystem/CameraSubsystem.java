@@ -37,7 +37,7 @@ public class CameraSubsystem {
     double forward;
     double strafe;
     double turn;
-    boolean targetFound = false;
+    public boolean targetFound = false;
 
 
     /* Camera Initialization */
@@ -115,12 +115,12 @@ public class CameraSubsystem {
             forward = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
             turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
             strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
-        }
 
-        aprilTagTime.reset();
+            aprilTagTime.reset();
 
-        while (aprilTagTime.seconds() <= 1.2) {
-            moveRobot(forward, strafe, turn);
+            while (aprilTagTime.seconds() <= 1.2) {
+                moveRobot(forward, strafe, turn);
+            }
         }
 
 
