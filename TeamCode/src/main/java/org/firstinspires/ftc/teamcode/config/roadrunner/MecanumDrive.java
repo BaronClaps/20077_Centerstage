@@ -509,11 +509,11 @@ public final class MecanumDrive {
         );
     }
 
-    //---------------------------------------- Blue Close ----------------------------------------------\\
+    //---------------------------------------- Blue Close 2+0 ----------------------------------------------\\
     Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);
-    Pose2d BlueCloseTwoZero_yellowPose1 = new Pose2d(-40, 29, Math.toRadians(270));
-    Pose2d BlueCloseTwoZero_yellowPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
-    Pose2d BlueCloseTwoZero_yellowPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+    Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueCloseTwoZero_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+    Pose2d BlueCloseTwoZero_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
     Pose2d BlueCloseTwoZero_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
     Pose2d BlueCloseTwoZero_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
     Pose2d BlueCloseTwoZero_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
@@ -546,26 +546,26 @@ public final class MecanumDrive {
     //This action drives to the first backdrop section
 
 
-    TrajectoryActionBuilder BlueCloseTwoZero_yellowTAction1 = actionBuilder(BlueCloseTwoZero_yellowPose1)
+    TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction1 = actionBuilder(BlueCloseTwoZero_yellowScoringPose1)
             .strafeTo(new Vector2d(-38, 45));
 
-    public Action BlueCloseTwoZero_yellowAction1 = BlueCloseTwoZero_yellowTAction1.build();
+    public Action BlueCloseTwoZero_yellowScoringAction1 = BlueCloseTwoZero_yellowScoringTAction1.build();
 
 
     //This action drives to the second backdrop section
-    TrajectoryActionBuilder BlueCloseTwoZero_yellowTAction2 = actionBuilder(BlueCloseTwoZero_yellowPose2)
+    TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction2 = actionBuilder(BlueCloseTwoZero_yellowScoringPose2)
             .strafeTo(new Vector2d(-32, 45));
-          
 
-    public Action BlueCloseTwoZero_yellowAction2 = BlueCloseTwoZero_yellowTAction2.build();
+
+    public Action BlueCloseTwoZero_yellowScoringAction2 = BlueCloseTwoZero_yellowScoringTAction2.build();
 
     //This action drives to the third backdrop section
-    TrajectoryActionBuilder BlueCloseTwoZero_yellowTAction3 = actionBuilder(BlueCloseTwoZero_yellowPose3)
+    TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction3 = actionBuilder(BlueCloseTwoZero_yellowScoringPose3)
             .strafeTo(new Vector2d(-33.5,15))
             .strafeTo(new Vector2d(-22, 45));
-       
 
-    public Action BlueCloseTwoZero_yellowAction3 = BlueCloseTwoZero_yellowTAction3.build();
+
+    public Action BlueCloseTwoZero_yellowScoringAction3 = BlueCloseTwoZero_yellowScoringTAction3.build();
 
 
     //This action drives to robot to the first parking zone
@@ -589,12 +589,111 @@ public final class MecanumDrive {
 
     public Action BlueCloseTwoZero_parkingAction3 = BlueCloseTwoZero_parkingTAction3.build();
 
+    //---------------------------------------- Blue Close 2+2 ----------------------------------------------\\
+    Pose2d BlueCloseTwoTwo_startPose = new Pose2d(-62, 12, 0);
+    Pose2d BlueCloseTwoTwo_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_driveToWhitePose1 = new Pose2d(-42, 55, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_driveToWhitePose2 = new Pose2d(-36, 55, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-30, 55, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
+    Pose2d BlueCloseTwoTwo_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
+
+
+    //This action drives to the first tape line
+    TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction1 = actionBuilder(BlueCloseTwoTwo_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-40, 29), Math.toRadians(270));
+
+    public Action BlueCloseTwoTwo_purpleAction1 = BlueCloseTwoTwo_purpleTAction1.build();
+
+    //This action drives to the second tape line
+    TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction2 = actionBuilder(BlueCloseTwoTwo_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-31, 24), Math.toRadians(270));
+
+    public Action BlueCloseTwoTwo_purpleAction2 = BlueCloseTwoTwo_purpleTAction2.build();
+
+    //This action drives to the third tape line
+    TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction3 = actionBuilder(BlueCloseTwoTwo_startPose)
+            .setTangent(0)
+            .lineToX(-55)
+            .splineTo(new Vector2d(-33.5, 10.5), Math.toRadians(270));
+
+    public Action BlueCloseTwoTwo_purpleAction3 = BlueCloseTwoTwo_purpleTAction3.build();
+
+    //This action drives to the first backdrop section
+    TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction1 = actionBuilder(BlueCloseTwoTwo_yellowScoringPose1)
+            .strafeTo(new Vector2d(-38, 45));
+
+    public Action BlueCloseTwoTwo_yellowScoringAction1 = BlueCloseTwoTwo_yellowScoringTAction1.build();
+
+
+    //This action drives to the second backdrop section
+    TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction2 = actionBuilder(BlueCloseTwoTwo_yellowScoringPose2)
+            .strafeTo(new Vector2d(-32, 45));
+
+    public Action BlueCloseTwoTwo_yellowScoringAction2 = BlueCloseTwoTwo_yellowScoringTAction2.build();
+
+    //This action drives to the third backdrop section
+    TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction3 = actionBuilder(BlueCloseTwoTwo_yellowScoringPose3)
+            .strafeTo(new Vector2d(-33.5,15))
+            .strafeTo(new Vector2d(-22, 45));
+    public Action BlueCloseTwoTwo_yellowScoringAction3 = BlueCloseTwoTwo_yellowScoringTAction3.build();
+
+    //This action drives to robot to the white pixel stack
+    TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction1 = actionBuilder(BlueCloseTwoTwo_driveToWhitePose1)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueCloseTwoTwo_driveToWhiteAction1 = BlueCloseTwoTwo_driveToWhiteTAction1.build();
+
+    //This action drives to robot to the white pixel stack
+    TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction2 = actionBuilder(BlueCloseTwoTwo_driveToWhitePose2)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueCloseTwoTwo_driveToWhiteAction2 = BlueCloseTwoTwo_driveToWhiteTAction2.build();
+
+    //This action drives to robot to the white pixel stack
+    TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction3 = actionBuilder(BlueCloseTwoTwo_driveToWhitePose3)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueCloseTwoTwo_driveToWhiteAction3 = BlueCloseTwoTwo_driveToWhiteTAction3.build();
+    
+    //This action drives to robot to the parking zone
+    TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction1 = actionBuilder(BlueCloseTwoTwo_parkingPose1)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+            
+    public Action BlueCloseTwoTwo_parkingAction1 = BlueCloseTwoTwo_parkingTAction1.build();
+
+    //This action drives to robot to the parking zone
+    TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction2 = actionBuilder(BlueCloseTwoTwo_parkingPose2)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueCloseTwoTwo_parkingAction2 = BlueCloseTwoTwo_parkingTAction2.build();
+
+    //This action drives to robot to the parking zone
+    TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction3 = actionBuilder(BlueCloseTwoTwo_parkingPose3)
+            .strafeTo(new Vector2d(-36,43))
+            .strafeTo((new Vector2d(-67, 50)));
+
+    public Action BlueCloseTwoTwo_parkingAction3 = BlueCloseTwoTwo_parkingTAction3.build();
+
 
     //------------------------------------------- Red Close -------------------------------------------------\\
     Pose2d RedCloseTwoZero_startPose = new Pose2d(62, 12, Math.toRadians(180));
-    Pose2d RedCloseTwoZero_yellowPose1 = new Pose2d(40, 29, Math.toRadians(270));
-    Pose2d RedCloseTwoZero_yellowPose2 = new Pose2d(28.5, 24, Math.toRadians(270));
-    Pose2d RedCloseTwoZero_yellowPose3 = new Pose2d(33.5, 10.5, Math.toRadians(270));
+    Pose2d RedCloseTwoZero_yellowScoringPose1 = new Pose2d(40, 29, Math.toRadians(270));
+    Pose2d RedCloseTwoZero_yellowScoringPose2 = new Pose2d(28.5, 24, Math.toRadians(270));
+    Pose2d RedCloseTwoZero_yellowScoringPose3 = new Pose2d(33.5, 10.5, Math.toRadians(270));
     Pose2d RedCloseTwoZero_parkingPose3 = new Pose2d(44, 55, Math.toRadians(270));
     Pose2d RedCloseTwoZero_parkingPose2 = new Pose2d(38, 55, Math.toRadians(270));
     Pose2d RedCloseTwoZero_parkingPose1 = new Pose2d(32, 55, Math.toRadians(270));
@@ -623,27 +722,27 @@ public final class MecanumDrive {
 
     //This action drives to the first backdrop section
 
-    TrajectoryActionBuilder RedCloseTwoZero_yellowTAction1 = actionBuilder(RedCloseTwoZero_yellowPose1)
+    TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction1 = actionBuilder(RedCloseTwoZero_yellowScoringPose1)
             .strafeTo(new Vector2d(20.5, 46));
 
-    public Action RedCloseTwoZero_yellowAction1 = RedCloseTwoZero_yellowTAction1.build();
+    public Action RedCloseTwoZero_yellowScoringAction1 = RedCloseTwoZero_yellowScoringTAction1.build();
 
 
     //This action drives to the second backdrop section
-    TrajectoryActionBuilder RedCloseTwoZero_yellowTAction2 = actionBuilder(RedCloseTwoZero_yellowPose2)
+    TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction2 = actionBuilder(RedCloseTwoZero_yellowScoringPose2)
             .lineToY(30)
             .strafeTo(new Vector2d(38, 45));
 
 
-    public Action RedCloseTwoZero_yellowAction2 = RedCloseTwoZero_yellowTAction2.build();
+    public Action RedCloseTwoZero_yellowScoringAction2 = RedCloseTwoZero_yellowScoringTAction2.build();
 
     //This action drives to the third backdrop section
-    TrajectoryActionBuilder RedCloseTwoZero_yellowTAction3 = actionBuilder(RedCloseTwoZero_yellowPose3)
+    TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction3 = actionBuilder(RedCloseTwoZero_yellowScoringPose3)
             .lineToY(38)
             .strafeTo(new Vector2d(43.5, 45));
 
 
-    public Action RedCloseTwoZero_yellowAction3 = RedCloseTwoZero_yellowTAction3.build();
+    public Action RedCloseTwoZero_yellowScoringAction3 = RedCloseTwoZero_yellowScoringTAction3.build();
 
 
     //This action drives to robot to the first parking zone
@@ -667,14 +766,14 @@ public final class MecanumDrive {
 
     public Action RedCloseTwoZero_parkingAction3 = RedCloseTwoZero_parkingTAction3.build();
 
-    //---------------------------------------- Blue Close ----------------------------------------------\\
+    //---------------------------------------- Blue Far ----------------------------------------------\\
     Pose2d BlueFarTwoOne_startPose = new Pose2d(-62, -36, 0);
     Pose2d BlueFarTwoOne_whitePose1 = new Pose2d(-40, 29, Math.toRadians(270));
     Pose2d BlueFarTwoOne_whitePose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
     Pose2d BlueFarTwoOne_whitePose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
-    Pose2d BlueFarTwoOne_yellowPose1 = new Pose2d(-40, 29, Math.toRadians(270));
-    Pose2d BlueFarTwoOne_yellowPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
-    Pose2d BlueFarTwoOne_yellowPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+    Pose2d BlueFarTwoOne_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
     Pose2d BlueFarTwoOne_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
     Pose2d BlueFarTwoOne_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
     Pose2d BlueFarTwoOne_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
@@ -728,26 +827,26 @@ public final class MecanumDrive {
     //This action drives to the first backdrop section
 
 
-    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction1 = actionBuilder(BlueFarTwoOne_yellowPose1)
+    TrajectoryActionBuilder BlueFarTwoOne_yellowScoringTAction1 = actionBuilder(BlueFarTwoOne_yellowScoringPose1)
             .strafeTo(new Vector2d(-38, 45));
 
-    public Action BlueFarTwoOne_yellowAction1 = BlueFarTwoOne_yellowTAction1.build();
+    public Action BlueFarTwoOne_yellowScoringAction1 = BlueFarTwoOne_yellowScoringTAction1.build();
 
 
     //This action drives to the second backdrop section
-    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction2 = actionBuilder(BlueFarTwoOne_yellowPose2)
+    TrajectoryActionBuilder BlueFarTwoOne_yellowScoringTAction2 = actionBuilder(BlueFarTwoOne_yellowScoringPose2)
             .strafeTo(new Vector2d(-32, 45));
 
 
-    public Action BlueFarTwoOne_yellowAction2 = BlueFarTwoOne_yellowTAction2.build();
+    public Action BlueFarTwoOne_yellowScoringAction2 = BlueFarTwoOne_yellowScoringTAction2.build();
 
     //This action drives to the third backdrop section
-    TrajectoryActionBuilder BlueFarTwoOne_yellowTAction3 = actionBuilder(BlueFarTwoOne_yellowPose3)
+    TrajectoryActionBuilder BlueFarTwoOne_yellowScoringTAction3 = actionBuilder(BlueFarTwoOne_yellowScoringPose3)
             .strafeTo(new Vector2d(-33.5,15))
             .strafeTo(new Vector2d(-22, 45));
 
 
-    public Action BlueFarTwoOne_yellowAction3 = BlueFarTwoOne_yellowTAction3.build();
+    public Action BlueFarTwoOne_yellowScoringAction3 = BlueFarTwoOne_yellowScoringTAction3.build();
 
 
     //This action drives to robot to the first parking zone
@@ -772,4 +871,3 @@ public final class MecanumDrive {
     public Action BlueFarTwoOne_parkingAction3 = BlueFarTwoOne_parkingTAction3.build();
 
 }
-

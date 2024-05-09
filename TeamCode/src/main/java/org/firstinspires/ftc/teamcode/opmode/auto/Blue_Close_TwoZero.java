@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -35,6 +38,72 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         gear.wheelServo_Deactivated();
         camera.initAprilTag();
         camera.setManualExposure(2, 250);
+
+        //---------------------------------------- Blue Close 2+0 ----------------------------------------------\\
+        Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);
+        Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));
+
+
+        //This action drives to the first tape line
+        TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction1 = drive.actionBuilder(BlueCloseTwoZero_startPose)
+                .setTangent(0)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-40, 29), Math.toRadians(270));
+        Action BlueCloseTwoZero_purpleAction1 = BlueCloseTwoZero_purpleTAction1.build();
+
+        //This action drives to the second tape line
+        TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction2 = drive.actionBuilder(BlueCloseTwoZero_startPose)
+                .setTangent(0)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-31, 24), Math.toRadians(270));
+        Action BlueCloseTwoZero_purpleAction2 = BlueCloseTwoZero_purpleTAction2.build();
+
+        //This action drives to the third tape line
+        TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction3 = drive.actionBuilder(BlueCloseTwoZero_startPose)
+                .setTangent(0)
+                .lineToX(-55)
+                .splineTo(new Vector2d(-33.5, 10.5), Math.toRadians(270));
+        Action BlueCloseTwoZero_purpleAction3 = BlueCloseTwoZero_purpleTAction3.build();
+
+        //This action drives to the first backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction1 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose1)
+                .strafeTo(new Vector2d(-38, 45));
+        Action BlueCloseTwoZero_yellowScoringAction1 = BlueCloseTwoZero_yellowScoringTAction1.build();
+
+        //This action drives to the second backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction2 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose2)
+                .strafeTo(new Vector2d(-32, 45));
+        Action BlueCloseTwoZero_yellowScoringAction2 = BlueCloseTwoZero_yellowScoringTAction2.build();
+
+        //This action drives to the third backdrop section
+        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction3 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose3)
+                .strafeTo(new Vector2d(-33.5,15))
+                .strafeTo(new Vector2d(-22, 45));
+        Action BlueCloseTwoZero_yellowScoringAction3 = BlueCloseTwoZero_yellowScoringTAction3.build();
+
+        //This action drives to robot to the first parking zone
+        TrajectoryActionBuilder BlueCloseTwoZero_parkingTAction1 = drive.actionBuilder(BlueCloseTwoZero_parkingPose1)
+                .strafeTo(new Vector2d(-36,43))
+                .strafeTo((new Vector2d(-67, 50)));
+        Action BlueCloseTwoZero_parkingAction1 = BlueCloseTwoZero_parkingTAction1.build();
+
+        //This action drives to robot to the second parking zone
+        TrajectoryActionBuilder BlueCloseTwoZero_parkingTAction2 = drive.actionBuilder(BlueCloseTwoZero_parkingPose2)
+                .strafeTo(new Vector2d(-36,43))
+                .strafeTo((new Vector2d(-67, 50)));
+        Action BlueCloseTwoZero_parkingAction2 = BlueCloseTwoZero_parkingTAction2.build();
+
+        //This action drives to robot to the third parking zone
+        TrajectoryActionBuilder BlueCloseTwoZero_parkingTAction3 = drive.actionBuilder(BlueCloseTwoZero_parkingPose3)
+                .strafeTo(new Vector2d(-36,43))
+                .strafeTo((new Vector2d(-67, 50)));
+        Action BlueCloseTwoZero_parkingAction3 = BlueCloseTwoZero_parkingTAction3.build();
+
 
 
         //Huskylens Setup
@@ -75,7 +144,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.BlueCloseTwoZero_purpleAction1
+                                            BlueCloseTwoZero_purpleAction1
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -83,7 +152,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.BlueCloseTwoZero_yellowAction1),
+                                                    BlueCloseTwoZero_yellowScoringAction1
+                                            ),
                                             claw.closeLClaw()
                                     )
                             )
@@ -98,7 +168,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.BlueCloseTwoZero_parkingAction1
+                                            BlueCloseTwoZero_parkingAction1
                                     )
                             )
                     );
@@ -112,7 +182,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.BlueCloseTwoZero_purpleAction2
+                                            BlueCloseTwoZero_purpleAction2
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -120,7 +190,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.BlueCloseTwoZero_yellowAction2),
+                                                    BlueCloseTwoZero_yellowScoringAction2
+                                            ),
                                             claw.closeLClaw()
                                     )
                             )
@@ -135,7 +206,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.BlueCloseTwoZero_parkingAction2
+                                            BlueCloseTwoZero_parkingAction2
                                     )
                             )
                     );
@@ -149,7 +220,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            drive.BlueCloseTwoZero_purpleAction3
+                                            BlueCloseTwoZero_purpleAction3
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -157,7 +228,8 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    drive.BlueCloseTwoZero_yellowAction3),
+                                                    BlueCloseTwoZero_yellowScoringAction3
+                                            ),
                                             claw.closeLClaw()
                                     )
                             )
@@ -172,7 +244,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            drive.BlueCloseTwoZero_parkingAction3
+                                            BlueCloseTwoZero_parkingAction3
                                     )
                             )
                     );
@@ -180,7 +252,9 @@ public class Blue_Close_TwoZero extends LinearOpMode {
                 }
             }
         }
+
     }
+
 
 }
 

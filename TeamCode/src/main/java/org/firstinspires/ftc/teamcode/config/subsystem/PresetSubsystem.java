@@ -117,7 +117,7 @@ public class PresetSubsystem {
     public Action WhiteStack() {
         return new SequentialAction(
                 WhiteStackStart(),
-                new SleepAction(1),
+                new SleepAction(.25),
                 WhiteStackEnd()
         );
     }
@@ -148,7 +148,8 @@ public class PresetSubsystem {
 
     public Action ClawWhiteStackStart() {
         return new SequentialAction(
-                claw.groundClaw()
+                claw.groundClaw(),
+                claw.openLClaw()
         );
     }
 
@@ -156,8 +157,9 @@ public class PresetSubsystem {
     public Action WhiteStackEnd() {
         return new SequentialAction(
                 ClawWhiteStackEnd(),
-                LiftWhiteStackEnd(),
                 new SleepAction(.25),
+                LiftWhiteStackEnd(),
+                new SleepAction(.1),
                 GearWhiteStackEnd()
         );
     }
