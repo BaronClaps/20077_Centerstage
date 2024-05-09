@@ -47,8 +47,8 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         Pose2d BlueCloseTwoTwo_driveToWhitePose1 = new Pose2d(-42, 55, Math.toRadians(270));//-38
         Pose2d BlueCloseTwoTwo_driveToWhitePose2 = new Pose2d(-32, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-22, 55, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-44, 29, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-60,20, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-33,-36, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-63, 36, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-42, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));

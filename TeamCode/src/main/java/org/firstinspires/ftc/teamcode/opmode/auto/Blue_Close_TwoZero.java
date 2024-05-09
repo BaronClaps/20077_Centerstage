@@ -60,7 +60,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction2 = drive.actionBuilder(BlueCloseTwoZero_startPose)
                 .setTangent(0)
                 .lineToX(-55)
-                .splineTo(new Vector2d(-31, 24), Math.toRadians(270));
+                .splineTo(new Vector2d(-32, 21), Math.toRadians(270));//-31, 24
         Action BlueCloseTwoZero_purpleAction2 = BlueCloseTwoZero_purpleTAction2.build();
 
         //This action drives to the third tape line
@@ -77,7 +77,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
         //This action drives to the second backdrop section
         TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringTAction2 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringPose2)
-                .strafeTo(new Vector2d(-32, 45));
+                .strafeTo(new Vector2d(-31, 45));
         Action BlueCloseTwoZero_yellowScoringAction2 = BlueCloseTwoZero_yellowScoringTAction2.build();
 
         //This action drives to the third backdrop section
