@@ -28,9 +28,9 @@ public class CameraTune extends LinearOpMode {
     private DcMotor rightBackDrive = null;
 
     /* April Tag Movement Values */
-    double DESIRED_DISTANCE = 1.5; // In Inches
-    final double SPEED_GAIN = -0.025;   // Drive = Error * Gain
-    final double STRAFE_GAIN = -0.01;
+    double DESIRED_DISTANCE = 3; // In Inches
+    double SPEED_GAIN = -0.025;   // Drive = Error * Gain
+    double STRAFE_GAIN = -0.01;
     double TURN_GAIN = 0;
     double MAX_AUTO_SPEED = 0.9;
     double MAX_AUTO_STRAFE = 0.9;
@@ -153,6 +153,24 @@ public class CameraTune extends LinearOpMode {
             double rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
             double headingError = desiredTag.ftcPose.bearing;
             double yawError = desiredTag.ftcPose.yaw;
+
+            if(rangeError < 0){
+                SPEED_GAIN = 0.025;
+            } else {
+                SPEED_GAIN = -0.025;
+            }
+
+            if(yawError < 0){
+                STRAFE_GAIN = 0.01;;
+            } else {
+                STRAFE_GAIN = -0.01;;
+            }
+
+            if(headingError < 0){
+                TURN_GAIN = -0.001;
+            } else {
+                TURN_GAIN = 0.001;
+            }
 
             // Use the speed and turn "gains" to calculate how we want the robot to move.
             forward = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
