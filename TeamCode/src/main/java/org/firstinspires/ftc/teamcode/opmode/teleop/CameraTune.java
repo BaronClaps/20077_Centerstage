@@ -86,12 +86,13 @@ public class CameraTune extends LinearOpMode {
                     rFPower /= max;
                     lBPower /= max;
                     rBPower /= max;
+                }
 
                     leftFrontDrive.setPower(0.8 * lFPower);
                     rightFrontDrive.setPower(0.8 * rFPower);
                     leftBackDrive.setPower(0.8 * lBPower);
                     rightBackDrive.setPower(0.8 * rBPower);
-                }
+
             }
 
             if (!gamepad1.right_bumper) {
