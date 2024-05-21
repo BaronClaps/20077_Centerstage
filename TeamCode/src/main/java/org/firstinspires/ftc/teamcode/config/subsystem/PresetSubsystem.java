@@ -34,7 +34,9 @@ public class PresetSubsystem {
                 gear.startGear(),
                 gear.waitForGear(),
                 gear.stopGear(),
-                gear.resetGear()
+                gear.resetGear(),
+                new SleepAction(.1),
+                gear.wheelServo_Activated()
         );
     }
 
@@ -64,7 +66,8 @@ public class PresetSubsystem {
 
     public Action GearScoringPos() {
         return new ParallelAction(
-                gear.scoringGear()
+                gear.scoringGear(),
+                gear.wheelServo_Deactivated()
                 //gear.waitForGear(),
                 //gear.stopGear()
         );
@@ -95,8 +98,9 @@ public class PresetSubsystem {
     }
 
     public Action GearGroundPos() {
-        return new SequentialAction(
-                gear.groundGear()
+        return new ParallelAction(
+                gear.groundGear(),
+                gear.wheelServo_Activated()
         );
     }
 
@@ -117,7 +121,7 @@ public class PresetSubsystem {
     public Action WhiteStack() {
         return new SequentialAction(
                 WhiteStackStart(),
-                new SleepAction(.25),
+                new SleepAction(.1),
                 WhiteStackEnd()
         );
     }
@@ -125,7 +129,7 @@ public class PresetSubsystem {
     /* White Stack Start */
     public Action WhiteStackStart() {
         return new SequentialAction(
-                GearWhiteStackStart(),
+                //GearWhiteStackStart(),
                 ClawWhiteStackStart(),
                 LiftWhiteStackStart()
         );
@@ -133,8 +137,8 @@ public class PresetSubsystem {
 
     public Action GearWhiteStackStart() {
         return new SequentialAction(
-                gear.stopGear(),
-                gear.wheelServo_Activated()
+                //gear.stopGear(),
+                //gear.wheelServo_Activated()
         );
     }
 
@@ -148,8 +152,8 @@ public class PresetSubsystem {
 
     public Action ClawWhiteStackStart() {
         return new SequentialAction(
-                claw.groundClaw(),
-                claw.openLClaw()
+                claw.whiteGroundClaw(),
+                claw.openClaws()
         );
     }
 
@@ -159,15 +163,14 @@ public class PresetSubsystem {
                 ClawWhiteStackEnd(),
                 new SleepAction(.25),
                 LiftWhiteStackEnd(),
-                new SleepAction(.1),
-                GearWhiteStackEnd()
+                new SleepAction(.1)
+                //GearWhiteStackEnd()
         );
     }
 
     public Action GearWhiteStackEnd() {
         return new SequentialAction(
-                gear.stopGear(),
-                gear.wheelServo_Deactivated()
+                gear.wheelServo_Activated()
         );
     }
 
@@ -181,10 +184,70 @@ public class PresetSubsystem {
 
     public Action ClawWhiteStackEnd() {
         return new SequentialAction(
-                claw.groundClaw(),
-                claw.closeLClaw()
+                claw.closeClaws()
         );
     }
 
+
+    //------------------------------ Scoring Sequence ------------------------------//
+    public Action WhiteScoringPos() {
+        return new ParallelAction(
+                ClawWhiteScoringPos(),
+                GearWhiteScoringPos(),
+                LiftWhiteScoringPos()
+        );
+    }
+
+    public Action GearWhiteScoringPos() {
+        return new ParallelAction(
+                gear.whiteScoringGear()
+                //gear.waitForGear(),
+                //gear.stopGear()
+        );
+    }
+
+    public Action LiftWhiteScoringPos() {
+        return new ParallelAction(
+                lift.liftExtend_WhiteScoring()
+                //lift.waitForLift(),
+                //lift.stopLift()
+        );
+    }
+
+    public Action ClawWhiteScoringPos() {
+        return new SequentialAction(
+                claw.whiteScoringClaw()
+        );
+    }
+
+    //------------------------------ Ground after White Scoring Sequence ------------------------------//
+
+    public Action WhiteGroundPos() {
+        return new ParallelAction(
+                LiftWhiteGroundPos(),
+                GearWhiteGroundPos(),
+                ClawWhiteGroundPos()
+        );
+    }
+
+    public Action GearWhiteGroundPos() {
+        return new ParallelAction(
+                gear.whiteGroundGear(),
+                gear.wheelServo_Deactivated()
+        );
+    }
+
+    public Action LiftWhiteGroundPos() {
+        return new SequentialAction(
+                lift.liftRetract_WhiteScoring()
+        );
+    }
+
+    public Action ClawWhiteGroundPos() {
+        return new SequentialAction(
+                claw.groundClaw(),
+                claw.openClaws()
+        );
+    }
 }
 

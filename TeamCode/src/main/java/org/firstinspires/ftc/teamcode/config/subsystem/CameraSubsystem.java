@@ -28,9 +28,9 @@ public class CameraSubsystem {
 
     /* April Tag Movement Values */
     double DESIRED_DISTANCE = 1.5; // In Inches
-    final double SPEED_GAIN = -0.025;   // Drive = Error * Gain
-    final double STRAFE_GAIN = -0.01;
-    double TURN_GAIN = 0;
+    public double SPEED_GAIN = -0.02;   // Drive = Error * Gain
+    public double STRAFE_GAIN = 0.01;
+    public double TURN_GAIN;
     double MAX_AUTO_SPEED = 0.9;
     double MAX_AUTO_STRAFE = 0.9;
     double MAX_AUTO_TURN = 0.65;
@@ -118,7 +118,7 @@ public class CameraSubsystem {
 
             aprilTagTime.reset();
 
-            while (aprilTagTime.seconds() <= 1.2) {
+            while (aprilTagTime.seconds() <= 1.3) {
                 moveRobot(forward, strafe, turn);
             }
         }

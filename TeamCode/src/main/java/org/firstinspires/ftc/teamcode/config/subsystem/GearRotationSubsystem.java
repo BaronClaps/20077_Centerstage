@@ -29,7 +29,21 @@ public class GearRotationSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                gear.setTargetPosition(-735);
+                gear.setTargetPosition(-760);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.5);
+                return false;
+            }
+        };
+    }
+
+    public Action whiteGroundGear() {
+        return new Action() {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(-348); //-300
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.5);
                 return false;
@@ -44,7 +58,21 @@ public class GearRotationSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                gear.setTargetPosition(735);
+                gear.setTargetPosition(760);
+                gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                gear.setPower(0.5);
+                return false;
+            }
+        };
+    }
+
+    public Action whiteScoringGear() {
+        return new Action() {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                gear.setTargetPosition(348); //300
                 gear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 gear.setPower(0.5);
                 return false;
@@ -121,7 +149,7 @@ public class GearRotationSubsystem {
         return new Action() {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                wheelServo.setPosition(0.641); /* Top 2 Pixels | bigger # = lower */
+                wheelServo.setPosition(0.642); /* Top 2 Pixels | bigger # = lower */ //0.6455
                 return false;
             }
         };

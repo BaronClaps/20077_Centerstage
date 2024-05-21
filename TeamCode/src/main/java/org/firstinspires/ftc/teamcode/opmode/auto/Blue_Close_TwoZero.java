@@ -33,6 +33,10 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         CameraSubsystem camera = new CameraSubsystem(hardwareMap);
         huskyLens = hardwareMap.get(HuskyLens.class, "huskyLens");
 
+        camera.SPEED_GAIN = -0.02;   // Drive = Error * Gain
+        camera.STRAFE_GAIN = 0.01;
+        camera.TURN_GAIN = 0;
+
         // Actions that run when Init
         claw.closeClaws();
         gear.wheelServo_Deactivated();
@@ -41,7 +45,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
 
         //---------------------------------------- Blue Close 2+0 ----------------------------------------------\\
         Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);
-        Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 29, Math.toRadians(270));
+        Pose2d BlueCloseTwoZero_yellowScoringPose1 = new Pose2d(-40, 27.5, Math.toRadians(270));
         Pose2d BlueCloseTwoZero_yellowScoringPose2 = new Pose2d(-28.5, 24, Math.toRadians(270));
         Pose2d BlueCloseTwoZero_yellowScoringPose3 = new Pose2d(-33.5, 10.5, Math.toRadians(270));
         Pose2d BlueCloseTwoZero_yellowScoringOverridePose1 = new Pose2d(-38, 45, Math.toRadians(270));
@@ -56,7 +60,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         TrajectoryActionBuilder BlueCloseTwoZero_purpleTAction1 = drive.actionBuilder(BlueCloseTwoZero_startPose)
                 .setTangent(0)
                 .lineToX(-55)
-                .splineTo(new Vector2d(-40, 29), Math.toRadians(270));
+                .splineTo(new Vector2d(-40, 27.5), Math.toRadians(270));
         Action BlueCloseTwoZero_purpleAction1 = BlueCloseTwoZero_purpleTAction1.build();
 
         //This action drives to the second tape line

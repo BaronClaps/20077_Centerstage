@@ -24,9 +24,22 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-600);
+                lift.setTargetPosition(-800);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.7);
+                lift.setPower(1);
+                return false;
+            }
+        };
+    }
+
+    public Action liftExtend_WhiteScoring() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(-1200); //-800
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(1);
                 return false;
             }
         };
@@ -37,9 +50,9 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-2000); //425 --> 375 //900
+                lift.setTargetPosition(-3350); //425 --> 375 //900
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.6);
+                lift.setPower(1);
                 return false;
             }
         };
@@ -51,9 +64,22 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(600);
+                lift.setTargetPosition(800);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.7);
+                lift.setPower(1);
+                return false;
+            }
+        };
+    }
+
+    public Action liftRetract_WhiteScoring() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setTargetPosition(1200); //800
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(1);
                 return false;
             }
         };
@@ -64,9 +90,9 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(2000); //425 --> 375
+                lift.setTargetPosition(3325); //425 --> 375
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(0.6);
+                lift.setPower(1);
                 return false;
             }
         };

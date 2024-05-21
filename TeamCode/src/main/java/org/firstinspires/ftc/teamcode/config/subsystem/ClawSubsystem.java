@@ -15,10 +15,12 @@ public class ClawSubsystem {
     private Servo clawR = null;
     double closedL = 0.33;
     double closedR = 0.37;
-    double openL = 0.42;
-    double openR = 0.28;
+    double openL = 0.45;//.42
+    double openR = 0.25;//.28
     double groundClaw = 0.815;
-    double scoringClaw = 0.23;
+    double scoringClaw = 0.25;
+    double whiteGroundClaw = 0.85;
+    double whiteScoringClaw = 0.75; //.725
 
     public ClawSubsystem(HardwareMap hardwareMap) {
         pivot = hardwareMap.get(Servo.class, "pivot");
@@ -123,9 +125,35 @@ public class ClawSubsystem {
             return false;
         }
     }
-
     public Action scoringClaw() {
         return new scoringClaw();
+    }
+
+
+    public class whiteGroundClaw implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            pivot.setPosition(whiteGroundClaw);
+            return false;
+        }
+    }
+
+    public Action whiteGroundClaw() {
+        return new whiteGroundClaw();
+    }
+
+
+
+    public class whiteScoringClaw implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            pivot.setPosition(whiteScoringClaw);
+            return false;
+        }
+    }
+
+    public Action whiteScoringClaw() {
+        return new whiteScoringClaw();
     }
 
 }

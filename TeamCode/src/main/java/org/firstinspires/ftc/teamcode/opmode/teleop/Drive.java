@@ -139,15 +139,27 @@ public class Drive extends LinearOpMode {
 
             //----------------------------claw----------------------------\\
 //left
-            if (gamepad2.left_bumper)
-            {clawL.setPosition(0.33); } //close
-
-            else {clawL.setPosition(.42);} //open
+            if (gamepad2.left_bumper) {
+                clawL.setPosition(0.33);
+            } //close
+            else if(gamepad2.options) {
+                clawL.setPosition(0.6);
+            } else {
+                clawL.setPosition(.42);
+            } //open
 //right
-            if (gamepad2.right_bumper)
-            {clawR.setPosition(0.37); } //close
+            if (gamepad2.right_bumper) {
+                clawR.setPosition(0.37);
+            } //close
+            else if (gamepad2.options) {
+                clawR.setPosition(0); //super open
+            } else {
+                clawR.setPosition(.28);
+            } //open
 
-            else {clawR.setPosition(.28); } //open
+            if(gamepad2.share) {
+                raegPosition(200, 1); //845
+            }
 
 //            if (gamepad2.right_bumper || gamepad2.left_bumper) {
 //                clawL.setPosition(0.33); //close
