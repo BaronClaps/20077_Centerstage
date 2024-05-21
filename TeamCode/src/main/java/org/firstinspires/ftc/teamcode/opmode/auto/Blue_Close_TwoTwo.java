@@ -53,14 +53,14 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         Pose2d BlueCloseTwoZero_yellowScoringOverridePose3 = new Pose2d(-28, 45, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_driveToWhitePose1 = new Pose2d(-41, 55, Math.toRadians(270));//-38
         Pose2d BlueCloseTwoTwo_driveToWhitePose2 = new Pose2d(-34, 55, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-28, 55, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-24, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-34.5,-36.5, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-61.5, 36, Math.toRadians(264));
         Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-39.5, 52.75, Math.toRadians(90));
         /*Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-41, 54, Math.toRadians(90));
         Pose2d BlueCloseTwoTwo_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_parkingPose3 = new Pose2d(-30, 55, Math.toRadians(270));*/
-
+        // Hi hope you have a nice day!
 
         //This action drives to the first tape line
         TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction1 = drive.actionBuilder(BlueCloseTwoTwo_startPose)
@@ -96,7 +96,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         //This action drives to the third backdrop section
         TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction3 = drive.actionBuilder(BlueCloseTwoTwo_yellowScoringPose3)
                 .strafeTo(new Vector2d(-33.5,15))
-                .strafeTo(new Vector2d(-26, 45));
+                .strafeTo(new Vector2d(-24, 45));
         Action BlueCloseTwoTwo_yellowScoringAction3 = BlueCloseTwoTwo_yellowScoringTAction3.build();
 
         //This action OVERRIDES camera and drives to the first backdrop section
@@ -117,30 +117,32 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         //This action drives to robot to the white pixel stack
         TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction1 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose1)
                 .strafeTo(new Vector2d(-41,47))
-                .strafeTo(new Vector2d(-63, 36))
+                .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))
                 .strafeTo(new Vector2d(-63,-36))
-                .strafeTo(new Vector2d(-35.5,-36.5));
+                .strafeToLinearHeading(new Vector2d(-35.5,-36.5), Math.toRadians(273));
         Action BlueCloseTwoTwo_driveToWhiteAction1 = BlueCloseTwoTwo_driveToWhiteTAction1.build();
 
         //This action drives to robot to the white pixel stack
         TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction2 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose2)
                 //.strafeTo(new Vector2d(-31,43))
-                .strafeTo(new Vector2d(-63, 36))
+                .strafeTo(new Vector2d(-41,47))
+                .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))
                 .strafeTo(new Vector2d(-63,-36))
-                .strafeTo(new Vector2d(-35.5,-36.5));
+                .strafeToLinearHeading(new Vector2d(-35.5,-36.5), Math.toRadians(270));
         Action BlueCloseTwoTwo_driveToWhiteAction2 = BlueCloseTwoTwo_driveToWhiteTAction2.build();
 
         //This action drives to robot to the white pixel stack
         TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction3 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose3)
                 //.strafeTo(new Vector2d(-31,43))
-                .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(263))
+                .strafeTo(new Vector2d(-41,47))
+                .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))
                 .strafeTo(new Vector2d(-63,-36))
-                .strafeTo(new Vector2d(-35.5,-36.5));
+                .strafeToLinearHeading(new Vector2d(-35.5,-36.5), Math.toRadians(273));
         Action BlueCloseTwoTwo_driveToWhiteAction3 = BlueCloseTwoTwo_driveToWhiteTAction3.build();
 
         //This action drives to robot to the white pixel stack
         TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
-                .strafeToLinearHeading(new Vector2d(-61.75,-48), Math.toRadians(263))
+                .strafeToLinearHeading(new Vector2d(-62.5,-48), Math.toRadians(267))
                 .strafeTo(new Vector2d(-61.5,-12))
                 .strafeTo(new Vector2d(-61.5, 36));
         Action BlueCloseTwoTwo_whiteTrussAction = BlueCloseTwoTwo_whiteTrussTAction.build();
