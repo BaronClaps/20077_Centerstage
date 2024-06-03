@@ -24,7 +24,7 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-800);
+                lift.setTargetPosition(-750);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(1);
                 return false;
@@ -50,7 +50,7 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(-3350); //425 --> 375 //900
+                lift.setTargetPosition(-3250); //425 --> 375 //900
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(1);
                 return false;
@@ -64,7 +64,7 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(800);
+                lift.setTargetPosition(750);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(1);
                 return false;
@@ -90,7 +90,7 @@ public class LiftSubsystem {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                lift.setTargetPosition(3325); //425 --> 375
+                lift.setTargetPosition(3225); //425 --> 375
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift.setPower(1);
                 return false;

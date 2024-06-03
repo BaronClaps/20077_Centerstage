@@ -41,7 +41,7 @@ public class Blue_Close_TwoZero extends LinearOpMode {
         claw.closeClaws();
         gear.wheelServo_Deactivated();
         camera.initAprilTag();
-        camera.setManualExposure(2, 250);
+        camera.setManualExposure(2, 50);
 
         //---------------------------------------- Blue Close 2+0 ----------------------------------------------\\
         Pose2d BlueCloseTwoZero_startPose = new Pose2d(-62, 12, 0);

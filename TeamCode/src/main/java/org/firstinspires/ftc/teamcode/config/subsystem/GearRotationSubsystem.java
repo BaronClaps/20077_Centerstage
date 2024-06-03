@@ -149,7 +149,7 @@ public class GearRotationSubsystem {
         return new Action() {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                wheelServo.setPosition(0.641); /* Top 2 Pixels | bigger # = lower */ //0.6455
+                wheelServo.setPosition(0.636); /* Top 2 Pixels | bigger # = lower */ //0.641
                 return false;
             }
         };
