@@ -6,8 +6,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Drive")
-public class Drive extends LinearOpMode {
+
+import com.qualcomm.hardware.bosch.BHI260IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+
+@TeleOp(name="TestDrive")
+public class TestDrive extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor lF        = null; //c0
@@ -21,6 +32,8 @@ public class Drive extends LinearOpMode {
     private Servo clawR       = null; //es2
     private Servo droneServo  = null; //es5
     private Servo WheelServo  = null; //es4
+
+    IMU imu;
 
     @Override
     public void runOpMode() {
@@ -53,6 +66,20 @@ public class Drive extends LinearOpMode {
         clawL.setPosition(.45);
         clawR.setPosition(.25);
 
+        //imu = hardwareMap.get(IMU.class, "imu");
+        //RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+        //RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.UP;
+        //RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+        //imu.initialize(new IMU.Parameters(orientationOnRobot));
+
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+        imu.initialize(parameters);
+        double orientation = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
@@ -63,6 +90,46 @@ public class Drive extends LinearOpMode {
         //----------------------------Main-Code----------------------------\\
 
         while (opModeIsActive()) {
+
+            //----------------------------IMU----------------------------\\
+
+            if (gamepad1.x) {imu.resetYaw(); }
+
+            if (gamepad1.a) {
+                if (88 > orientation && 70 > orientation) { // if not within 10 degrees, quickly alter heading
+                    rF.setPower(-0.7);
+                    rB.setPower(-0.7);
+                    lB.setPower(0.7);
+                    lF.setPower(0.7);
+                } else if (92 < orientation && 110 < orientation) { // same as above in opposite direction
+                    rF.setPower(0.7);
+                    rB.setPower(0.7);
+                    lB.setPower(-0.7);
+                    lF.setPower(-0.7);
+                }
+                if (92 < orientation && 110 > orientation) { //if within 10 degrees slowly adjust heading
+                    rF.setPower(0.4);
+                    rB.setPower(0.4);
+                    lB.setPower(-0.4);
+                    lF.setPower(-0.4);
+                } else if (88 > orientation && 70 < orientation) { // same as above in other direction
+                    rF.setPower(-0.7);
+                    rB.setPower(-0.7);
+                    lB.setPower(0.7);
+                    lF.setPower(0.7);
+                }
+                if (orientation <= 92 && orientation >= 88) { // if within 2 deg do not alter heading
+                    rF.setPower(0);
+                    rB.setPower(0);
+                    lB.setPower(0);
+                    lF.setPower(0);
+                }
+            }
+
+            /*// Retrieve Rotational Angles and Velocities
+            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+            AngularVelocity angularVelocity = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+            //If (gamepad1.x) {*/
 
             //----------------------------Mecanum-Drive-Code----------------------------\\
 
@@ -100,11 +167,11 @@ public class Drive extends LinearOpMode {
                 rF.setPower(0.2 * rFPower);
                 lB.setPower(0.2 * lBPower);
                 rB.setPower(0.2 * rBPower); }
-
             //----------------------------WheelServo----------------------------\\
-
             if(gamepad1.y){
                 WheelServo.setPosition(0.5); }
+
+
 
             //----------------------------pivot----------------------------\\
 
@@ -198,7 +265,7 @@ public class Drive extends LinearOpMode {
                 telemetry.addData("lift", lift.getCurrentPosition());}
 
             //if (gamepad2.dpad_left) {
-                //fasttfil(1); }
+            //fasttfil(1); }
 
 
             if (gamepad1.x) {gear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -312,5 +379,16 @@ public class Drive extends LinearOpMode {
         if (lift.getTargetPosition() > 2500) {
             lift.setTargetPosition(2500); }
     }
+
+    /*public void turn() {
+        while (gamepad1.x) {
+            if (Math.abs(newIMU.getAngle()) < 90) || (Math.abs(newIMU.getAngle()) > 90) {
+                lF.setPower(-0.5);
+                lB.setPower(-0.5);
+                rF.setPower(0.5);
+                rB.setPower(0.5);
+            }
+        }
+    }*/
     //public void Tilt (double p) {pivot.setPosition(pivot.getPosition() + p); }
 }

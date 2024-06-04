@@ -55,7 +55,9 @@ public class Red_Close_TwoTwo extends LinearOpMode {
         Pose2d RedCloseTwoTwo_driveToWhitePose2 = new Pose2d(34, 55, Math.toRadians(270));
         Pose2d RedCloseTwoTwo_driveToWhitePose1 = new Pose2d(24, 55, Math.toRadians(270));
         Pose2d RedCloseTwoTwo_whiteTrussPose = new Pose2d(35.5,-36.5, Math.toRadians(270));
-        Pose2d RedCloseTwoTwo_whiteScoringPose = new Pose2d(61, 36, Math.toRadians(264));
+        Pose2d RedCloseTwoTwo_whiteScoringPose1 = new Pose2d(61, 36, Math.toRadians(264));
+        Pose2d RedCloseTwoTwo_whiteScoringPose2 = new Pose2d(61, 36, Math.toRadians(264));
+        Pose2d RedCloseTwoTwo_whiteScoringPose3 = new Pose2d(61, 36, Math.toRadians(264));
         Pose2d RedCloseTwoTwo_parkingPose1 = new Pose2d(39.5, 52.75, Math.toRadians(90));
         /*Pose2d RedCloseTwoTwo_parkingPose1 = new Pose2d(-41, 54, Math.toRadians(90));
         Pose2d RedCloseTwoTwo_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
@@ -138,15 +140,35 @@ public class Red_Close_TwoTwo extends LinearOpMode {
         Action RedCloseTwoTwo_driveToWhiteAction1 = RedCloseTwoTwo_driveToWhiteTAction1.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder RedCloseTwoTwo_whiteTrussTAction = drive.actionBuilder(RedCloseTwoTwo_whiteTrussPose)
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteTrussTAction1 = drive.actionBuilder(RedCloseTwoTwo_whiteTrussPose)
                 .strafeToLinearHeading(new Vector2d(62.5,-48), Math.toRadians(268))
                 .strafeTo(new Vector2d(62,-12))
                 .strafeTo(new Vector2d(61, 36));
-        Action RedCloseTwoTwo_whiteTrussAction = RedCloseTwoTwo_whiteTrussTAction.build();
+        Action RedCloseTwoTwo_whiteTrussAction1 = RedCloseTwoTwo_whiteTrussTAction1.build();
 
-        TrajectoryActionBuilder RedCloseTwoTwo_whiteScoringTAction = drive.actionBuilder(RedCloseTwoTwo_whiteScoringPose)
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteTrussTAction2 = drive.actionBuilder(RedCloseTwoTwo_whiteTrussPose)
+                .strafeToLinearHeading(new Vector2d(62.5,-48), Math.toRadians(268))
+                .strafeTo(new Vector2d(62,-12))
+                .strafeTo(new Vector2d(61, 36));
+        Action RedCloseTwoTwo_whiteTrussAction2 = RedCloseTwoTwo_whiteTrussTAction2.build();
+
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteTrussTAction3 = drive.actionBuilder(RedCloseTwoTwo_whiteTrussPose)
+                .strafeToLinearHeading(new Vector2d(62.5,-48), Math.toRadians(268))
+                .strafeTo(new Vector2d(62,-12))
+                .strafeTo(new Vector2d(61, 36));
+        Action RedCloseTwoTwo_whiteTrussAction3 = RedCloseTwoTwo_whiteTrussTAction3.build();
+
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteScoringTAction1 = drive.actionBuilder(RedCloseTwoTwo_whiteScoringPose1)
                 .splineTo(new Vector2d(39.5, 52.75), Math.toRadians(90));
-        Action RedCloseTwoTwo_whiteScoringAction = RedCloseTwoTwo_whiteScoringTAction.build();
+        Action RedCloseTwoTwo_whiteScoringAction1 = RedCloseTwoTwo_whiteScoringTAction1.build();
+
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteScoringTAction2 = drive.actionBuilder(RedCloseTwoTwo_whiteScoringPose2)
+                .splineTo(new Vector2d(39.5, 52.75), Math.toRadians(90));
+        Action RedCloseTwoTwo_whiteScoringAction2 = RedCloseTwoTwo_whiteScoringTAction2.build();
+
+        TrajectoryActionBuilder RedCloseTwoTwo_whiteScoringTAction3 = drive.actionBuilder(RedCloseTwoTwo_whiteScoringPose3)
+                .splineTo(new Vector2d(39.5, 52.75), Math.toRadians(90));
+        Action RedCloseTwoTwo_whiteScoringAction3 = RedCloseTwoTwo_whiteScoringTAction3.build();
 
 
         //This action drives to robot to the parking zone
@@ -233,9 +255,9 @@ public class Red_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            RedCloseTwoTwo_whiteTrussAction,
+                                            RedCloseTwoTwo_whiteTrussAction1,
                                             new ParallelAction(
-                                                    RedCloseTwoTwo_whiteScoringAction,
+                                                    RedCloseTwoTwo_whiteScoringAction1,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -298,9 +320,9 @@ public class Red_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            RedCloseTwoTwo_whiteTrussAction,
+                                            RedCloseTwoTwo_whiteTrussAction2,
                                             new ParallelAction(
-                                                    RedCloseTwoTwo_whiteScoringAction,
+                                                    RedCloseTwoTwo_whiteScoringAction2,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -363,9 +385,9 @@ public class Red_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            RedCloseTwoTwo_whiteTrussAction,
+                                            RedCloseTwoTwo_whiteTrussAction3,
                                             new ParallelAction(
-                                                    RedCloseTwoTwo_whiteScoringAction,
+                                                    RedCloseTwoTwo_whiteScoringAction3,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),

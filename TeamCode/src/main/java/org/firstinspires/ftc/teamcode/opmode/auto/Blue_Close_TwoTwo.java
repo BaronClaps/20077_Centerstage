@@ -54,8 +54,10 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         Pose2d BlueCloseTwoTwo_driveToWhitePose1 = new Pose2d(-37, 55, Math.toRadians(267));//-38
         Pose2d BlueCloseTwoTwo_driveToWhitePose2 = new Pose2d(-31, 55, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-24, 55, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-35.5,-36.5, Math.toRadians(273));
-        Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-60, 36, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-35,-36.5, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteScoringPose1 = new Pose2d(-64, 36, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteScoringPose2 = new Pose2d(-60, 36, Math.toRadians(270));
+        Pose2d BlueCloseTwoTwo_whiteScoringPose3 = new Pose2d(-60, 36, Math.toRadians(270));
         Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-40.5, 52.75, Math.toRadians(90));
         /*Pose2d BlueCloseTwoTwo_parkingPose1 = new Pose2d(-41, 54, Math.toRadians(90));
         Pose2d BlueCloseTwoTwo_parkingPose2 = new Pose2d(-36, 55, Math.toRadians(270));
@@ -117,9 +119,9 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         //This action drives to robot to the white pixel stack
         TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction1 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose1)
                 .strafeTo(new Vector2d(-41,47))
-                .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))
+                .strafeToConstantHeading(new Vector2d(-63, 36))
                 .strafeTo(new Vector2d(-63,-36))
-                .strafeToLinearHeading(new Vector2d(-35.5,-36.5), Math.toRadians(270));
+                .strafeToConstantHeading(new Vector2d(-35,-36.5));
         Action BlueCloseTwoTwo_driveToWhiteAction1 = BlueCloseTwoTwo_driveToWhiteTAction1.build();
 
         //This action drives to robot to the white pixel stack
@@ -128,7 +130,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                 .strafeTo(new Vector2d(-41,47))
                 .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))//267
                 .strafeTo(new Vector2d(-63,-36))
-                .strafeToLinearHeading((new Vector2d(-35.5,-36.5)), Math.toRadians(270));
+                .strafeToLinearHeading((new Vector2d(-35,-36.5)), Math.toRadians(270));
         Action BlueCloseTwoTwo_driveToWhiteAction2 = BlueCloseTwoTwo_driveToWhiteTAction2.build();
 
         //This action drives to robot to the white pixel stack
@@ -141,15 +143,35 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         Action BlueCloseTwoTwo_driveToWhiteAction3 = BlueCloseTwoTwo_driveToWhiteTAction3.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction1 = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
+                .strafeToConstantHeading(new Vector2d(-64,-36))
+                .strafeToConstantHeading(new Vector2d(-62,-12))
+                .strafeToConstantHeading(new Vector2d(-62, 36));
+        Action BlueCloseTwoTwo_whiteTrussAction1 = BlueCloseTwoTwo_whiteTrussTAction1.build();
+
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction2 = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
                 .strafeToLinearHeading((new Vector2d(-62.5,-48)),Math.toRadians(270))
                 .strafeTo(new Vector2d(-60,-12))
                 .strafeTo(new Vector2d(-60, 36));
-        Action BlueCloseTwoTwo_whiteTrussAction = BlueCloseTwoTwo_whiteTrussTAction.build();
+        Action BlueCloseTwoTwo_whiteTrussAction2 = BlueCloseTwoTwo_whiteTrussTAction2.build();
 
-        TrajectoryActionBuilder BlueCloseTwoTwo_whiteScoringTAction = drive.actionBuilder(BlueCloseTwoTwo_whiteScoringPose)
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction3 = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
+                .strafeToLinearHeading((new Vector2d(-62.5,-48)),Math.toRadians(270))
+                .strafeTo(new Vector2d(-60,-12))
+                .strafeTo(new Vector2d(-60, 36));
+        Action BlueCloseTwoTwo_whiteTrussAction3 = BlueCloseTwoTwo_whiteTrussTAction3.build();
+
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteScoringTAction1 = drive.actionBuilder(BlueCloseTwoTwo_whiteScoringPose1)
                 .splineTo(new Vector2d(-40.5, 52.75), Math.toRadians(90));
-        Action BlueCloseTwoTwo_whiteScoringAction = BlueCloseTwoTwo_whiteScoringTAction.build();
+        Action BlueCloseTwoTwo_whiteScoringAction1 = BlueCloseTwoTwo_whiteScoringTAction1.build();
+
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteScoringTAction2 = drive.actionBuilder(BlueCloseTwoTwo_whiteScoringPose2)
+                .splineTo(new Vector2d(-40.5, 52.75), Math.toRadians(90));
+        Action BlueCloseTwoTwo_whiteScoringAction2 = BlueCloseTwoTwo_whiteScoringTAction2.build();
+
+        TrajectoryActionBuilder BlueCloseTwoTwo_whiteScoringTAction3 = drive.actionBuilder(BlueCloseTwoTwo_whiteScoringPose3)
+                .splineTo(new Vector2d(-40.5, 52.75), Math.toRadians(90));
+        Action BlueCloseTwoTwo_whiteScoringAction3 = BlueCloseTwoTwo_whiteScoringTAction3.build();
 
 
         //This action drives to robot to the parking zone
@@ -255,9 +277,9 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            BlueCloseTwoTwo_whiteTrussAction1,
                                             new ParallelAction(
-                                                BlueCloseTwoTwo_whiteScoringAction,
+                                                BlueCloseTwoTwo_whiteScoringAction1,
                                                 presets.WhiteScoringPos()
                                             )
                                     ),
@@ -320,9 +342,9 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            BlueCloseTwoTwo_whiteTrussAction2,
                                             new ParallelAction(
-                                                    BlueCloseTwoTwo_whiteScoringAction,
+                                                    BlueCloseTwoTwo_whiteScoringAction2,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -385,9 +407,9 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            BlueCloseTwoTwo_whiteTrussAction3,
                                             new ParallelAction(
-                                                    BlueCloseTwoTwo_whiteScoringAction,
+                                                    BlueCloseTwoTwo_whiteScoringAction3,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
