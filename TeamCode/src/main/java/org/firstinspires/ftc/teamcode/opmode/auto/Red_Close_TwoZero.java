@@ -33,95 +33,95 @@ public class Red_Close_TwoZero extends LinearOpMode {
         CameraSubsystem camera = new CameraSubsystem(hardwareMap);
         huskyLens = hardwareMap.get(HuskyLens.class, "huskyLens");
 
-        // Actions that run when Init
         camera.SPEED_GAIN = -0.02;   // Drive = Error * Gain
         camera.STRAFE_GAIN = -0.01;
         camera.TURN_GAIN = 0;
+
+        // Actions that run when Init
         claw.closeClaws();
         gear.wheelServo_Deactivated();
         camera.initAprilTag();
         camera.setManualExposure(2, 50);
 
-        Pose2d RedCloseTwoZero_startPose = new Pose2d(62, 12, Math.toRadians(180));
-        Pose2d RedCloseTwoZero_yellowScoringPose3 = new Pose2d(40, 29, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_yellowScoringPose2 = new Pose2d(28.5, 24, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_yellowScoringPose1 = new Pose2d(33.5, 10.5, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_yellowScoringOverridePose1 = new Pose2d(27, 45, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_yellowScoringOverridePose2 = new Pose2d(38, 45, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_yellowScoringOverridePose3 = new Pose2d(43.5, 45, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_parkingPose3 = new Pose2d(48, 55, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_parkingPose2 = new Pose2d(40, 55, Math.toRadians(270));
-        Pose2d RedCloseTwoZero_parkingPose1 = new Pose2d(28, 55, Math.toRadians(270));
+        //---------------------------------------- Red Close 2+0 ----------------------------------------------\\
+        Pose2d startPose = new Pose2d(62, 12, Math.toRadians(180));
+        Pose2d yellowScoringPose3 = new Pose2d(36, 30, Math.toRadians(270));
+        Pose2d yellowScoringPose2 = new Pose2d(30, 22, Math.toRadians(270));
+        Pose2d yellowScoringPose1 = new Pose2d(36, 8, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose3 = new Pose2d(42, 45, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose2 = new Pose2d(36, 45, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose1 = new Pose2d(27, 45, Math.toRadians(270));
+        Pose2d parkingPose3 = new Pose2d(42, 51.5, Math.toRadians(270));
+        Pose2d parkingPose2 = new Pose2d(36, 51.5, Math.toRadians(270));
+        Pose2d parkingPose1 = new Pose2d(27, 51.5, Math.toRadians(270));
+
 
         //This action drives to the first tape line
-        TrajectoryActionBuilder RedCloseTwoZero_purpleTAction1 = drive.actionBuilder(RedCloseTwoZero_startPose)
+        TrajectoryActionBuilder purpleTAction3 = drive.actionBuilder(startPose)
                 .lineToX(55)
-                .splineTo(new Vector2d(33, 12.5), Math.toRadians(270));
-        Action RedCloseTwoZero_purpleAction1 = RedCloseTwoZero_purpleTAction1.build();
+                .splineTo(new Vector2d(36, 30), Math.toRadians(270));
+        Action purpleAction3 = purpleTAction3.build();
 
         //This action drives to the second tape line
-        TrajectoryActionBuilder RedCloseTwoZero_purpleTAction2 = drive.actionBuilder(RedCloseTwoZero_startPose)
+        TrajectoryActionBuilder purpleTAction2 = drive.actionBuilder(startPose)
                 .lineToX(55)
-                .splineTo(new Vector2d(26, 24), Math.toRadians(270));
-        Action RedCloseTwoZero_purpleAction2 = RedCloseTwoZero_purpleTAction2.build();
+                .splineTo(new Vector2d(30, 22), Math.toRadians(270));
+        Action purpleAction2 = purpleTAction2.build();
 
         //This action drives to the third tape line
-        TrajectoryActionBuilder RedCloseTwoZero_purpleTAction3 = drive.actionBuilder(RedCloseTwoZero_startPose)
+        TrajectoryActionBuilder purpleTAction1 = drive.actionBuilder(startPose)
                 .lineToX(55)
-                .splineTo(new Vector2d(34, 31), Math.toRadians(270));
-        Action RedCloseTwoZero_purpleAction3 = RedCloseTwoZero_purpleTAction3.build();
+                .splineTo(new Vector2d(36, 8), Math.toRadians(270));
+        Action purpleAction1 = purpleTAction1.build();
 
         //This action drives to the first backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction1 = drive.actionBuilder(RedCloseTwoZero_yellowScoringPose1)
-                .strafeTo(new Vector2d(27.5, 43));
-        Action RedCloseTwoZero_yellowScoringAction1 = RedCloseTwoZero_yellowScoringTAction1.build();
-        
+        TrajectoryActionBuilder yellowScoringTAction3 = drive.actionBuilder(yellowScoringPose3)
+                .strafeTo(new Vector2d(42, 45));
+        Action yellowScoringAction3 = yellowScoringTAction3.build();
+
         //This action drives to the second backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction2 = drive.actionBuilder(RedCloseTwoZero_yellowScoringPose2)
-                .strafeTo(new Vector2d(28.5,30))
-                .strafeTo(new Vector2d(40, 45));
-        Action RedCloseTwoZero_yellowScoringAction2 = RedCloseTwoZero_yellowScoringTAction2.build();
+        TrajectoryActionBuilder yellowScoringTAction2 = drive.actionBuilder(yellowScoringPose2)
+                .strafeTo(new Vector2d(36, 45));
+        Action yellowScoringAction2 = yellowScoringTAction2.build();
 
         //This action drives to the third backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringTAction3 = drive.actionBuilder(RedCloseTwoZero_yellowScoringPose3)
-                .strafeTo(new Vector2d(33.5,38))
-                .strafeTo(new Vector2d(48, 45));
-
-        Action RedCloseTwoZero_yellowScoringAction3 = RedCloseTwoZero_yellowScoringTAction3.build();
+        TrajectoryActionBuilder yellowScoringTAction1 = drive.actionBuilder(yellowScoringPose1)
+                .strafeTo(new Vector2d(36,15))
+                .strafeTo(new Vector2d(27, 45));
+        Action yellowScoringAction1 = yellowScoringTAction1.build();
 
         //This action OVERRIDES camera and drives to the first backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringOverrideTAction1 = drive.actionBuilder(RedCloseTwoZero_yellowScoringOverridePose1)
-                .strafeTo(new Vector2d(20.5, 55));
-        Action RedCloseTwoZero_yellowScoringOverrideAction1 = RedCloseTwoZero_yellowScoringOverrideTAction1.build();
+        TrajectoryActionBuilder yellowScoringOverrideTAction3 = drive.actionBuilder(yellowScoringOverridePose3)
+                .strafeTo(new Vector2d(42, 51.5));
+        Action yellowScoringOverrideAction3 = yellowScoringOverrideTAction3.build();
 
         //This action OVERRIDES camera and drives to the second backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringOverrideTAction2 = drive.actionBuilder(RedCloseTwoZero_yellowScoringOverridePose2)
-                .strafeTo(new Vector2d(38, 55));
-        Action RedCloseTwoZero_yellowScoringOverrideAction2 = RedCloseTwoZero_yellowScoringOverrideTAction2.build();
+        TrajectoryActionBuilder yellowScoringOverrideTAction2 = drive.actionBuilder(yellowScoringOverridePose2)
+                .strafeTo(new Vector2d(36, 51.5));
+        Action yellowScoringOverrideAction2 = yellowScoringOverrideTAction2.build();
 
         //This action OVERRIDES camera and drives to the third backdrop section
-        TrajectoryActionBuilder RedCloseTwoZero_yellowScoringOverrideTAction3 = drive.actionBuilder(RedCloseTwoZero_yellowScoringOverridePose3)
-                .strafeTo(new Vector2d(43.5, 55));
-        Action RedCloseTwoZero_yellowScoringOverrideAction3 = RedCloseTwoZero_yellowScoringOverrideTAction3.build();
-        
+        TrajectoryActionBuilder yellowScoringOverrideTAction1 = drive.actionBuilder(yellowScoringOverridePose1)
+                .strafeTo(new Vector2d(27, 51.5));
+        Action yellowScoringOverrideAction1 = yellowScoringOverrideTAction1.build();
+
         //This action drives to robot to the first parking zone
-        TrajectoryActionBuilder RedCloseTwoZero_parkingTAction1 = drive.actionBuilder(RedCloseTwoZero_parkingPose1)
-                .strafeTo(new Vector2d(38,43))
-                .strafeTo((new Vector2d(69, 50)));
-        Action RedCloseTwoZero_parkingAction1 = RedCloseTwoZero_parkingTAction1.build();
+        TrajectoryActionBuilder parkingTAction3 = drive.actionBuilder(parkingPose3)
+                .strafeTo(new Vector2d(42,43))
+                .strafeTo((new Vector2d(62, 50)));
+        Action parkingAction3 = parkingTAction3.build();
 
         //This action drives to robot to the second parking zone
-        TrajectoryActionBuilder RedCloseTwoZero_parkingTAction2 = drive.actionBuilder(RedCloseTwoZero_parkingPose2)
-                .strafeTo(new Vector2d(38,43))
-                .strafeTo((new Vector2d(69, 50)));
-        Action RedCloseTwoZero_parkingAction2 = RedCloseTwoZero_parkingTAction2.build();
+        TrajectoryActionBuilder parkingTAction2 = drive.actionBuilder(parkingPose2)
+                .strafeTo(new Vector2d(36,43))
+                .strafeTo((new Vector2d(62, 50)));
+        Action parkingAction2 = parkingTAction2.build();
 
         //This action drives to robot to the third parking zone
-        TrajectoryActionBuilder RedCloseTwoZero_parkingTAction3 = drive.actionBuilder(RedCloseTwoZero_parkingPose3)
-                .strafeTo(new Vector2d(38,43))
-                .strafeTo((new Vector2d(69, 50)));
-        Action RedCloseTwoZero_parkingAction3 = RedCloseTwoZero_parkingTAction3.build();
-
+        TrajectoryActionBuilder parkingTAction1 = drive.actionBuilder(parkingPose1)
+                .strafeTo(new Vector2d(27,43))
+                .strafeTo((new Vector2d(62, 50)));
+        Action parkingAction1 = parkingTAction1.build();
 
         //Huskylens Setup
         Deadline rateLimit = new Deadline(1, TimeUnit.SECONDS);
@@ -133,7 +133,6 @@ public class Red_Close_TwoZero extends LinearOpMode {
             telemetry.addData(">>", "Press start to continue");
         }
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
-
 
         // Wait for driver to press start
         telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
@@ -155,13 +154,13 @@ public class Red_Close_TwoZero extends LinearOpMode {
                 telemetry.addData("location?", blocks[i].x);// this gives you just x
 
                 //----------------------------1----------------------------\\
-                if (blocks[i].x < 100 && blocks[i].id == 1 && blocks[i].y < 200) {
+                if (blocks[i].x < 100 && blocks[i].id == 2 && blocks[i].y < 200) {
 
                     Actions.runBlocking(
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            RedCloseTwoZero_purpleAction1
+                                            purpleAction1
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -169,7 +168,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    RedCloseTwoZero_yellowScoringAction1
+                                                    yellowScoringAction1
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -178,11 +177,11 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
                     camera.alignToTag(4);
 
-                    /*if(!camera.targetFound){
+                    if(!camera.targetFound){
                         Actions.runBlocking(
-                                RedCloseTwoZero_yellowScoringOverrideAction1
+                                yellowScoringOverrideAction1
                         );
-                    }*/
+                    }
 
                     Actions.runBlocking(
                             new SequentialAction(
@@ -191,7 +190,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            RedCloseTwoZero_parkingAction1
+                                            parkingAction1
                                     )
                             )
                     );
@@ -200,12 +199,12 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
 
                 //----------------------------2----------------------------\\
-                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 1 && blocks[i].y < 200) {
+                if (blocks[i].x > 100 && blocks[i].x < 200 && blocks[i].id == 2 && blocks[i].y < 200) {
                     Actions.runBlocking(
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            RedCloseTwoZero_purpleAction2
+                                            purpleAction2
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -213,7 +212,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    RedCloseTwoZero_yellowScoringAction2
+                                                    yellowScoringAction2
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -224,7 +223,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
                     if(!camera.targetFound){
                         Actions.runBlocking(
-                                RedCloseTwoZero_yellowScoringOverrideAction2
+                                yellowScoringOverrideAction2
                         );
                     }
 
@@ -235,7 +234,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            RedCloseTwoZero_parkingAction2
+                                            parkingAction2
                                     )
                             )
                     );
@@ -244,12 +243,12 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
 
                 //----------------------------3---------------------------\\
-                if (blocks[i].x > 210 && blocks[i].id == 1 && blocks[i].y < 200) {
+                if (blocks[i].x > 210 && blocks[i].id == 2 && blocks[i].y < 200) {
                     Actions.runBlocking(
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            RedCloseTwoZero_purpleAction3
+                                            purpleAction3
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -257,7 +256,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    RedCloseTwoZero_yellowScoringAction3
+                                                    yellowScoringAction3
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -268,7 +267,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
 
                     if(!camera.targetFound){
                         Actions.runBlocking(
-                                RedCloseTwoZero_yellowScoringOverrideAction3
+                                yellowScoringOverrideAction3
                         );
                     }
 
@@ -279,7 +278,7 @@ public class Red_Close_TwoZero extends LinearOpMode {
                                     new SleepAction(.25),
                                     new ParallelAction(
                                             presets.GroundPos(),
-                                            RedCloseTwoZero_parkingAction3
+                                            parkingAction3
                                     )
                             )
                     );
@@ -287,7 +286,9 @@ public class Red_Close_TwoZero extends LinearOpMode {
                 }
             }
         }
+
     }
+
 
 }
 

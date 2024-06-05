@@ -44,139 +44,121 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
         camera.setManualExposure(2, 50);
 
         //---------------------------------------- Blue Close 2+2 ----------------------------------------------\\
-        Pose2d BlueCloseTwoTwo_startPose = new Pose2d(-62, 12, 0);
-        Pose2d BlueCloseTwoTwo_yellowScoringPose1 = new Pose2d(-36, 34, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_yellowScoringPose2 = new Pose2d(-26, 26, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_yellowScoringPose3 = new Pose2d(-36, 10, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_yellowScoringOverridePose1 = new Pose2d(-42, 45, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_yellowScoringOverridePose2 = new Pose2d(-36, 45, Math.toRadians(270));
-        Pose2d BlueCloseTwoZero_yellowScoringOverridePose3 = new Pose2d(-30, 45, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_driveToWhitePose1 = new Pose2d(-42, 51.5, Math.toRadians(270));//-38
-        Pose2d BlueCloseTwoTwo_driveToWhitePose2 = new Pose2d(-36, 51.5, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_driveToWhitePose3 = new Pose2d(-30, 51.5, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_whiteTrussPose = new Pose2d(-35.5,-36.5, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_whiteScoringPose = new Pose2d(-60, 36, Math.toRadians(270));
-        Pose2d BlueCloseTwoTwo_parkingPose = new Pose2d(-40.5, 52.75, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(-62, 12, 0);
+        Pose2d yellowScoringPose1 = new Pose2d(-36, 30, Math.toRadians(270));
+        Pose2d yellowScoringPose2 = new Pose2d(-30, 22, Math.toRadians(270));
+        Pose2d yellowScoringPose3 = new Pose2d(-36, 8, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose1 = new Pose2d(-42, 45, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose2 = new Pose2d(-36, 45, Math.toRadians(270));
+        Pose2d yellowScoringOverridePose3 = new Pose2d(-27, 45, Math.toRadians(270));
+        Pose2d driveToWhitePose1 = new Pose2d(-42, 51.5, Math.toRadians(270));//-38
+        Pose2d driveToWhitePose2 = new Pose2d(-36, 51.5, Math.toRadians(270));
+        Pose2d driveToWhitePose3 = new Pose2d(-27, 51.5, Math.toRadians(270));
+        Pose2d whiteTrussPose = new Pose2d(-35.5,-37, Math.toRadians(270));
+        Pose2d whiteScoringPose = new Pose2d(-60, 24, Math.toRadians(270));
+        Pose2d parkingPose = new Pose2d(-40.5, 52.75, Math.toRadians(90));
 
         //This action drives to the first tape line
-        TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction1 = drive.actionBuilder(BlueCloseTwoTwo_startPose)
+        TrajectoryActionBuilder purpleTAction1 = drive.actionBuilder(startPose)
                 .setTangent(0)
                 .lineToX(-55)
-                .splineTo(new Vector2d(-36, 34), Math.toRadians(270));
-        Action BlueCloseTwoTwo_purpleAction1 = BlueCloseTwoTwo_purpleTAction1.build();
+                .splineTo(new Vector2d(-36, 30), Math.toRadians(270));
+        Action purpleAction1 = purpleTAction1.build();
 
         //This action drives to the second tape line
-        TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction2 = drive.actionBuilder(BlueCloseTwoTwo_startPose)
+        TrajectoryActionBuilder purpleTAction2 = drive.actionBuilder(startPose)
                 .setTangent(0)
                 .lineToX(-55)
-                .splineTo(new Vector2d(-26, 26), Math.toRadians(270));
-        Action BlueCloseTwoTwo_purpleAction2 = BlueCloseTwoTwo_purpleTAction2.build();
+                .splineTo(new Vector2d(-30, 22), Math.toRadians(270));
+        Action purpleAction2 = purpleTAction2.build();
 
         //This action drives to the third tape line
-        TrajectoryActionBuilder BlueCloseTwoTwo_purpleTAction3 = drive.actionBuilder(BlueCloseTwoTwo_startPose)
+        TrajectoryActionBuilder purpleTAction3 = drive.actionBuilder(startPose)
                 .setTangent(0)
                 .lineToX(-55)
-                .splineTo(new Vector2d(-36, 10), Math.toRadians(270));
-        Action BlueCloseTwoTwo_purpleAction3 = BlueCloseTwoTwo_purpleTAction3.build();
+                .splineTo(new Vector2d(-36, 8), Math.toRadians(270));
+        Action purpleAction3 = purpleTAction3.build();
 
         //This action drives to the first backdrop section
-        TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction1 = drive.actionBuilder(BlueCloseTwoTwo_yellowScoringPose1)
+        TrajectoryActionBuilder yellowScoringTAction1 = drive.actionBuilder(yellowScoringPose1)
                 .strafeTo(new Vector2d(-42, 45));
-        Action BlueCloseTwoTwo_yellowScoringAction1 = BlueCloseTwoTwo_yellowScoringTAction1.build();
+        Action yellowScoringAction1 = yellowScoringTAction1.build();
 
         //This action drives to the second backdrop section
-        TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction2 = drive.actionBuilder(BlueCloseTwoTwo_yellowScoringPose2)
+        TrajectoryActionBuilder yellowScoringTAction2 = drive.actionBuilder(yellowScoringPose2)
                 .strafeTo(new Vector2d(-36, 45));
-        Action BlueCloseTwoTwo_yellowScoringAction2 = BlueCloseTwoTwo_yellowScoringTAction2.build();
+        Action yellowScoringAction2 = yellowScoringTAction2.build();
 
         //This action drives to the third backdrop section
-        TrajectoryActionBuilder BlueCloseTwoTwo_yellowScoringTAction3 = drive.actionBuilder(BlueCloseTwoTwo_yellowScoringPose3)
+        TrajectoryActionBuilder yellowScoringTAction3 = drive.actionBuilder(yellowScoringPose3)
                 .strafeTo(new Vector2d(-36,15))
-                .strafeTo(new Vector2d(-30, 45));
-        Action BlueCloseTwoTwo_yellowScoringAction3 = BlueCloseTwoTwo_yellowScoringTAction3.build();
+        .strafeToConstantHeading(new Vector2d(-27, 45));
+        Action yellowScoringAction3 = yellowScoringTAction3.build();
 
         //This action OVERRIDES camera and drives to the first backdrop section
-        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction1 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose1)
+        TrajectoryActionBuilder yellowScoringOverrideTAction1 = drive.actionBuilder(yellowScoringOverridePose1)
                 .strafeTo(new Vector2d(-42, 51.5));
-        Action BlueCloseTwoZero_yellowScoringOverrideAction1 = BlueCloseTwoZero_yellowScoringOverrideTAction1.build();
+        Action yellowScoringOverrideAction1 = yellowScoringOverrideTAction1.build();
 
         //This action OVERRIDES camera and drives to the second backdrop section
-        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction2 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose2)
+        TrajectoryActionBuilder yellowScoringOverrideTAction2 = drive.actionBuilder(yellowScoringOverridePose2)
                 .strafeTo(new Vector2d(-36, 51.5));
-        Action BlueCloseTwoZero_yellowScoringOverrideAction2 = BlueCloseTwoZero_yellowScoringOverrideTAction2.build();
+        Action yellowScoringOverrideAction2 = yellowScoringOverrideTAction2.build();
 
         //This action OVERRIDES camera and drives to the third backdrop section
-        TrajectoryActionBuilder BlueCloseTwoZero_yellowScoringOverrideTAction3 = drive.actionBuilder(BlueCloseTwoZero_yellowScoringOverridePose3)
-                .strafeTo(new Vector2d(-30, 51.5));
-        Action BlueCloseTwoZero_yellowScoringOverrideAction3 = BlueCloseTwoZero_yellowScoringOverrideTAction3.build();
+        TrajectoryActionBuilder yellowScoringOverrideTAction3 = drive.actionBuilder(yellowScoringOverridePose3)
+                .strafeTo(new Vector2d(-27, 51.5));
+        Action yellowScoringOverrideAction3 = yellowScoringOverrideTAction3.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction1 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose1)
-                .strafeTo(new Vector2d(-42,47))
-                .strafeToConstantHeading(new Vector2d(-60, 36))
-                .strafeTo(new Vector2d(-60,-36))
-                .strafeToConstantHeading(new Vector2d(-35.5,-36.5));
-        Action BlueCloseTwoTwo_driveToWhiteAction1 = BlueCloseTwoTwo_driveToWhiteTAction1.build();
+        TrajectoryActionBuilder driveToWhiteTAction1 = drive.actionBuilder(driveToWhitePose1)
+                .strafeToConstantHeading(new Vector2d(-42,47))
+                .strafeToConstantHeading(new Vector2d(-60.5, 36))
+                .strafeToConstantHeading(new Vector2d(-60.5,-36))
+                .strafeToConstantHeading(new Vector2d(-35.5,-37));
+        Action driveToWhiteAction1 = driveToWhiteTAction1.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction2 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose2)
-                .strafeTo(new Vector2d(-36,47))
-                .strafeToConstantHeading(new Vector2d(-60, 36))
-                .strafeTo(new Vector2d(-60,-36))
-                .strafeToConstantHeading(new Vector2d(-35.5,-36.5));
-                /*.strafeTo(new Vector2d(-36,47))
+        TrajectoryActionBuilder driveToWhiteTAction2 = drive.actionBuilder(driveToWhitePose2)
+                .strafeToConstantHeading(new Vector2d(-36,47))
+                .strafeToConstantHeading(new Vector2d(-60.5, 36))
+                .strafeToConstantHeading(new Vector2d(-60.5,-36))
+                .strafeToConstantHeading(new Vector2d(-35.5,-37));
+                /*.strafeToConstantHeading(new Vector2d(-36,47))
                 .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))//267
-                .strafeTo(new Vector2d(-63,-36))
+                .strafeToConstantHeading(new Vector2d(-63,-36))
                 .strafeToLinearHeading((new Vector2d(-35,-36.5)), Math.toRadians(270));*/
-        Action BlueCloseTwoTwo_driveToWhiteAction2 = BlueCloseTwoTwo_driveToWhiteTAction2.build();
+        Action driveToWhiteAction2 = driveToWhiteTAction2.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder BlueCloseTwoTwo_driveToWhiteTAction3 = drive.actionBuilder(BlueCloseTwoTwo_driveToWhitePose3)
-                .strafeTo(new Vector2d(-42,47))
-                .strafeToConstantHeading(new Vector2d(-60, 36))
-                .strafeTo(new Vector2d(-60,-36))
-                .strafeToConstantHeading(new Vector2d(-35.5,-36.5));
-                /*.strafeTo(new Vector2d(-30,47))
+        TrajectoryActionBuilder driveToWhiteTAction3 = drive.actionBuilder(driveToWhitePose3)
+                .strafeToConstantHeading(new Vector2d(-28,47))
+                .strafeToConstantHeading(new Vector2d(-60.5, 36))
+                .strafeToConstantHeading(new Vector2d(-60.5,-36))
+                .strafeToConstantHeading(new Vector2d(-35.5,-37));
+                /*.strafeToConstantHeading(new Vector2d(-30,47))
                 .strafeToLinearHeading(new Vector2d(-63, 36), Math.toRadians(267))
-                .strafeTo(new Vector2d(-63,-36))
+                .strafeToConstantHeading(new Vector2d(-63,-36))
                 .strafeToLinearHeading(new Vector2d(-35,-36.5), Math.toRadians(270));*/
-        Action BlueCloseTwoTwo_driveToWhiteAction3 = BlueCloseTwoTwo_driveToWhiteTAction3.build();
+        Action driveToWhiteAction3 = driveToWhiteTAction3.build();
 
         //This action drives to robot to the white pixel stack
-        TrajectoryActionBuilder BlueCloseTwoTwo_whiteTrussTAction = drive.actionBuilder(BlueCloseTwoTwo_whiteTrussPose)
-                .strafeToConstantHeading(new Vector2d(-60,-36))
-                .strafeToConstantHeading(new Vector2d(-60,-12))
-                .strafeToConstantHeading(new Vector2d(-60, 36));
-        Action BlueCloseTwoTwo_whiteTrussAction = BlueCloseTwoTwo_whiteTrussTAction.build();
+        TrajectoryActionBuilder whiteTrussTAction = drive.actionBuilder(whiteTrussPose)
+                .strafeToConstantHeading(new Vector2d(-60.5,-36))
+                .strafeToConstantHeading(new Vector2d(-60.5,-12))
+                .strafeToConstantHeading(new Vector2d(-60.5, 12))
+                .strafeToConstantHeading(new Vector2d(-60,24));
+        Action whiteTrussAction = whiteTrussTAction.build();
 
-        TrajectoryActionBuilder BlueCloseTwoTwo_whiteScoringTAction = drive.actionBuilder(BlueCloseTwoTwo_whiteScoringPose)
+        TrajectoryActionBuilder whiteScoringTAction = drive.actionBuilder(whiteScoringPose)
                 .splineTo(new Vector2d(-40.5, 52.75), Math.toRadians(90));
-        Action BlueCloseTwoTwo_whiteScoringAction = BlueCloseTwoTwo_whiteScoringTAction.build();
+        Action whiteScoringAction = whiteScoringTAction.build();
 
         //This action drives to robot to the parking zone
-        TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction = drive.actionBuilder(BlueCloseTwoTwo_parkingPose)
-                .strafeTo(new Vector2d(-38,40))
-                .strafeTo((new Vector2d(-67, 50)));
-        Action BlueCloseTwoTwo_parkingAction = BlueCloseTwoTwo_parkingTAction.build();
-        /*
-        //This action drives to robot to the parking zone
-        TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction1 = drive.actionBuilder(BlueCloseTwoTwo_parkingPose1)
-                .strafeTo(new Vector2d(-38,40))
-                .strafeTo((new Vector2d(-67, 50)));
-        Action BlueCloseTwoTwo_parkingAction1 = BlueCloseTwoTwo_parkingTAction1.build();
-
-        //This action drives to robot to the parking zone
-        TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction2 = drive.actionBuilder(BlueCloseTwoTwo_parkingPose2)
-                .strafeTo(new Vector2d(-36,43))
-                .strafeTo((new Vector2d(-67, 50)));
-        Action BlueCloseTwoTwo_parkingAction2 = BlueCloseTwoTwo_parkingTAction2.build();
-
-        //This action drives to robot to the parking zone
-        TrajectoryActionBuilder BlueCloseTwoTwo_parkingTAction3 = drive.actionBuilder(BlueCloseTwoTwo_parkingPose3)
-                .strafeTo(new Vector2d(-36,43))
-                .strafeTo((new Vector2d(-67, 50)));
-        Action BlueCloseTwoTwo_parkingAction3 = BlueCloseTwoTwo_parkingTAction3.build();
-*/
+        TrajectoryActionBuilder parkingTAction = drive.actionBuilder(parkingPose)
+                .strafeToConstantHeading(new Vector2d(-38,40))
+        .strafeToConstantHeading((new Vector2d(-62, 50)));
+        Action parkingAction = parkingTAction.build();
 
 
         //Huskylens Setup
@@ -217,7 +199,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            BlueCloseTwoTwo_purpleAction1
+                                            purpleAction1
                                     ),
                                     new SleepAction(0.2),
                                     claw.openLClaw(),
@@ -225,7 +207,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new ParallelAction(
                                             new ParallelAction(
                                                     presets.ScoringPos(),
-                                                    BlueCloseTwoTwo_yellowScoringAction1
+                                                    yellowScoringAction1
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -236,7 +218,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
 
                     if(!camera.targetFound){
                         Actions.runBlocking(
-                                BlueCloseTwoZero_yellowScoringOverrideAction1
+                                yellowScoringOverrideAction1
                         );
                     }
 
@@ -251,14 +233,14 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                                     claw.openClaws(),
                                                     claw.whiteGroundClaw()
                                             ),
-                                            BlueCloseTwoTwo_driveToWhiteAction1
+                                            driveToWhiteAction1
                                     ),
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            whiteTrussAction,
                                             new ParallelAction(
-                                                    BlueCloseTwoTwo_whiteScoringAction,
+                                                    whiteScoringAction,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -267,7 +249,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                             new SleepAction(.1),
                                             claw.openClaws(),
                                             new SleepAction(.25),
-                                            BlueCloseTwoTwo_parkingAction,
+                                            parkingAction,
                                             presets.WhiteGroundPos()
                                     )
                             )
@@ -282,7 +264,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            BlueCloseTwoTwo_purpleAction2
+                                            purpleAction2
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -290,7 +272,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    BlueCloseTwoTwo_yellowScoringAction2
+                                                    yellowScoringAction2
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -301,7 +283,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
 
                     if(!camera.targetFound){
                         Actions.runBlocking(
-                                BlueCloseTwoZero_yellowScoringOverrideAction2
+                                yellowScoringOverrideAction2
                         );
                     }
 
@@ -316,14 +298,14 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                                     claw.openClaws(),
                                                     claw.whiteGroundClaw()
                                             ),
-                                            BlueCloseTwoTwo_driveToWhiteAction2
+                                            driveToWhiteAction2
                                     ),
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            whiteTrussAction,
                                             new ParallelAction(
-                                                    BlueCloseTwoTwo_whiteScoringAction,
+                                                    whiteScoringAction,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -332,7 +314,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                             new SleepAction(.25),
                                             claw.openClaws(),
                                             new SleepAction(.25),
-                                            BlueCloseTwoTwo_parkingAction,
+                                            parkingAction,
                                             presets.WhiteGroundPos()
                                     )
                             )
@@ -347,7 +329,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                             new SequentialAction(
                                     new ParallelAction(
                                             presets.StartPos(),
-                                            BlueCloseTwoTwo_purpleAction3
+                                            purpleAction3
                                     ),
                                     new SleepAction(0.1),
                                     claw.openLClaw(),
@@ -355,7 +337,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                     new ParallelAction(
                                             new SequentialAction(
                                                     presets.ScoringPos(),
-                                                    BlueCloseTwoTwo_yellowScoringAction3
+                                                    yellowScoringAction3
                                             ),
                                             claw.closeLClaw()
                                     )
@@ -366,7 +348,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
 
                     if(!camera.targetFound){
                         Actions.runBlocking(
-                                BlueCloseTwoZero_yellowScoringOverrideAction3
+                                yellowScoringOverrideAction3
                         );
                     }
 
@@ -381,14 +363,14 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                                     claw.openClaws(),
                                                     claw.whiteGroundClaw()
                                             ),
-                                            BlueCloseTwoTwo_driveToWhiteAction3
+                                            driveToWhiteAction3
                                     ),
                                     new SequentialAction(
                                             presets.WhiteStack(),
                                             new SleepAction(0.25),
-                                            BlueCloseTwoTwo_whiteTrussAction,
+                                            whiteTrussAction,
                                             new ParallelAction(
-                                                    BlueCloseTwoTwo_whiteScoringAction,
+                                                    whiteScoringAction,
                                                     presets.WhiteScoringPos()
                                             )
                                     ),
@@ -397,7 +379,7 @@ public class Blue_Close_TwoTwo extends LinearOpMode {
                                             new SleepAction(.1),
                                             claw.openClaws(),
                                             new SleepAction(.25),
-                                            BlueCloseTwoTwo_parkingAction,
+                                            parkingAction,
                                             presets.WhiteGroundPos()
                                     )
                             )

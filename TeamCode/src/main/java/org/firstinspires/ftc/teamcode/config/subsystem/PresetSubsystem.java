@@ -163,8 +163,7 @@ public class PresetSubsystem {
                 ClawWhiteStackEnd(),
                 new SleepAction(.25),
                 LiftWhiteStackEnd(),
-                new SleepAction(.1)
-                //GearWhiteStackEnd()
+                new SleepAction(1.5)
         );
     }
 
@@ -176,9 +175,7 @@ public class PresetSubsystem {
 
     public Action LiftWhiteStackEnd() {
         return new SequentialAction(
-                lift.liftRetract_Stack(),
-                lift.waitForLift(),
-                lift.stopLift()
+                lift.liftRetract_Stack()
         );
     }
 

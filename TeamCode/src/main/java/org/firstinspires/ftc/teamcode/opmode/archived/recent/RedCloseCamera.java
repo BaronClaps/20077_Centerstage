@@ -61,7 +61,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.List;
-
+@Disabled
 @Autonomous(name="OldRedCloseCamera")
 
 public class RedCloseCamera extends LinearOpMode{

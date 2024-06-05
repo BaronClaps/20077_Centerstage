@@ -155,6 +155,16 @@ public class GearRotationSubsystem {
         };
     }
 
+    public Action wheelServo_ActivatedFar() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                wheelServo.setPosition(0.5725); /* Top 2 Pixels | bigger # = lower */ //0.641
+                return false;
+            }
+        };
+    }
+
     public Action wheelServo_Deactivated() {
         return new Action() {
             @Override
